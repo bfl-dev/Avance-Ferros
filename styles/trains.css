@@ -1,0 +1,100 @@
+﻿:root{
+    background-image: none;
+}
+
+.content-trains
+{
+    display: flex;
+    padding: 26px 13px;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    align-self: stretch;
+}
+.search-bar
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+}
+.search-bar-title
+{
+    display: flex;
+    height: 24px;
+    justify-content: space-between;
+    align-items: center;
+    align-self: stretch;
+}
+.search-bar input
+{
+    display: flex;
+    height: 58px;
+    padding: 0 43px;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 15px;
+    border-style: none;
+    background: #F2EBC2;
+    box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.add-trip
+{
+    display: flex;
+    height: 41px;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+}
+
+.add-trip button
+{
+    display: flex;
+    padding: 5px 34px;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 20px;
+    border-style: none;
+    background: #F7D40A;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+}
+
+.train-trips
+{
+    display: flex;
+    padding: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+    border-radius: 10px;
+    background: #E4E0E0;
+}
+
+.train-category
+{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    align-self: stretch;
+    overflow: scroll;
+}
+
+.train-container
+{
+    display: flex;
+    width: 1394px;
+    height: 462px;
+    padding: 10px 0;
+    align-items: flex-start;
+    align-content: flex-start;
+    gap: 10px;
+    flex-wrap: wrap;
+}
