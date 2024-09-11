@@ -396,6 +396,7 @@ a{
     background: #F7D40A;
 }
 
+<<<<<<< HEAD
 
 .contacto {
     display: none; 
@@ -407,6 +408,20 @@ a{
     height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.4);
+=======
+/*separador experimental weas csm plsss work*/
+
+.contacto {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+>>>>>>> parent of 3885226 (Merge pull request #8 from bfl-dev/revert-7-feature/puntos-viaje)
 }
 
 .contacto-content {
