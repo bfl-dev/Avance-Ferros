@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
+    <link rel="stylesheet" href="/styles/account-settings.css">
+    <link rel="stylesheet" href="/styles/commons.css">
+    <link rel="stylesheet" href="/styles/account-editor.css">
+    <link rel="stylesheet" href="/styles/login-overlay.css">
+    <script src="/js/login.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editar Cuenta</title>
+</head>
+<body>
+    <header class="page-header">
+        <div class="logo-container" onclick="window.location.href = 'index.html';">
+            <img src="/assets/Logo Small.png" class="default">
+            <img src="/assets/Logo Default.png" class="hovered">
+        </div>
+        <a href="tracking.html">Sigue tu viaje</a>
+        <a href="#" onclick="summon()">Conocenos</a>
+        <a href="traveler-points.html">Canjea Trenepuntos</a>
+        <div class="account">
+            <div class="user">
+                <img src="/assets/User.png" alt="" width="29" height="28">
+                <p>strawberry</p>
+            </div>
+            
+            <img src="/assets/Log out.png" alt="">
+        </div>
+    </header>
+
+    <section class="page-body">
+        <div class="contacto" id="contacto">
+            <div class="contacto-content">
+                <span class="close">&times;</span>
+                <div class="social-container">
+                    <img src="/assets/Instagram.png">
+                    <a class="strawberry-was-taken" href="https://www.instagram.com/strawberry_was_taken?igsh=OTk3OTZ4em4zNHV5">
+                        @strawberry_was_taken
+                    </a>
+                </div>
+                <div class="social-container">
+                    <img src="/assets/Instagram.png">
+                    <a class="bfl" href="https://www.instagram.com/255bfl?igsh=Yjkwc201Y3hmeXEy">
+                        @255bfl 󰘧
+                    </a>
+                </div>
+                <div class="social-container">
+                    <img src="/assets/Instagram.png">
+                    <a class="f33gz" href="https://www.instagram.com/f33gz?igsh=MWQxanl3azNmbmQzdQ==">
+                        @f33gz
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="left-column">
+            <img class="profile-pic" src="/assets/11.jpg" alt="">
+            <button class="edit-profile">Editar Foto</button>
+            <button class="save-profile" onclick="location.href='/account-settings.html'">Guardar Cambios</button>
+        </div>
+        <div class="form-container">
+            <div class="header">
+                <div class="header-title">Datos Personales</div>
+            </div>
+            
+            <div class="form-content">
+
+                <div class="section">
+                    <div class="section-header">Credenciales</div>
+                    <div class="section-body">
+                        <div class="input-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email">
+                        </div>
+                        <div class="input-group">
+                            <label for="password">Contraseña</label>
+                            <input type="password" id="password" name="password">
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="section">
+                    <div class="section-header">Información</div>
+                    <div class="section-body">
+                        <div class="input-group">
+                            <label for="username">Nombre de usuario</label>
+                            <input type="text" id="username" name="username">
+                        </div>
+                        <div class="input-group">
+                            <label for="bio">Bio</label>
+                            <textarea id="bio" name="bio"></textarea>
+                        </div>
+                        <div class="input-group-group">
+                            <div class="input-group">
+                                <label for="trato">Trato</label>
+                                <input type="text" id="trato" name="trato">
+                            </div>
+                            <div class="input-group">
+                                <label for="nombres">Nombres</label>
+                                <input type="text" id="nombres" name="nombres">
+                            </div>
+                        </div>
+                        <div class="input-group-group">
+                            <div class="input-group">
+                                <label for="apellido_paterno">Apellido Paterno</label>
+                                <input type="text" id="apellido_paterno" name="apellido_paterno">
+                            </div>
+                            <div class="input-group">
+                                <label for="apellido_materno">Apellido Materno</label>
+                                <input type="text" id="apellido_materno" name="apellido_materno">
+                            </div>
+                        </div>
+                        <div class="input-group-group">
+                            <div class="input-group">
+                                <label for="rut">Rut</label>
+                                <input type="text" id="rut" name="rut">
+                            </div>
+                            <div class="input-group">
+                                <label for="fecha_nacimiento">Fecha de nacimiento</label>
+                                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="section">
+                    <div class="section-header">Datos de acceso</div>
+                    <div class="section-body">
+                        <div class="input-group-group">
+                            <div class="input-group">
+                                <label for="direccion">Dirección</label>
+                                <input type="text" id="direccion" name="direccion">
+                            </div>
+                            <div class="input-group">
+                                <label for="comuna">Comuna</label>
+                                <input type="text" id="comuna" name="comuna">
+                            </div>
+                            <div class="input-group">
+                                <label for="telefono">Número Telefónico</label>
+                                <input type="tel" id="telefono" name="telefono">
+                            </div>
+                        </div>
+                        <div class="input-group-group">
+                            <div class="input-group">
+                                <label for="num_emergencia">Número de emergencia</label>
+                                <input type="tel" id="num_emergencia" name="num_emergencia">
+                            </div>
+                            <div class="input-group">
+                                <label for="contacto_emergencia">Nombre contacto de emergencia</label>
+                                <input type="text" id="contacto_emergencia" name="contacto_emergencia">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    
+            <div class="footer">
+                <a href="index.html" class="delete-account">Eliminar Cuenta</a>
+            </div>
+        </div>
+    </section>
+    <script src="/js/socials.js"></script>
+</body>
+</html> 

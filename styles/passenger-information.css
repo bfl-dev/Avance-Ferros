@@ -1,0 +1,143 @@
+:root {
+    --border: rgba(202, 202, 202, 1);
+    --hover: rgba(154, 154, 154, 1);
+    --drop-shadow-400: 0px 4px 4px rgba(0, 0, 0, 0.13);
+}
+.conteiner{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 64vh;
+}
+.container-passenger-data {
+    display: flex;
+    flex-direction: column;
+    height: 600px;
+    align-items: flex-end;
+    gap: 29px;
+    padding: 25px 20px;
+    border-radius: 20px;
+    background: white;
+    box-shadow: var(--drop-shadow-400);
+}
+
+.container-passenger-data .frame {
+    display: flex;
+    height: 43px;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
+    width: 100%;
+}
+.container-passenger-data .selected-part {
+    display: flex;
+    width: 100px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background-color: #f7d40a;
+    border-radius: 25px;
+    box-shadow: 0px 4px 4px #00000040;
+}
+
+.container-passenger-data .selected-text {
+    font-weight: 600;
+}
+
+.container-passenger-data .unselected-part {
+    display: flex;
+    width: 100px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    background-color: #272727;
+    border-radius: 25px;
+    box-shadow: 0px 4px 4px #00000040;
+}
+
+.container-passenger-data .unselected-text {
+    font-weight: 600;
+    color: #ffffff;
+}
+.container-passenger-data .passenger-data {
+    display: flex;
+    flex-direction: column;
+    width: 1061px;
+    height: 125px;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 15px;
+    box-shadow: var(--drop-shadow-400);
+}
+
+.container-passenger-data .passenger-banner {
+    display: flex;
+    height: 50px;
+    align-items: center;
+    gap: 28px;
+    padding: 0px 13px;
+}
+
+.container-passenger-data .passenger-text-wrapper {
+    padding: 10px;
+    background-color: #f7d40a;
+    border-radius: 25px;
+    box-shadow: var(--drop-shadow-400);
+}
+
+.container-passenger-data .passenger-text {
+    position: relative;
+    width: fit-content;
+    margin-top: -1px;
+    font-family: "Inter-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 16px;
+    white-space: nowrap;
+}
+
+.container-passenger-data .passenger-form {
+    display: flex;
+    gap: 10px;
+    padding: 6px 15px;
+    align-self: stretch;
+    background-color: #f7d40a;
+    border-radius: 10px;
+    box-shadow: 0px 4px 4px #00000040;
+}
+
+.container-passenger-data .text-input {
+    padding: 5px;
+    flex: 1;
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+.container-passenger-data .text-field {
+    color: #797979;
+    border: none;
+    font-size: 18px;
+    border-radius: 6px;
+    width: 100%;
+}
+
+.container-passenger-data .button-confirm {
+    width: 146.43px;
+    height: 45px;
+    justify-content: center;
+    background-color: #cd071e;
+    border-radius: 25px;
+    box-shadow: var(--drop-shadow-400);
+    display: flex;
+    align-items: center;
+}
+
+.container-passenger-data .text-confirm {
+    color: #ffffff;
+    font-size: 24px;
+}
