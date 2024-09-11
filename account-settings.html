@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/styles/account-settings.css">
+    <link rel="stylesheet" href="/styles/commons.css">
+    <link rel="stylesheet" href="/styles/login-overlay.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter">
+    <script src="/js/login.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuracion Cuenta</title>
+</head>
+<body>
+    <div class="popup-overlay" id="register">
+        <div class="overlay-content">   
+            <span onclick="registerOff()">&times;</span> 
+            <div class="section-header">Registrate</div>
+            <div id="g_id_onload"
+                data-client_id="YOUR_GOOGLE_CLIENT_ID"
+                data-login_uri="https://your.domain/your_login_endpoint"
+                data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin"
+                data-type="standard"
+                data-size="large"
+                data-theme="outline"
+                data-text="sign_in_with"
+                data-shape="circle"
+                data-logo_alignment="left">
+            </div> 
+            <div class="separator">
+                <p>- ó -</p>
+            </div>
+            <div class="section-body">
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email">
+                </div>
+                <div class="input-group">
+                    <label for="username">Contraseña</label>
+                    <input type="username" id="username" name="username">
+                </div>
+                <div class="input-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password">
+                </div>
+                <div class="input-group">
+                    <label for="password">Confirmar Contraseña</label>
+                    <input type="password" id="password" name="password">
+                </div>
+            </div>
+            <button type="submit" onclick="login()">Registrarse</button>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="login">
+        <div class="overlay-content">  
+            <span onclick="loginOff()" >&times;</span> 
+            <div class="section-header">Inicia Sesión</div>
+            <div id="g_id_onload"
+                data-client_id="YOUR_GOOGLE_CLIENT_ID"
+                data-login_uri="https://your.domain/your_login_endpoint"
+                data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin"
+                data-type="standard"
+                data-size="large"
+                data-theme="outline"
+                data-text="sign_in_with"
+                data-shape="rectangular"
+                data-logo_alignment="left">
+            </div> 
+            <div class="separator">
+                <p>- ó -</p>
+            </div>
+            <div class="section-body">
+                <div class="input-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email">
+                </div>
+                <div class="input-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" id="password" name="password">
+                </div>
+            </div>
+            <button type="submit" onclick="login()">Iniciar Sesion</button>
+        </div>
+    </div>
+
+    <header class="page-header" id="logged">
+        <div class="logo-container" onclick="window.location.href = 'index.html';">
+            <img src="/assets/Logo Small.png" class="default">
+            <img src="/assets/Logo Default.png" class="hovered">
+        </div>
+        <a href="tracking.html">Sigue tu viaje</a>
+        <a href="#" onclick="summon()">Conocenos</a>
+        <a href="traveler-points.html">Canjea Trenepuntos</a>
+        <div class="account">
+            <div class="user">
+                <img src="/assets/User.png">
+                <p>strawberry</p>
+            </div>
+            
+            <img src="/assets/Log out.png" onclick="logout()">
+        </div>
+    </header>
+
+    <header class="page-header" id="unlogged">
+        <div class="logo-container" onclick="window.location.href = 'index.html';">
+            <img src="/assets/Logo Small.png" class="default">
+            <img src="/assets/Logo Default.png" class="hovered">
+        </div>
+        <a href="tracking.html">Sigue tu viaje</a>
+        <a href="#" onclick="summon()">Conocenos</a>
+        <script src="/js/login.js"></script>
+        <script src="https://accounts.google.com/gsi/client" async></script>
+        <div class="button-group">
+            <button class="session-button" onclick="registerOn()" style="background-color: #DEDEDE;">Crear Cuenta</button>
+            <button class="session-button" onclick="loginOn()" style="background-color: #F7D40A;">Iniciar Sesion</button>
+        </div>
+    </header>
+
+    <section class="page-body">
+        
+        <div class="contacto" id="contacto">
+            <div class="contacto-content">
+                <span class="close">&times;</span>
+                <div class="social-container">
+                    <img src="/assets/Instagram.png">
+                    <a class="strawberry-was-taken" href="https://www.instagram.com/strawberry_was_taken?igsh=OTk3OTZ4em4zNHV5">
+                        @strawberry_was_taken
+                    </a>
+                </div>
+                <div class="social-container">
+                    <img src="/assets/Instagram.png">
+                    <a class="bfl" href="https://www.instagram.com/255bfl?igsh=Yjkwc201Y3hmeXEy">
+                        @255bfl 󰘧
+                    </a>
+                </div>
+                <div class="social-container">
+                    <img src="/assets/Instagram.png">
+                    <a class="f33gz" href="https://www.instagram.com/f33gz?igsh=MWQxanl3azNmbmQzdQ==">
+                        @f33gz
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="left-column">
+            <img class="profile-pic" src="/assets/11.jpg">
+            <div class="name-and-bio">
+                <h1 class="name">Jun Saez</h1>
+                <p class="username">strawberry</p>
+                <p class="bio">Esta es una bio</p>
+            </div>
+            <button class="edit-profile" onclick="location.href='/account-editor.html'">Editar Perfil</button>
+        </div>
+        <div class="right-column">
+            <div class="metrics">
+                <div class="metrics-header">
+                    <p>Metrics:</p>
+                </div>
+                <div class="metrics-body">
+                    <div class="kilometers">
+                        <p>Kilometros recorridos:</p>
+                        <p class="ammount">1011</p>
+                    </div>
+                    <div class="avaliable-points">
+                        <p>Kilometros recorridos:</p>
+                        <p class="ammount">96</p>
+                    </div>
+                </div>
+            </div>
+            <div class="your-trips">
+                <div class="your-trips-header">
+                    <p>Tus Viajes:</p>
+                </div>
+                <div class="your-trips-filters">
+                    <div class="filters-title">
+                        <p>Filtros: </p>
+                    </div>
+                    <div class="your-trips-filters-container">
+                        <p>Origen</p>
+                    </div>
+                    <div class="your-trips-filters-container">
+                        <p>Destino</p>
+                    </div>
+                    <div class="your-trips-filters-container">
+                        <p>Fecha</p>
+                    </div>
+                    <div class="your-trips-filters-container">
+                        <p>Estado</p>
+                    </div>
+                </div>
+                <div class="your-trips-body">
+                    <div class="your-trips-container">
+                        <div class="train-component">
+                            <div class="train-component-icon">
+                                <p><b>Train #</b>505</p>
+                                <img src="/assets/icon_train.png">
+                                <p><b>Estado</b><br>Completado</p>
+                            </div>
+                            <div class="train-component-body">
+                                <div class="train-component-body-row">
+                                    <div class="train-component-body-text-box">
+                                        <p><b>Origen</b></p>
+                                        <p>Temuco</p>
+                                    </div>
+                                    <div class="train-component-body-text-box">
+                                        <p><b>Destino</b></p>
+                                        <p>Padre las Casas</p>
+                                    </div>
+                                </div>
+                                <div class="train-component-body-row">
+                                    <div class="train-component-body-text-box">
+                                        <p><b>Salida</b></p>
+                                        <p>11:30</p>
+                                    </div>
+                                    <div class="train-component-body-text-box">
+                                        <p><b>Llegada</b></p>
+                                        <p>13:00</p>
+                                    </div>                        
+                                </div>
+                                <div class="train-component-body-row">
+                                    <div class="train-component-body-text-box">
+                                        <p><b>Pasajeros</b></p>
+                                        <p>11</p>
+                                    </div>
+                                    <div class="train-component-body-text-box"></div>
+                                    <!--este div existe para alinear el componente (a mi tampoco me gusta la idea)-->
+                                    </div>
+                                </div>
+                        </div> 
+                        <div class="train-component">
+                            <div class="train-component-icon">
+                                <p><b>Train #</b>505</p>
+                                <img src="/assets/icon_train.png">
+                                <p><b>Estado</b><br>Completado</p>
+                            </div>
+                            <div class="train-component-body">
+                                <div class="train-component-body-row">
+                                    <div class="train-component-body-text-box">
+                                        <p><b>Origen</b></p>
+                                        <p>Temuco</p>
+                                    </div>
+                                    <div class="train-component-body-text-box">
+                                        <p><b>Destino</b></p>
+                                        <p>Padre las Casas</p>
+                                    </div>
+                                </div>
+                                <div class="train-component-body-row">
+                                    <div class="train-component-body-text-box">
+                                        <p><b>Salida</b></p>
+                                        <p>11:30</p>
+                                    </div>
+                                    <div class="train-component-body-text-box">
+                                        <p><b>Llegada</b></p>
+                                        <p>13:00</p>
+                                    </div>                        
+                                </div>
+                                <div class="train-component-body-row">
+                                    <div class="train-component-body-text-box">
+                                        <p><b>Pasajeros</b></p>
+                                        <p>11</p>
+                                    </div>
+                                    <div class="train-component-body-text-box"></div>
+                                    <!--este div existe para alinear el componente (a mi tampoco me gusta la idea)-->
+                                    </div>
+                                </div>
+                        </div>
+                        <div class="train-component">
+                            <div class="train-component-icon">
+                                <p><b>Train #</b>505</p>
+                                <img src="/assets/icon_train.png">
+                                <p><b>Estado</b><br>Completado</p>
+                            </div>
+                            <div class="train-component-body">
+                                <div class="train-component-body-row">
+                                    <div class="train-component-body-text-box">
+                                        <p><b>Origen</b></p>
+                                        <p>Temuco</p>
+                                    </div>
+                                    <div class="train-component-body-text-box">
+                                        <p><b>Destino</b></p>
+                                        <p>Padre las Casas</p>
+                                    </div>
+                                </div>
+                                <div class="train-component-body-row">
+                                    <div class="train-component-body-text-box">
+                                        <p><b>Salida</b></p>
+                                        <p>11:30</p>
+                                    </div>
+                                    <div class="train-component-body-text-box">
+                                        <p><b>Llegada</b></p>
+                                        <p>13:00</p>
+                                    </div>                        
+                                </div>
+                                <div class="train-component-body-row">
+                                    <div class="train-component-body-text-box">
+                                        <p><b>Pasajeros</b></p>
+                                        <p>11</p>
+                                    </div>
+                                    <div class="train-component-body-text-box"></div>
+                                    <!--este div existe para alinear el componente (a mi tampoco me gusta la idea)-->
+                                    </div>
+                                </div>
+                        </div> 
+                        <div class="train-component">
+                            <div class="train-component-icon">
+                                <p><b>Train #</b>505</p>
+                                <img src="/assets/icon_train.png">
+                                <p><b>Estado</b><br>Completado</p>
+                            </div>
+                            <div class="train-component-body">
+                                <div class="train-component-body-row">
+                                    <div class="train-component-body-text-box">
+                                        <p><b>Origen</b></p>
+                                        <p>Temuco</p>
+                                    </div>
+                                    <div class="train-component-body-text-box">
+                                        <p><b>Destino</b></p>
+                                        <p>Padre las Casas</p>
+                                    </div>
+                                </div>
+                                <div class="train-component-body-row">
+                                    <div class="train-component-body-text-box">
+                                        <p><b>Salida</b></p>
+                                        <p>11:30</p>
+                                    </div>
+                                    <div class="train-component-body-text-box">
+                                        <p><b>Llegada</b></p>
+                                        <p>13:00</p>
+                                    </div>                        
+                                </div>
+                                <div class="train-component-body-row">
+                                    <div class="train-component-body-text-box">
+                                        <p><b>Pasajeros</b></p>
+                                        <p>11</p>
+                                    </div>
+                                    <div class="train-component-body-text-box"></div>
+                                    <!--este div existe para alinear el componente (a mi tampoco me gusta la idea)-->
+                                    </div>
+                                </div>
+                        </div> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="/js/socials.js"></script>
+</body>
+</html>

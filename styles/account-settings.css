@@ -1,0 +1,159 @@
+.page-body{
+    display: flex;
+    padding: 3.125rem;
+    align-items: flex-start;
+    gap: 1.875rem;
+    flex: 1 0 0;
+    align-self: stretch;
+}
+
+.left-column{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    align-self: stretch;
+}
+
+.right-column{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3.125rem;
+    flex: 1 0 0;
+    align-self: stretch;
+}
+
+.metrics{
+    display: flex;
+    width: 64.375rem;
+    height: 22.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 0.9375rem;
+    background: rgba(225, 225, 225, 0.80);
+    backdrop-filter: blur(5px);
+}
+
+.metrics-header{
+    border-top-left-radius: 0.9375rem;
+    border-top-right-radius: 0.9375rem;
+    display: flex;
+    padding: 0.625rem;
+    align-items: center;
+    gap: 0.625rem;
+    align-self: stretch;
+    background: #F7D40A;
+    color: #000;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.metrics-body{
+    display: flex;
+    padding: 0.625rem;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex: 1 0 0;
+    align-self: stretch;
+}
+
+.kilometers{
+    display: flex;
+    padding: 0.625rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.875rem;
+    flex: 1 0 0;
+    align-self: stretch;
+    border-right: 1px solid #000;
+}
+
+.avaliable-points{
+    display: flex;
+    padding: 0.625rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.875rem;
+    flex: 1 0 0;
+    align-self: stretch;
+}
+
+.profile-pic{
+    width: 22.5rem;
+    height: 22.5rem;
+    flex-shrink: 0;
+    border-radius: 62.5rem;
+}
+
+.name-and-bio{
+    display: flex;
+    width: 22.5rem;
+    padding: 0rem 1.125rem;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.625rem;
+    line-height: normal;
+    font-style: normal;
+    color: #FFF;
+    align-items: stretch;
+}
+
+.name{
+    font-size: 2.25rem;
+    font-weight: 700;
+}
+
+.bio{
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.username{
+    font-size: 1.25rem;
+    font-weight: 300;
+}
+
+.edit-profile{
+    display: flex;
+    width: 22.5rem;
+    height: 2.75rem;
+    padding: 0.3125rem 0rem;
+    justify-content: center;
+    align-items: center;
+    background: #333433;
+    border-radius: 0.625rem;
+    color: #FFF;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border-style: none;
+}
+
+.save-profile{
+    display: flex;
+    width: 22.5rem;
+    height: 2.75rem;
+    padding: 0.3125rem 0rem;
+    justify-content: center;
+    align-items: center;
+    background: #149814;
+    border-radius: 0.625rem;
+    color: #FFF;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border-style: none;
+}
+
+.ammount{
+    color: #000;
+    font-size: 6rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
