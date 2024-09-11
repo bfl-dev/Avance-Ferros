@@ -9,7 +9,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 62vh;
+    padding: 3rem;
 }
 .select-ticket {
     background-color: #FFF;
