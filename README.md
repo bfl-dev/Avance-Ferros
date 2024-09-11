@@ -10,6 +10,10 @@ la coordinacion de trenes, los asientos de estos y los usuarios.
 - Link Figma Prototype Cliente: https://www.figma.com/design/bFjnybuiRuzdiDkHN1Z5sM/Ferros-Prototype?node-id=0-1&t=jUwE0ohk9IRasJF1-1
 - Link Figma Prototype Administrador: https://www.figma.com/design/XUotuCLKRsL4ohfzf77GAM/Admin?m=auto&t=3nRSZZkU6ALKgBta-1
 
+`Por un error de compresión nuestra, hemos trabajado ,durante la mayoria de los dias de trabajo, en un repo externo. Como evidenvia de nuestro trabajo dejaremos el
+link del repo adjunto. en el repo se encontraran los mas de 200 commits hechos por nuestro grupo junto con sus respectivos creadores`
+- Link Repo Externo: https://github.com/SphericalOrg/project-ferros
+
 ## Miembros
 - Jun Sáez (StrawberryFrappe)
 - Felipe Seguel (f33gz)
