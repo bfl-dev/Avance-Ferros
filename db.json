@@ -1,0 +1,20 @@
+{
+  "stations": [
+    { "id": "1", "name": "Victoria"},
+    { "id": "2", "name": "PUA"},
+    { "id": "3", "name": "Perquenco"},
+    { "id": "4", "name": "Quillem"},
+    { "id": "5", "name": "Lautaro"},
+    { "id": "6", "name": "Lautaro Centro"},
+    { "id": "7", "name": "Pillanlelbun"},
+    { "id": "8", "name": "Cajon"},
+    { "id": "9", "name": "Temuco"}
+  ],
+  "comments": [
+    { "id": "1", "text": "a comment about post 1", "postId": "1" },
+    { "id": "2", "text": "another comment about post 1", "postId": "1" }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
