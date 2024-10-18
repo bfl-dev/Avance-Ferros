@@ -3,8 +3,7 @@ import './assets/main.css'
 import { createApp } from 'vue'
 import App from './App.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import Logo from '@/components/icons/Logo.vue'
-import Home from '@/pages/Home.vue'
+import Home from '@/pages/Landing.vue'
 
 const routes = [
   {
