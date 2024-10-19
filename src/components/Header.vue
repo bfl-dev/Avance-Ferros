@@ -23,8 +23,9 @@ const logout = () => {
 
 <template>
   <header class="page-header">
-    <logo></logo>
-    <a href="tracking.html">Sigue tu viaje</a>
+    <RouterLink to='/'><logo></logo></RouterLink>
+
+    <RouterLink to="/tracker">Sigue tu viaje</RouterLink>
     <a href="#">Conocenos</a>
     <a href="traveler-points.html" v-show="logged">Canjea Trenepuntos</a>
     <div class="logged" id="logged" v-show="logged">
