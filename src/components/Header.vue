@@ -3,7 +3,6 @@ import logo from './icons/logo.vue'
 import {ref} from "vue";
 import UserApi from '@/api/UserApi'
 
-
 const logged = ref(false)
 
 let user = ref(Object);
@@ -15,6 +14,10 @@ UserApi.getUser(window.localStorage.getItem("userID")).then(response => {
   logged.value = false;
 })
 
+const logout = () => {
+  window.localStorage.removeItem("userID");
+  logged.value = false;
+  }
 
 </script>
 
@@ -27,10 +30,10 @@ UserApi.getUser(window.localStorage.getItem("userID")).then(response => {
     <div class="logged" id="logged" v-show="logged">
       <div class="user">
         <img src='../assets/User.png'>
-        <p>strawberry</p>
+        <p>{{user.name}}</p>
       </div>
 
-      <img src="../assets/Log out.png" @click="logged=false">
+      <img src="../assets/Log out.png" @click="logout()">
     </div>
     <div class="off" id="off" v-show="!logged">
       <div class="button-group">
@@ -67,7 +70,6 @@ a{
 
 .logged{
   display: flex;
-  width: 9.375rem;
   height: 2.5rem;
   padding: 0.375rem;
   justify-content: center;
@@ -77,7 +79,6 @@ a{
 }
 .user{
   display: flex;
-  width: 9.375rem;
   height: 2.5rem;
   padding: 0.375rem;
   justify-content: space-between;

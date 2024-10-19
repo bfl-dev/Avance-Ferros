@@ -36,7 +36,7 @@ const flowPaths = {
       components: {overlay: Login, content: HomeBody }
     }
   ]
-}; //ver como hace q aparezca el overlay y no interfiera con el contenido
+}; //todo: ver como hace q aparezca el overlay y no interfiera con el contenido
 
 const routes =
   [

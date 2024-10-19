@@ -15,17 +15,19 @@ const isFormValid = computed(() => {
   return user.value && email.value && pass.value && passCheck.value && pass.value === passCheck.value;
 });
 
-function register() {
-  if (isFormValid.value) {
+const register = () => {
+  if (isFormValid.value) { //TODO: Hacer gestion de errores
     UserApi.postUser(user.value, email.value, pass.value).then(response => {
-      console.log(response.data);
+      window.localStorage.setItem("userID", response.data.id);
+      router.push('/').then(() => {
+        router.go(0);
+      });
+
     }).catch(() => {
-      console.log("Error");
+      console.log(error);
     });
-    this.$router.push('/')
   }
 }
-
 </script>
 
 <template>
@@ -65,8 +67,8 @@ function register() {
         <p v-if="!isFormValid">Rellene todos los campos</p>
         <p v-if="pass.value !== passCheck.value & !isFormValid">Las contraseñas no coinciden</p>
 
-         <button type="submit" :disabled="!isFormValid" @click.prevent="register()" >Registrarse</button>
-
+         <button type="submit" :disabled="!isFormValid" @click="register()">Registrarse</button>
+        <!-- No entiendo pero bueno, ya fue-->
       </form>
     </div>
   </div>
