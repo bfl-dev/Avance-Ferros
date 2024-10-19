@@ -4,6 +4,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import Login from '@/components/Login.vue'
 import Register from '@/components/Register.vue'
 import Logo from '@/components/icons/Logo.vue'
+import TravelTracker from '@/components/TravelTracker.vue'
 
 
 
@@ -19,6 +20,10 @@ const homePaths = {
       {
         path: 'kkk',
         components: {content: Logo}
+      },
+      {
+        path: 'tracker',
+        components: {content: TravelTracker}
       }
     ]
 };
