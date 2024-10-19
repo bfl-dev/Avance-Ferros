@@ -7,7 +7,10 @@ import FerrosHeader from "@/components/Header.vue";
     <header>
       <FerrosHeader></FerrosHeader>
     </header>
-    <router-view></router-view>
+    <router-view name="content"></router-view>
+  </div>
+  <div class="overlay">
+    <router-view name="overlay"></router-view>
   </div>
 </template>
 

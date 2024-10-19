@@ -1,8 +1,23 @@
 <script setup>
 import logo from './icons/logo.vue'
 import {ref} from "vue";
+import UserApi from '@/api/UserApi'
 
 const logged = ref(false)
+
+let user = ref(Object);
+
+UserApi.getUser(window.localStorage.getItem("userID")).then(response => {
+  user.value = response.data;
+  logged.value = true;
+}).catch(() => {
+  logged.value = false;
+})
+
+const logout = () => {
+  window.localStorage.removeItem("userID");
+  logged.value = false;
+  }
 
 </script>
 
@@ -15,15 +30,19 @@ const logged = ref(false)
     <div class="logged" id="logged" v-show="logged">
       <div class="user">
         <img src='../assets/User.png'>
-        <p>strawberry</p>
+        <p>{{user.name}}</p>
       </div>
 
-      <img src="../assets/Log out.png" @click="logged=false">
+      <img src="../assets/Log out.png" @click="logout()">
     </div>
     <div class="off" id="off" v-show="!logged">
       <div class="button-group">
-        <button class="session-button" style="background-color: #DEDEDE;">Crear Cuenta</button>
-        <button class="session-button" style="background-color: #F7D40A;" @click="logged=true">Iniciar Sesion</button>
+        <router-link to="/flow/register">
+          <button class="session-button" style="background-color: #DEDEDE;">Crear Cuenta</button>
+        </router-link>
+        <router-link to="/flow/login">
+          <button class="session-button"  style="background-color: #F7D40A;" >Iniciar Sesion</button>
+        </router-link>
       </div>
     </div>
   </header>
@@ -51,7 +70,6 @@ a{
 
 .logged{
   display: flex;
-  width: 9.375rem;
   height: 2.5rem;
   padding: 0.375rem;
   justify-content: center;
@@ -61,7 +79,6 @@ a{
 }
 .user{
   display: flex;
-  width: 9.375rem;
   height: 2.5rem;
   padding: 0.375rem;
   justify-content: space-between;

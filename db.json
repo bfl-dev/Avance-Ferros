@@ -1,20 +1,95 @@
 {
   "stations": [
-    { "id": "1", "name": "Victoria"},
-    { "id": "2", "name": "PUA"},
-    { "id": "3", "name": "Perquenco"},
-    { "id": "4", "name": "Quillem"},
-    { "id": "5", "name": "Lautaro"},
-    { "id": "6", "name": "Lautaro Centro"},
-    { "id": "7", "name": "Pillanlelbun"},
-    { "id": "8", "name": "Cajon"},
-    { "id": "9", "name": "Temuco"}
+    {
+      "id": "1",
+      "name": "Victoria"
+    },
+    {
+      "id": "2",
+      "name": "PUA"
+    },
+    {
+      "id": "3",
+      "name": "Perquenco"
+    },
+    {
+      "id": "4",
+      "name": "Quillem"
+    },
+    {
+      "id": "5",
+      "name": "Lautaro"
+    },
+    {
+      "id": "6",
+      "name": "Lautaro Centro"
+    },
+    {
+      "id": "7",
+      "name": "Pillanlelbun"
+    },
+    {
+      "id": "8",
+      "name": "Cajon"
+    },
+    {
+      "id": "9",
+      "name": "Temuco"
+    }
   ],
   "comments": [
-    { "id": "1", "text": "a comment about post 1", "postId": "1" },
-    { "id": "2", "text": "another comment about post 1", "postId": "1" }
+    {
+      "id": "1",
+      "text": "a comment about post 1",
+      "postId": "1"
+    },
+    {
+      "id": "2",
+      "text": "another comment about post 1",
+      "postId": "1"
+    }
   ],
   "profile": {
     "name": "typicode"
-  }
+  },
+  "userHead": [
+    {
+      "id": "0",
+      "name": "StrawberryFrappe",
+      "email": "kmano@kmano.inc",
+      "password": "kmano"
+    },
+    {
+      "id": "428b",
+      "name": "aaa",
+      "email": "elpepe@ele.ele",
+      "pass": "aaaa"
+    },
+    {
+      "id": "3f6d",
+      "name": "aaa",
+      "email": "elpepe@ele.ele",
+      "pass": "aaaa"
+    }
+  ],
+  "userDetail": [
+    {
+      "id": "0",
+      "name": "StrawberryFrappe",
+      "email": "kmano@kmano.inc",
+      "password": "kmano",
+      "phone": "123456789",
+      "names": "Strawberry",
+      "lastNames": "Frappe",
+      "trait": "Co/Ffe",
+      "rut": "123456789",
+      "bio": "I'm a coffee lover",
+      "address": "1234 Main St",
+      "city": "Temuco",
+      "commune": "Padre Las Casas",
+      "emergencyContact": "123456789",
+      "emergencyContactName": "Fipi",
+      "profilePic": "https://picsum.photos/540"
+    }
+  ]
 }

@@ -61,7 +61,7 @@ onMounted(() => {
   align-items: center;
   gap: 0.3125rem;
   border-radius: 0.9375rem;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(10px);
   justify-content: space-between;
 }
