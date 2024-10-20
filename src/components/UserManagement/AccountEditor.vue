@@ -1,5 +1,5 @@
 ﻿<script setup>
-import '../styles/account.css'
+import '../../styles/account.css'
 import { ref } from 'vue'
 import UserApi from '@/api/UserApi.js'
 import router from '@/router/index.js'
@@ -131,7 +131,7 @@ console.log(username,email,password,bio,phone,names,lastNames,rut,birthDate,addr
 <template>
   <section class="page-body">
     <div class="left-column">
-      <img class="profile-pic" src="@/assets/11.jpg" alt="">
+      <img class="profile-pic" src="../../assets/11.jpg" alt="">
       <button class="edit-profile">Editar Foto</button>
       <button class="save-profile" @click="saveChanges()">Guardar Cambios</button>
     </div>

@@ -4,7 +4,7 @@ import { ref } from 'vue'
 
 import axios from 'axios'
 import TrainComponent from '@/components/TrainComponent.vue'
-import MapComponent from '@/components/MapComponent.vue'
+import MapComponent from '@/components/TravelInfo/MapComponent.vue'
 
 const requested = ref(false)
 
@@ -82,13 +82,13 @@ const code = ref('')
     gap: 0.625rem;
     align-self: stretch;
     background: #F7D40A;
-    border-radius: 1.25rem 1.25rem 0rem 0rem;
+    border-radius: 1.25rem 1.25rem 0 0;
 
 }
 
 .travel-search-body{
     display: flex;
-    padding: 0rem 1.25rem;
+    padding: 0 1.25rem;
     align-items: flex-start;
     gap: 0.8125rem;
     align-self: stretch;

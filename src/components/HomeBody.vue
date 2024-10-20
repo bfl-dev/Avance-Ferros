@@ -1,6 +1,6 @@
 ﻿<script setup>
 
-import TravelGuide from '@/components/TravelDetails.vue'
+import TravelGuide from '@/components/TravelInfo/TravelDetails.vue'
 </script>
 
 <template>
