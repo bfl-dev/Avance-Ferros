@@ -5,6 +5,7 @@ import Login from '@/components/Login.vue'
 import Register from '@/components/Register.vue'
 import Logo from '@/components/icons/Logo.vue'
 import TravelTracker from '@/components/TravelTracker.vue'
+import SelectTravel from '@/components/SelectTravel.vue'
 
 
 
@@ -24,6 +25,11 @@ const homePaths = {
       {
         path: 'tracker',
         components: {content: TravelTracker}
+      },
+      {
+        path: 'select-travel/:origin:destination',
+        components: {content: SelectTravel},
+        props: true
       }
     ]
 };
