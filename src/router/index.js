@@ -3,6 +3,8 @@ import HomeBody from '@/components/HomeBody.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from '@/components/Login.vue'
 import Register from '@/components/Register.vue'
+import AccountSettings from '@/components/AccountShowcase.vue'
+import AccountEditor from '@/components/AccountEditor.vue'
 import Logo from '@/components/icons/Logo.vue'
 import TravelTracker from '@/components/TravelTracker.vue'
 import SelectTravel from '@/components/SelectTravel.vue'
@@ -16,7 +18,18 @@ const homePaths = {
     [
       {
         path: '',
+        name: 'home',
         components: {content: HomeBody}
+      },
+      {
+        path: 'account-showcase',
+        name: 'account-showcase',
+        components: {content: AccountSettings},
+      },
+      {
+        path: 'account-editor',
+        name: 'account-editor',
+        components: {content: AccountEditor},
       },
       {
         path: 'kkk',

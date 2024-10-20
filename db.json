@@ -476,22 +476,16 @@
       "passengers": 14
     }
   ],
+  "userTrip": [
+    {
+      "travelId": "19",
+      "userId": "0"
+    }
+  ],
   "profile": {
     "name": "typicode"
   },
   "userHead": [
-    {
-      "id": "428b",
-      "name": "aaa",
-      "email": "elpepe@ele.ele",
-      "pass": "aaaa"
-    },
-    {
-      "id": "3f6d",
-      "name": "aaa",
-      "email": "elpepe@ele.ele",
-      "pass": "aaaa"
-    },
     {
       "id": "0",
       "name": "StrawberryFrappe",
@@ -499,6 +493,7 @@
       "password": "kmano",
       "points": "0",
       "kilometers": "0"
+
     }
   ],
   "userRewards": [
@@ -512,9 +507,6 @@
   "userDetail": [
     {
       "id": "0",
-      "name": "StrawberryFrappe",
-      "email": "kmano@kmano.inc",
-      "password": "kmano",
       "phone": "123456789",
       "names": "Strawberry",
       "lastNames": "Frappe",
@@ -526,6 +518,7 @@
       "commune": "Padre Las Casas",
       "emergencyContact": "123456789",
       "emergencyContactName": "Fipi",
+      "birthday": "1990-01-01",
       "profilePic": "https://picsum.photos/540"
     }
   ]
