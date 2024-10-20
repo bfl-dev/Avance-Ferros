@@ -51,7 +51,8 @@ export default {
     <h1 class="text-wrapper">{{ levelText }}</h1>
     <div class="status">
       <span v-if="['acquired-1', 'acquired-2'].includes(property1)">Adquirido</span>
-      <span v-if="['claim-1', 'claim-2', 'blocked-1', 'blocked-2'].includes(property1)">Disponible</span>
+      <span v-if="['claim-1', 'claim-2'].includes(property1)">Disponible</span>
+      <span v-if="['blocked-1', 'blocked-2'].includes(property1)">Bloqueado</span>
     </div>
     <div class="image" />
     <div class="reward">
