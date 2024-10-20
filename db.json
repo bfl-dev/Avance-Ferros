@@ -54,12 +54,6 @@
   },
   "userHead": [
     {
-      "id": "0",
-      "name": "StrawberryFrappe",
-      "email": "kmano@kmano.inc",
-      "password": "kmano"
-    },
-    {
       "id": "428b",
       "name": "aaa",
       "email": "elpepe@ele.ele",
@@ -70,6 +64,14 @@
       "name": "aaa",
       "email": "elpepe@ele.ele",
       "pass": "aaaa"
+    },
+    {
+      "id": "0",
+      "name": "StrawberryFrappe",
+      "email": "kmano@kmano.inc",
+      "password": "kmano",
+      "points": "0",
+      "kilometers": "0"
     }
   ],
   "userDetail": [

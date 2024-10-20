@@ -26,7 +26,7 @@ const logout = () => {
     <logo></logo>
     <a href="tracking.html">Sigue tu viaje</a>
     <a href="#">Conocenos</a>
-    <a href="traveler-points.html" v-show="logged">Canjea Trenepuntos</a>
+    <router-link to="/redeem-points" v-show="logged">Canjea Trenepuntos</router-link>
     <div class="logged" id="logged" v-show="logged">
       <div class="user">
         <img src='../assets/User.png'>
