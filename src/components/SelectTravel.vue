@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import axios from 'axios'
-import TravelWrapper from '@/components/TravelWrapper.vue'
+import TravelWrapper from '@/components/TravelInfo/TravelWrapper.vue'
 import VueSlider from "vue-3-slider-component";
 import {convertToTime, convertToMinutes} from '../api/TimeUtils.js'
 const props = defineProps({
@@ -120,7 +120,7 @@ function updateTime() {
     justify-content: center;
     background-color: #272727;
     border-radius: 25px;
-    box-shadow: 0px 4px 4px #00000040;
+    box-shadow: 0 4px 4px #00000040;
     font-weight: 600;
     color: #ffffff;
 }
@@ -177,7 +177,7 @@ function updateTime() {
     height: 36px;
     align-items: center;
     justify-content: space-between;
-  padding: 0rem 5rem;
+    padding: 0 5rem;
     border-radius: 20px;
     border: 1px solid;
 }

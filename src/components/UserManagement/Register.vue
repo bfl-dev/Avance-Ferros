@@ -1,9 +1,9 @@
 ﻿<script setup>
 
-import '../styles/login-overlay.css'
+import '../../styles/login-overlay.css'
 
 import { computed, ref } from 'vue'
-import UserApi from '@/api/UserApi'
+import UserApi from '@/api/UserApi.js'
 import router from '@/router/index.js'
 
 let user = ref('')

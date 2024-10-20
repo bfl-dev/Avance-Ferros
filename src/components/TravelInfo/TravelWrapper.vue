@@ -2,7 +2,7 @@
 
 import { ref } from 'vue'
 import { createRouter as $router } from 'vue-router'
-import {convertToTime, convertToMinutes} from '../api/TimeUtils.js'
+import {convertToTime, convertToMinutes} from '@/api/TimeUtils.js'
 
 const props = defineProps({travel:Object})
 

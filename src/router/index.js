@@ -1,14 +1,14 @@
 ﻿import Home from '@/pages/HomeView.vue'
 import HomeBody from '@/components/HomeBody.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import Login from '@/components/Login.vue'
-import Register from '@/components/Register.vue'
-import AccountSettings from '@/components/AccountShowcase.vue'
-import AccountEditor from '@/components/AccountEditor.vue'
+import Login from '@/components/UserManagement/Login.vue'
+import Register from '@/components/UserManagement/Register.vue'
+import AccountSettings from '@/components/UserManagement/AccountShowcase.vue'
+import AccountEditor from '@/components/UserManagement/AccountEditor.vue'
 import Logo from '@/components/icons/Logo.vue'
-import TravelTracker from '@/components/TravelTracker.vue'
+import TravelTracker from '@/components/TravelInfo/TravelTracker.vue'
 import SelectTravel from '@/components/SelectTravel.vue'
-import TrainPoints from "@/components/TrainPoints.vue";
+import TrainPoints from "@/components/TrainPoints/TrainPoints.vue";
 
 
 
