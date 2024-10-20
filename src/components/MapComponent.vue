@@ -8,13 +8,16 @@ const props = defineProps({travel:Object})
 const API_KEY = ref('MAPS_KEY')
 const apiPromise = ref()
 const loaded = ref(false)
-const center = ref({
-          lat: ((props.travel.destination.location.lat+props.travel.origin.location.lat)/2),
-          lng: ((props.travel.destination.location.lng+props.travel.origin.location.lng)/2)
-        })
-const origin = ref(props.travel.origin.location)
-const destination = ref(props.travel.destination.location)
+const center = ref()
+const origin = ref()
+const destination = ref()
+const stations = ref([])
 
+axios.get('http://localhost:3000/nodes').then(response =>{
+  for (const station of response.data){
+    stations.value.push(station)
+  }
+})
 function loadPromise(){
   let loader =  new Loader({
   apiKey: API_KEY.value,
@@ -25,10 +28,26 @@ function loadPromise(){
   loaded.value = true
 }
 
-axios.get('http://localhost:3000/key').then(response=>{
+function fetch(){
+  axios.get('http://localhost:3000/key').then(response=>{
   API_KEY.value = response.data.split("").reverse().join("")
-  loadPromise()
+
+  axios.get('http://localhost:3000/nodes/'+props.travel.destination.location).then(response =>{
+    destination.value = response.data.location
+    axios.get('http://localhost:3000/nodes/'+props.travel.origin.location).then(response =>{
+      origin.value = response.data.location
+      let centernode = Math.round((parseInt(props.travel.destination.location)+parseInt(props.travel.origin.location))/2).toString()
+      axios.get('http://localhost:3000/nodes/'+centernode).then(response =>{
+        console.log(props.travel.destination.location)
+        center.value = response.data.location
+        loadPromise()
+      })
+    })
+  })
 })
+}
+
+fetch()
 </script>
 
 <template>
@@ -40,6 +59,7 @@ axios.get('http://localhost:3000/key').then(response=>{
         :center="center"
         :zoom="11"
       >
+
         <CustomMarker :options="{ position: center, anchorPoint: 'BOTTOM_CENTER' }">
           <img src="../assets/train.png" width="50" height="50" />
         </CustomMarker>
