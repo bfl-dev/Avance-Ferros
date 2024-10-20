@@ -31,9 +31,9 @@ const travelShow = () => {
 <template>
   <header class="page-header">
     <RouterLink to='/'><logo></logo></RouterLink>
-    <a href="tracking.html">Sigue tu viaje</a>
+    <RouterLink to="/tracker">Sigue tu viaje</RouterLink>
     <a href="#">Conocenos</a>
-    <a href="traveler-points.html" v-show="logged">Canjea Trenepuntos</a>
+    <router-link to="/redeem-points" v-show="logged">Canjea Trenepuntos</router-link>
     <div class="logged" id="logged" v-show="logged">
       <div class="user" @click="travelShow()">
         <img src='../assets/User.png'>

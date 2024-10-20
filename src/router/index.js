@@ -5,6 +5,9 @@ import Login from '@/components/Login.vue'
 import Register from '@/components/Register.vue'
 import AccountSettings from '@/components/AccountShowcase.vue'
 import AccountEditor from '@/components/AccountEditor.vue'
+import Logo from '@/components/icons/Logo.vue'
+import TravelTracker from '@/components/TravelTracker.vue'
+import SelectTravel from '@/components/SelectTravel.vue'
 
 
 
@@ -27,6 +30,23 @@ const homePaths = {
         path: 'account-editor',
         name: 'account-editor',
         components: {content: AccountEditor},
+      },
+      {
+        path: 'kkk',
+        components: {content: Logo}
+      },
+      {
+        path: 'redeem-points',
+        components: {content: TravelPoints}
+      },
+      {
+        path: 'tracker',
+        components: {content: TravelTracker}
+      },
+      {
+        path: 'select-travel/:origin:destination',
+        components: {content: SelectTravel},
+        props: true
       }
     ]
 };
