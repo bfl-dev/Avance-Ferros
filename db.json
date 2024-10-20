@@ -52,8 +52,8 @@
     {
       "id": "19",
       "status": "En ruta",
-      "origin": "8",
-      "destination": "9",
+      "origin": "2",
+      "destination": "5",
       "departure": "10:00",
       "arrival": "13:00",
       "passengers": 14
