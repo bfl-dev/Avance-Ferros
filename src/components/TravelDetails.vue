@@ -1,6 +1,7 @@
 <script setup>
 import axios from 'axios';
 import {onMounted, ref} from "vue";
+import router from '@/router/index.js'
 
 const stations = ref([])
 const origin = ref('')
@@ -46,7 +47,7 @@ onMounted(() => {
       <option v-for="station of stations" :key="station.id" :disabled="origin === station">{{station.name}}</option>
     </select>
     <input type="date" id="travel-date" name="date" class="tickets-select-box" v-model="date" :min="getCurrentDate" >
-    <button class="tickets-confirm-button" onclick="window.location.href = 'select-travel.html';">Buscar</button>
+    <button class="tickets-confirm-button" @click="router.push({path:`/select-travel/${origin.id}${destination.id}`})">Buscar</button>
   </div>
 </template>
 
