@@ -5,59 +5,58 @@
       "id": "1",
       "name": "Victoria",
       "location": {"lat": -38.237120537807165,
-        "lon":-72.333140902859}
+        "lng":-72.333140902859}
     },
     {
       "id": "2",
       "name": "PUA",
-      "location": {"lat":-38.33595907175693, "lon":-72.37468420272417}
+      "location": {"lat":-38.33595907175693, "lng":-72.37468420272417}
     },
     {
       "id": "3",
       "name": "Perquenco",
-      "location": {"lat":-38.419136969001265, "lon":-72.3742228669928}
+      "location": {"lat":-38.419136969001265, "lng":-72.3742228669928}
     },
     {
       "id": "4",
       "name": "Quillem",
-      "location": {"lat":-38.46543856944071, "lon":-72.38672197384952}
+      "location": {"lat":-38.46543856944071, "lng":-72.38672197384952}
     },
     {
       "id": "5",
       "name": "Lautaro",
-      "location": {"lat":-38.525467879397034, "lon":-72.43207379072484}
+      "location": {"lat":-38.525467879397034, "lng":-72.43207379072484}
     },
     {
       "id": "6",
       "name": "Lautaro Centro",
-      "location": {"lat":-38.533623979749315, "lon":-72.43681073408635}
+      "location": {"lat":-38.533623979749315, "lng":-72.43681073408635}
     },
     {
       "id": "7",
       "name": "Pillanlelbun",
-      "location": {"lat":-38.6356265025178, "lon":-72.45384238579133}
+      "location": {"lat":-38.6356265025178, "lng":-72.45384238579133}
     },
     {
       "id": "8",
       "name": "Cajon",
-      "location": {"lat":-38.67435315527027, "lon":-72.503072038412}
+      "location": {"lat":-38.67435315527027, "lng":-72.503072038412}
     },
     {
       "id": "9",
       "name": "Temuco",
-      "location": {"lat":-38.73676657071756, "lon":-72.57914766709042}
+      "location": {"lat":-38.73676657071756, "lng":-72.57914766709042}
     }
   ],
-  "comments": [
+  "travels": [
     {
-      "id": "1",
-      "text": "a comment about post 1",
-      "postId": "1"
-    },
-    {
-      "id": "2",
-      "text": "another comment about post 1",
-      "postId": "1"
+      "id": "19",
+      "status": "En ruta",
+      "origin": "8",
+      "destination": "9",
+      "departure": "10:00",
+      "arrival": "13:00",
+      "passengers": 14
     }
   ],
   "profile": {
