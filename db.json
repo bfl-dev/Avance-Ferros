@@ -70,8 +70,16 @@
       "name": "StrawberryFrappe",
       "email": "kmano@kmano.inc",
       "password": "kmano",
-      "points": "0",
+      "points": "30",
       "kilometers": "0"
+    }
+  ],
+  "userRewards": [
+    {
+      "id": "0",
+      "rewards": [
+        1
+      ]
     }
   ],
   "userDetail": [

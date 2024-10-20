@@ -23,23 +23,20 @@ export default {
   emits: ['update:property1'],
   methods: {
     async handleButtonClick() {
-      if (this.property1 === 'claim-1') {
-        try {
+      try {
+        const newReward = this.property1.replace('claim', 'acquired');
+        if (this.property1 === 'claim-1') {
+
           const pointsToAdd = parseInt(this.pointsText.split(' ')[0], 10);
 
           const response = await axios.get('http://localhost:3000/userHead/0');
           const currentPoints = parseInt(response.data.points, 10);
 
-          const newPoints = currentPoints + pointsToAdd;
-
-          await axios.patch('http://localhost:3000/userHead/0', { points: newPoints.toString() });
-
-          this.$emit('update:property1', 'acquired-1');
-        } catch (error) {
-          console.error('Error updating points:', error);
+          await axios.patch('http://localhost:3000/userHead/0', { points: (currentPoints + pointsToAdd).toString() });
         }
-      } else if (this.property1 === 'claim-2') {
-        this.$emit('update:property1', 'acquired-2');
+        this.$emit('update:property1', newReward);
+        } catch (error) {
+          console.error('Error updating points and rewards:', error);
       }
     }
   }

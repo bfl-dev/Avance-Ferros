@@ -1,24 +1,49 @@
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
 import Card from './Card.vue';
 import ProgressBar from './ProgressBar.vue';
 
 const items = ref([
-  { property1: 'claim-1', levelText: 'Nivel 1', pointsText: '30 Puntos' },
-  { property1: 'claim-2', levelText: 'Nivel 2',},
-  { property1: 'claim-1', levelText: 'Nivel 3', pointsText: '40 Puntos' },
-  { property1: 'blocked-1', levelText: 'Nivel 4',},
-  { property1: 'blocked-2', levelText: 'Nivel 5', pointsText: '50 Puntos' },
-  { property1: 'blocked-2', levelText: 'Nivel 6',},
-  { property1: 'blocked-1', levelText: 'Nivel 7', pointsText: '60 Puntos' },
-  { property1: 'blocked-2', levelText: 'Nivel 8',},
-  { property1: 'blocked-1', levelText: 'Nivel 9', pointsText: '70 Puntos' },
-  { property1: 'blocked-2', levelText: 'Nivel 10',},
-  { property1: 'blocked-1', levelText: 'Nivel 11', pointsText: '80 Puntos' },
+  { id: 1, property1: 'claim-1', levelText: 'Nivel 1', pointsText: '30 Puntos' },
+  { id: 2, property1: 'claim-2', levelText: 'Nivel 2' },
+  { id: 3, property1: 'claim-1', levelText: 'Nivel 3', pointsText: '40 Puntos' },
+  { id: 4, property1: 'blocked-1', levelText: 'Nivel 4' },
+  { id: 5, property1: 'blocked-2', levelText: 'Nivel 5', pointsText: '50 Puntos' },
+  { id: 6, property1: 'blocked-2', levelText: 'Nivel 6' },
+  { id: 7, property1: 'blocked-1', levelText: 'Nivel 7', pointsText: '60 Puntos' },
+  { id: 8, property1: 'blocked-2', levelText: 'Nivel 8' },
+  { id: 9, property1: 'blocked-1', levelText: 'Nivel 9', pointsText: '70 Puntos' },
+  { id: 10, property1: 'blocked-2', levelText: 'Nivel 10' },
+  { id: 11, property1: 'blocked-1', levelText: 'Nivel 11', pointsText: '80 Puntos' },
 ]);
 
-const updateItemProperty = (index, newValue) => {
+const userRewards = ref([]);
+const loading = ref(true);
+
+onMounted(async () => {
+  try {
+    const response = await axios.get('http://localhost:3000/userRewards/0');
+    userRewards.value = response.data.rewards || [];
+    items.value = items.value.map(item => ({
+      ...item,
+      property1: userRewards.value.includes(item.id) ? item.property1.replace('claim', 'acquired') : item.property1
+    }));
+  } catch (error) {
+    console.error('Error loading user rewards:', error);
+  } finally {
+    loading.value = false;
+  }
+});
+
+const updateItemProperty = async (index, newValue) => {
   items.value[index].property1 = newValue;
+  try {
+    userRewards.value.push(items.value[index].id);
+    await axios.patch('http://localhost:3000/userRewards/0', { rewards: userRewards.value });
+  } catch (error) {
+    console.error('Error updating user rewards:', error);
+  }
 };
 </script>
 
@@ -33,7 +58,7 @@ const updateItemProperty = (index, newValue) => {
           <section class="rewards-container">
             <div class="line"></div>
             <ProgressBar/>
-            <div class="rewards">
+            <div class="rewards" v-if="!loading">
               <Card
                   v-for="(item, index) in items"
                   :key="index"
@@ -43,6 +68,7 @@ const updateItemProperty = (index, newValue) => {
                   @update:property1="updateItemProperty(index, $event)"
               />
             </div>
+            <div v-else>Loading...</div>
           </section>
         </div>
       </nav>
