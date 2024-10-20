@@ -1,17 +1,12 @@
 <script setup>
 import { ref } from 'vue'
-import { GoogleMap, AdvancedMarker } from 'vue3-google-map'
-import { Loader } from '@googlemaps/js-api-loader';
+
+
 import axios from 'axios'
 import TrainComponent from '@/components/TrainComponent.vue'
+import MapComponent from '@/components/MapComponent.vue'
 
-const API_KEY = ref('')
-const apiPromise = ref()
-const loaded = ref(false)
 const requested = ref(false)
-const travel = ref()
-const code = ref('')
-const center = ref('')
 
 function fetch(){
   let train = ''
@@ -29,29 +24,13 @@ function fetch(){
       train.origin = response.data
       axios.get('http://localhost:3000/stations/'+train.destination).then(response =>{
         train.destination = response.data
-        center.value = {
-          lat: ((train.destination.location.lat+train.origin.location.lat)/2),
-          lng: ((train.destination.location.lng+train.origin.location.lng)/2)
-        }
         travel.value=train
         requested.value = true
     })})
   })
 }
-
-function loadPromise(){
-  apiPromise.value =  new Loader({
-  apiKey: API_KEY.value,
-  version: 'weekly',
-  libraries: ['maps'],
-}).load();
-  loaded.value = true
-}
-
-axios.get('http://localhost:3000/key').then(response=>{
-  API_KEY.value = response.data.split("").reverse().join("")
-  loadPromise()
-})
+const travel = ref()
+const code = ref('')
 
 
 
@@ -68,9 +47,7 @@ axios.get('http://localhost:3000/key').then(response=>{
       <button class="travel-search-confirm" @click="fetch">Buscar</button>
     </div>
     <div class="travel-search-content" v-if="requested">
-      <GoogleMap v-if="loaded&&requested" :api-promise="apiPromise" style="width: 100%; height: 500px" :center="center" :zoom="10">
-        <AdvancedMarker :options="{ position: center, label: 'L', title: 'LADY LIBERTY' }" :pin-options="{ background: '#FBBC04' }"></AdvancedMarker>
-      </GoogleMap>
+      <MapComponent :travel="travel"></MapComponent>
       <train-component :travel='travel' ></train-component>
     </div>
   </div>
