@@ -5,16 +5,16 @@ import ProgressBar from './ProgressBar.vue';
 
 const items = ref([
   { property1: 'claim-1', levelText: 'Nivel 1', pointsText: '30 Puntos' },
-  { property1: 'claim-2', levelText: 'Nivel 2', pointsText: 'Cupon de Hospedaje' },
+  { property1: 'claim-2', levelText: 'Nivel 2',},
   { property1: 'claim-1', levelText: 'Nivel 3', pointsText: '40 Puntos' },
-  { property1: 'claim-2', levelText: 'Nivel 4', pointsText: 'Cupon de Hospedaje' },
-  { property1: 'claim-1', levelText: 'Nivel 5', pointsText: '50 Puntos' },
-  { property1: 'claim-2', levelText: 'Nivel 6', pointsText: 'Cupon de Hospedaje' },
-  { property1: 'claim-1', levelText: 'Nivel 7', pointsText: '60 Puntos' },
-  { property1: 'claim-2', levelText: 'Nivel 8', pointsText: 'Cupon de Hospedaje' },
-  { property1: 'claim-1', levelText: 'Nivel 9', pointsText: '70 Puntos' },
-  { property1: 'claim-2', levelText: 'Nivel 10', pointsText: 'Cupon de Hospedaje' },
-  { property1: 'claim-1', levelText: 'Nivel 11', pointsText: '80 Puntos' },
+  { property1: 'blocked-1', levelText: 'Nivel 4',},
+  { property1: 'blocked-2', levelText: 'Nivel 5', pointsText: '50 Puntos' },
+  { property1: 'blocked-2', levelText: 'Nivel 6',},
+  { property1: 'blocked-1', levelText: 'Nivel 7', pointsText: '60 Puntos' },
+  { property1: 'blocked-2', levelText: 'Nivel 8',},
+  { property1: 'blocked-1', levelText: 'Nivel 9', pointsText: '70 Puntos' },
+  { property1: 'blocked-2', levelText: 'Nivel 10',},
+  { property1: 'blocked-1', levelText: 'Nivel 11', pointsText: '80 Puntos' },
 ]);
 
 const updateItemProperty = (index, newValue) => {
