@@ -2,6 +2,7 @@
 import logo from './icons/logo.vue'
 import {ref} from "vue";
 import UserApi from '@/api/UserApi'
+import router from '@/router/index.js'
 
 const logged = ref(false)
 
@@ -17,18 +18,24 @@ UserApi.getUser(window.localStorage.getItem("userID")).then(response => {
 const logout = () => {
   window.localStorage.removeItem("userID");
   logged.value = false;
+  router.push('/')
   }
 
+const travelShow = () => {
+  router.push('/account-showcase')
+  }
+
+  //TODO:Comprobar que falta
 </script>
 
 <template>
   <header class="page-header">
-    <logo></logo>
+    <RouterLink to='/'><logo></logo></RouterLink>
     <a href="tracking.html">Sigue tu viaje</a>
     <a href="#">Conocenos</a>
     <a href="traveler-points.html" v-show="logged">Canjea Trenepuntos</a>
     <div class="logged" id="logged" v-show="logged">
-      <div class="user">
+      <div class="user" @click="travelShow()">
         <img src='../assets/User.png'>
         <p>{{user.name}}</p>
       </div>

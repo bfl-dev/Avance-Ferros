@@ -18,6 +18,11 @@ const isFormValid = computed(() => {
 const register = () => {
   if (isFormValid.value) { //TODO: Hacer gestion de errores
     UserApi.postUser(user.value, email.value, pass.value).then(response => {
+      UserApi.postUserDetails(response.data.id, user.value).then(() => {
+        console.log('Usuario creado');
+      }).catch(() => {
+        console.log('Error');
+      });
       window.localStorage.setItem("userID", response.data.id);
       router.push('/').then(() => {
         router.go(0);
