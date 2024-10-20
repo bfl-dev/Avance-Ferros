@@ -456,6 +456,15 @@
       "departure": "10:00",
       "arrival": "13:00",
       "passengers": 14
+    },
+    {
+      "id": "lmao",
+      "status": "En ruta",
+      "origin": "2",
+      "destination": "4",
+      "departure": "12:00",
+      "arrival": "20:00",
+      "passengers": 2000
     }
   ],
   "profile": {
