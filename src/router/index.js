@@ -8,6 +8,7 @@ import AccountEditor from '@/components/AccountEditor.vue'
 import Logo from '@/components/icons/Logo.vue'
 import TravelTracker from '@/components/TravelTracker.vue'
 import SelectTravel from '@/components/SelectTravel.vue'
+import TrainPoints from "@/components/TrainPoints.vue";
 
 
 
@@ -37,7 +38,7 @@ const homePaths = {
       },
       {
         path: 'redeem-points',
-        components: {content: TravelPoints}
+        components: {content: TrainPoints}
       },
       {
         path: 'tracker',
