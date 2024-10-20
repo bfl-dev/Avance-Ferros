@@ -1,12 +1,43 @@
 <script setup>
 import { ref } from 'vue'
-import { GoogleMap } from 'vue3-google-map'
+import { GoogleMap, AdvancedMarker } from 'vue3-google-map'
 import { Loader } from '@googlemaps/js-api-loader';
 import axios from 'axios'
+import TrainComponent from '@/components/TrainComponent.vue'
 
 const API_KEY = ref('')
 const apiPromise = ref()
 const loaded = ref(false)
+const requested = ref(false)
+const travel = ref()
+const code = ref('')
+const center = ref('')
+
+function fetch(){
+  let train = ''
+  axios.get('http://localhost:3000/travels/'+code.value).then(response =>{
+    train = {
+      id:response.data["id"],
+      status:response.data["status"],
+      origin:response.data["origin"],
+      destination:response.data["destination"],
+      arrival:response.data["arrival"],
+      departure:response.data["departure"],
+      passengers:response.data["passengers"]
+    }
+    axios.get('http://localhost:3000/stations/'+train.origin).then(response =>{
+      train.origin = response.data
+      axios.get('http://localhost:3000/stations/'+train.destination).then(response =>{
+        train.destination = response.data
+        center.value = {
+          lat: ((train.destination.location.lat+train.origin.location.lat)/2),
+          lng: ((train.destination.location.lng+train.origin.location.lng)/2)
+        }
+        travel.value=train
+        requested.value = true
+    })})
+  })
+}
 
 function loadPromise(){
   apiPromise.value =  new Loader({
@@ -24,9 +55,7 @@ axios.get('http://localhost:3000/key').then(response=>{
 
 
 
-const center = { lat: 39.902653995800925, lng: 116.39771973184685 };
 
-const code = ref('')
 </script>
 
 <template>
@@ -36,9 +65,13 @@ const code = ref('')
     </div>
     <div class="travel-search-body">
       <input class="standard-text-input" type="text" id="travel-code" name="travel-code" v-model="code">
-      <button class="travel-search-confirm" onclick="">Buscar</button>
-      <GoogleMap v-if="loaded" :api-promise="apiPromise" style="width: 100%; height: 500px" :center="center" :zoom="15">
+      <button class="travel-search-confirm" @click="fetch">Buscar</button>
+    </div>
+    <div class="travel-search-content" v-if="requested">
+      <GoogleMap v-if="loaded&&requested" :api-promise="apiPromise" style="width: 100%; height: 500px" :center="center" :zoom="10">
+        <AdvancedMarker :options="{ position: center, label: 'L', title: 'LADY LIBERTY' }" :pin-options="{ background: '#FBBC04' }"></AdvancedMarker>
       </GoogleMap>
+      <train-component :travel='travel' ></train-component>
     </div>
   </div>
 </template>
