@@ -1,32 +1,47 @@
-<script setup>
-import { defineProps, defineEmits } from 'vue';
+<script>
+import axios from 'axios';
 
-const props = defineProps({
-  property1: {
-    type: String,
-    validator: value => ["claim-1", "claim-2", "acquired-1", "acquired-2"].includes(value),
+export default {
+  props: {
+    property1: {
+      type: String,
+      required: true,
+    },
+    className: {
+      type: String,
+      default: "",
+    },
+    levelText: {
+      type: String,
+      default: "Nivel n",
+    },
+    pointsText: {
+      type: String,
+      default: "30 Puntos",
+    },
   },
-  className: {
-    type: String,
-    default: "",
-  },
-  levelText: {
-    type: String,
-    default: "Nivel n",
-  },
-  pointsText: {
-    type: String,
-    default: "30 Puntos",
-  },
-});
+  emits: ['update:property1'],
+  methods: {
+    async handleButtonClick() {
+      if (this.property1 === 'claim-1') {
+        try {
+          const pointsToAdd = parseInt(this.pointsText.split(' ')[0], 10);
 
-const emit = defineEmits(['update:property1']);
+          const response = await axios.get('http://localhost:3000/userHead/0');
+          const currentPoints = parseInt(response.data.points, 10);
 
-const handleButtonClick = () => {
-  if (props.property1 === 'claim-1') {
-    emit('update:property1', 'acquired-1');
-  } else if (props.property1 === 'claim-2') {
-    emit('update:property1', 'acquired-2');
+          const newPoints = currentPoints + pointsToAdd;
+
+          await axios.patch('http://localhost:3000/userHead/0', { points: newPoints.toString() });
+
+          this.$emit('update:property1', 'acquired-1');
+        } catch (error) {
+          console.error('Error updating points:', error);
+        }
+      } else if (this.property1 === 'claim-2') {
+        this.$emit('update:property1', 'acquired-2');
+      }
+    }
   }
 };
 </script>
