@@ -23,6 +23,10 @@ const homePaths = {
         components: {content: Logo}
       },
       {
+        path: 'redeem-points',
+        components: {content: TravelPoints}
+      },
+      {
         path: 'tracker',
         components: {content: TravelTracker}
       },
