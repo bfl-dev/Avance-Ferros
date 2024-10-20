@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="logo-container" onclick="window.location.href = 'index.html';">
+  <div class="logo-container">
     <img src='../../assets/Logo Small.png' class="default">
     <img src='../../assets/Logo Default.png' class="hovered">
   </div>
