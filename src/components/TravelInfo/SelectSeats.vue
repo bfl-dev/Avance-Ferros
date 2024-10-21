@@ -2,6 +2,7 @@
 import axios from 'axios'
 import { ref } from 'vue'
 import SeatsWrapper from '@/components/TravelInfo/SeatsWrapper.vue'
+import router from '@/router/index.js'
 const props = defineProps({travelId:String})
 const travel = ref()
 const cabinSelection = ref('0')
@@ -14,6 +15,13 @@ axios.get('http://localhost:3000/travels/'+props.travelId).then(response =>{
 
 function confirmSubmition(){
   seatsWrapper.value.submit()
+}
+function submitSeats(args){
+  let string = `/payment/${props.travelId}`
+  for (const seat of args){
+    string+=`${seat.id}`
+  }
+  router.push({path:string})
 }
 </script>
 
@@ -34,7 +42,7 @@ function confirmSubmition(){
       <img src="../../assets/right-cabin-selected.png" class="cabin" @click="cabinSelection='2'" v-show="cabinSelection==='2'"/>
     </div>
     <SeatsWrapper ref="seatsWrapper" v-if="loaded" :seats="travel.passengers" :cabin-show="cabinSelection" :key="travel.id" @submit="args => {
-      console.log(args)
+      submitSeats(args)
     }"></SeatsWrapper>
     <div class="nav-bar">
         <img src="../../assets/Ocupado.png">
