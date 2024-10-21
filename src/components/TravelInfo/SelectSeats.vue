@@ -19,7 +19,7 @@ function confirmSubmition(){
 function submitSeats(args){
   let string = `/payment/${props.travelId}`
   for (const seat of args){
-    string+=`${seat.id}`
+    string+=`-${seat.id}`
   }
   router.push({path:string})
 }
