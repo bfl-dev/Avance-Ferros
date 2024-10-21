@@ -23,10 +23,13 @@ axios.get('http://localhost:3000/stations').then(response =>{
       destinationStation.value = station
     }
   }
+
   axios.get('http://localhost:3000/travels').then(response =>{
   for (const ride of response.data){
+    console.log(ride)
     if (ride.status === "Pendiente" && ride.origin === originStation.value.id && ride.destination === destinationStation.value.id){
       travels.value.push(ride)
+
     }
   }
 })

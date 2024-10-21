@@ -9,6 +9,7 @@ import Logo from '@/components/icons/Logo.vue'
 import TravelTracker from '@/components/TravelInfo/TravelTracker.vue'
 import SelectTravel from '@/components/SelectTravel.vue'
 import TrainPoints from "@/components/TrainPoints/TrainPoints.vue";
+import SelectSeats from '@/components/TravelInfo/SelectSeats.vue'
 
 
 
@@ -47,6 +48,11 @@ const homePaths = {
       {
         path: 'select-travel/:origin:destination',
         components: {content: SelectTravel},
+        props: true
+      },
+      {
+        path: 'select-seats/:travelId',
+        components: {content: SelectSeats},
         props: true
       }
     ]
