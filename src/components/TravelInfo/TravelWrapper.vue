@@ -1,8 +1,8 @@
 <script setup>
 
 import { ref } from 'vue'
-import { createRouter as $router } from 'vue-router'
 import {convertToTime, convertToMinutes} from '@/api/TimeUtils.js'
+import router from '@/router/index.js'
 
 const props = defineProps({travel:Object})
 
@@ -13,7 +13,7 @@ duration.value = convertToTime(convertToMinutes(props.travel.arrival)-convertToM
 </script>
 
 <template>
-  <div class="data">
+  <div class="data" @click="router.push({path:'/'})">
       <p class="value">{{props.travel.departure}}</p>
       <p class="value">{{props.travel.arrival}}</p>
       <p class="value">{{duration}}</p>
