@@ -19,20 +19,20 @@ axios.get('http://localhost:3000/travels/'+props.travelId).then(response =>{
     </div>
 
     <div class="cabin">
-        <img src="/assets/left-cabin-selected.png" class="cabin">
-        <img src="/assets/mid-cabin.png" class="cabin">
-        <img src="/assets/right-cabin.png" class="cabin">
+        <img src="../../assets/left-cabin-selected.png" class="cabin">
+        <img src="../../assets/mid-cabin.png" class="cabin">
+        <img src="../../assets/right-cabin.png" class="cabin">
     </div>
 
     <div class="seats">
 
     </div>
     <div class="nav-bar">
-        <img src="/assets/Ocupado.png">
+        <img src="../../assets/Ocupado.png">
         <p class="nav-text" style="background-color: #f7d40a; color: #000000">Ocupado</p>
-        <img src="/assets/Libre.png">
+        <img src="../../assets/Libre.png">
         <p class="nav-text" style="background-color: #f7d40a; color: #000000">Libre</p>
-        <img src="/assets/Seleccionado.png">
+        <img src="../../assets/Seleccionado.png">
         <p class="nav-text" style="background-color: #f7d40a; color: #000000">Seleccionado</p>
         <button class="seats-confirm" >Confirmar</button>
     </div>
