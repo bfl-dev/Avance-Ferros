@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import Card from './Card.vue';
 import ProgressBar from './ProgressBar.vue';
+import UserApi from "@/api/UserApi.js";
 
 const items = ref([
   { id: 1, property1: 'claim-1', levelText: 'Nivel 1', pointsText: '30 Puntos' },
@@ -21,13 +22,19 @@ const items = ref([
 const userRewards = ref([]);
 const loading = ref(true);
 
+const updateProperty = (item, rewards) => {
+  if (rewards.includes(item.id)) {
+    return item.property1.replace('claim', 'acquired');
+  }
+  return item.property1;
+};
+
 onMounted(async () => {
   try {
-    const response = await axios.get('http://localhost:3000/userRewards/0');
-    userRewards.value = response.data.rewards || [];
+    userRewards.value = await UserApi.getUserRewards(window.localStorage.getItem("userID"));
     items.value = items.value.map(item => ({
       ...item,
-      property1: userRewards.value.includes(item.id) ? item.property1.replace('claim', 'acquired') : item.property1
+      property1: updateProperty(item, userRewards.value)
     }));
   } catch (error) {
     console.error('Error loading user rewards:', error);
@@ -40,7 +47,7 @@ const updateItemProperty = async (index, newValue) => {
   items.value[index].property1 = newValue;
   try {
     userRewards.value.push(items.value[index].id);
-    await axios.patch('http://localhost:3000/userRewards/0', { rewards: userRewards.value });
+    await axios.patch(`http://localhost:3000/userRewards/${window.localStorage.getItem("userID")}`, { rewards: userRewards.value });
   } catch (error) {
     console.error('Error updating user rewards:', error);
   }

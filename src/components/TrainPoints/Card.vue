@@ -1,44 +1,41 @@
-<script>
+<script setup>
+import { defineProps, defineEmits } from 'vue';
 import axios from 'axios';
+import UserApi from "@/api/UserApi.js";
 
-export default {
-  props: {
-    property1: {
-      type: String,
-      required: true,
-    },
-    className: {
-      type: String,
-      default: "",
-    },
-    levelText: {
-      type: String,
-      default: "Nivel n",
-    },
-    pointsText: {
-      type: String,
-      default: "30 Puntos",
-    },
+const props = defineProps({
+  property1: {
+    type: String,
+    required: true,
   },
-  emits: ['update:property1'],
-  methods: {
-    async handleButtonClick() {
-      try {
-        const newReward = this.property1.replace('claim', 'acquired');
-        if (this.property1 === 'claim-1') {
+  className: {
+    type: String,
+    default: "",
+  },
+  levelText: {
+    type: String,
+    default: "Nivel n",
+  },
+  pointsText: {
+    type: String,
+    default: "30 Puntos",
+  },
+});
 
-          const pointsToAdd = parseInt(this.pointsText.split(' ')[0], 10);
+const emit = defineEmits(['update:property1']);
 
-          const response = await axios.get('http://localhost:3000/userHead/0');
-          const currentPoints = parseInt(response.data.points, 10);
-
-          await axios.patch('http://localhost:3000/userHead/0', { points: (currentPoints + pointsToAdd).toString() });
-        }
-        this.$emit('update:property1', newReward);
-        } catch (error) {
-          console.error('Error updating points and rewards:', error);
-      }
+const handleButtonClick = async () => {
+  try {
+    const newReward = props.property1.replace('claim', 'acquired');
+    if (props.property1 === 'claim-1') {
+      const pointsToAdd = parseInt(props.pointsText.split(' ')[0], 10);
+      const response = await UserApi.getUser(window.localStorage.getItem("userID"));
+      const currentPoints = parseInt(response.data.points, 10);
+      await axios.patch(`http://localhost:3000/userHead/${window.localStorage.getItem("userID")}`, { points: (currentPoints + pointsToAdd).toString() });
     }
+    emit('update:property1', newReward);
+  } catch (error) {
+    console.error('Error updating points and rewards:', error);
   }
 };
 </script>
@@ -47,6 +44,7 @@ export default {
   <div :class="['item-card', property1, className]">
     <h1 class="text-wrapper">{{ levelText }}</h1>
     <div class="status">
+
       <span v-if="['acquired-1', 'acquired-2'].includes(property1)">Adquirido</span>
       <span v-if="['claim-1', 'claim-2'].includes(property1)">Disponible</span>
       <span v-if="['blocked-1', 'blocked-2'].includes(property1)">Bloqueado</span>

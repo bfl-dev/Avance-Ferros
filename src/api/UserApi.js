@@ -61,6 +61,14 @@ export default class UserApi {
     return axios.get('http://localhost:3000/userDetail/' + userId);
   }
 
+  static getUserRewards(userId) {
+  return axios.get(`http://localhost:3000/userRewards/${userId}`)
+    .then(response => response.data.rewards)
+    .catch(error => {
+      console.error('Error fetching user rewards:', error);
+      throw error;
+    });
+  }
   static getTravelsByUser(userId) {
     return axios.get('http://localhost:3000/userTrip?userId=' + userId);
   }
