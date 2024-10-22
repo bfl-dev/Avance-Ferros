@@ -1,11 +1,16 @@
 ﻿import Home from '@/pages/HomeView.vue'
 import HomeBody from '@/components/HomeBody.vue'
 import { createRouter, createWebHistory } from 'vue-router'
-import Login from '@/components/Login.vue'
-import Register from '@/components/Register.vue'
+import Login from '@/components/UserManagement/Login.vue'
+import Register from '@/components/UserManagement/Register.vue'
+import AccountSettings from '@/components/UserManagement/AccountShowcase.vue'
+import AccountEditor from '@/components/UserManagement/AccountEditor.vue'
 import Logo from '@/components/icons/Logo.vue'
-import TravelTracker from '@/components/TravelTracker.vue'
-
+import TravelTracker from '@/components/TravelInfo/TravelTracker.vue'
+import SelectTravel from '@/components/SelectTravel.vue'
+import TrainPoints from "@/components/TrainPoints/TrainPoints.vue";
+import SelectSeats from '@/components/TravelInfo/SelectSeats.vue'
+import Payment from "@/components/Payment/Payment.vue";
 
 
 const homePaths = {
@@ -15,15 +20,44 @@ const homePaths = {
     [
       {
         path: '',
+        name: 'home',
         components: {content: HomeBody}
+      },
+      {
+        path: 'account-showcase',
+        name: 'account-showcase',
+        components: {content: AccountSettings},
+      },
+      {
+        path: 'account-editor',
+        name: 'account-editor',
+        components: {content: AccountEditor},
       },
       {
         path: 'kkk',
         components: {content: Logo}
       },
       {
+        path: 'redeem-points',
+        components: {content: TrainPoints}
+      },
+      {
         path: 'tracker',
         components: {content: TravelTracker}
+      },
+      {
+        path: 'select-travel/:origin:destination:date',
+        components: {content: SelectTravel},
+        props: true
+      },
+      {
+        path: 'select-seats/:travelId',
+        components: {content: SelectSeats},
+        props: true
+      },
+      {
+        path: 'payment/:travelID',
+        components: {content: Payment}
       }
     ]
 };

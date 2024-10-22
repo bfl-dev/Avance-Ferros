@@ -61,13 +61,13 @@ fetch()
       >
 
         <CustomMarker :options="{ position: center, anchorPoint: 'BOTTOM_CENTER' }">
-          <img src="../assets/train.png" width="50" height="50" />
+          <img src="../../assets/train.png" width="50" height="50" />
         </CustomMarker>
         <CustomMarker :options="{ position: origin, anchorPoint: 'BOTTOM_CENTER' }">
-          <img src="../assets/station.png" width="50" height="50" />
+          <img src="../../assets/station.png" width="50" height="50" />
         </CustomMarker>
         <CustomMarker :options="{ position: destination, anchorPoint: 'BOTTOM_CENTER' }">
-          <img src="../assets/station.png" width="50" height="50" />
+          <img src="../../assets/station.png" width="50" height="50" />
         </CustomMarker>
       </GoogleMap>
 </template>
