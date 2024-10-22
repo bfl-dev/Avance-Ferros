@@ -27,6 +27,10 @@ onMounted(() => {
   UserApi.getUser(window.localStorage.getItem("userID")).then(response => {
     user.value = response.data;
   }).catch(() => {
+    window.localStorage.removeItem("userID");
+    router.push('/').then(() => {
+      router.go(0);
+    })
   });
   UserApi.getUserDetails(window.localStorage.getItem('userID')).then( req => {
     userDetails.value = req.data;
@@ -41,7 +45,6 @@ const filterByStatus = (status) => {
   userTravels.value = userTravels.value.filter( travel => travel.status === status);
 }
 
-//TODO: HACER QUE FUNCIONEN LOS FILTROS Y VER EL DETALLE DEL VIAJE
 </script>
 
 <template>

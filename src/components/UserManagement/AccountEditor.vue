@@ -80,7 +80,7 @@ const deleteAccount = () => {
     }).catch(() => {
       console.log('Error')
     });
-  }else if (confirmUser.value === userHead.value.name){
+  } else if (confirmUser.value === userHead.value.name){
     confirmMessage.value = '¿Estás seguro?'
     confirmed.value = !confirmed.value
   } else {
@@ -97,6 +97,10 @@ onMounted( () => {
   UserApi.getUser(window.localStorage.getItem("userID")).then(response => {
     userHead.value = response.data;
   }).catch(() => {
+    window.localStorage.removeItem("userID");
+    router.push('/').then(() => {
+      router.go(0);
+    })
   });
 
   UserApi.getUserDetails(window.localStorage.getItem('userID')).then( req => {
@@ -124,12 +128,6 @@ onMounted( () => {
   });
 } )
 
-
-console.log(username,email,password,bio,phone,names,lastNames,rut,birthDate,address,trait,emergencyContact,emergencyNumber,city,commune);
-
-//TODO: Ver que hacer con la foto
-//TODO: Comprobar que falta
-//TODO: Gestion de Errores
 </script>
 
 <template>
