@@ -1,6 +1,6 @@
 <script setup>
 
-import { CustomMarker, GoogleMap } from 'vue3-google-map'
+import { CustomMarker, GoogleMap, Polyline } from 'vue3-google-map'
 import { Loader } from '@googlemaps/js-api-loader';
 import { ref } from 'vue'
 import { getKey } from '@/api/MapsApi.js'
@@ -16,7 +16,24 @@ const origin = ref()
 const destination = ref()
 const map = ref()
 const zoom = ref(11.8)
+const pastRoute = ref([])
+const futureRoute = ref([])
 
+const routeDrawn = ref(false)
+const routeDone = {
+  path: pastRoute.value,
+  geodesic: true,
+  strokeColor: '#0000FF',
+  strokeOpacity: 1.0,
+  strokeWeight: 4,
+}
+const routeUpcoming = {
+  path: futureRoute.value,
+  geodesic: true,
+  strokeColor: '#FFFF00',
+  strokeOpacity: 1.0,
+  strokeWeight: 4,
+}
 function loadPromise(){
   let loader =  new Loader({
   apiKey: API_KEY.value,
@@ -36,8 +53,10 @@ function loadStations(){
         destination.value = map.value.find(value => value.id === station.location)
       }
     }
-    center.value = map.value.find(value => value.id === Math.round((parseInt(origin.value.id)+parseInt(destination.value.id))/2).toString()).location
+    center.value = map.value.find(value => value.id === Math.round((parseInt(origin.value.id)+parseInt(destination.value.id))/2).toString())
+    createRoute()
     origin.value = origin.value.location
+    center.value = center.value.location
     destination.value = destination.value.location
   })
 
@@ -50,6 +69,25 @@ function loadMap(){
     map.value = nodesResponse['data']
     loadStations()
   })
+}
+
+function createRoute(){
+  let lowNode = Math.min(parseInt(origin.value.id), parseInt(destination.value.id))
+  let highNode = Math.max(parseInt(origin.value.id), parseInt(destination.value.id))
+  for (const node of map.value){
+    if (parseInt(node.id) >= lowNode && parseInt(node.id) <= highNode){
+      if (parseInt(center.value.id) > parseInt(node.id)){
+        pastRoute.value.push(node.location)
+      } else if (parseInt(center.value.id) === parseInt(node.id)) {
+        futureRoute.value.push(node.location)
+        pastRoute.value.push(node.location)
+      } else {
+        futureRoute.value.push(node.location)
+      }
+
+    }
+  }
+  routeDrawn.value = true
 }
 
 
@@ -84,6 +122,8 @@ fetch()
         <CustomMarker :options="{ position: destination, anchorPoint: 'BOTTOM_CENTER' }">
           <img src="../../assets/station.png" width="50" height="50" />
         </CustomMarker>
+        <Polyline v-if="routeDrawn" :options="routeDone" />
+        <Polyline v-if="routeDrawn" :options="routeUpcoming" />
       </GoogleMap>
 </template>
 
