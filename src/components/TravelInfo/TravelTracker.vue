@@ -27,8 +27,8 @@ const code = ref('')
       }">Buscar</button>
     </div>
     <div class="travel-search-content" v-if="requested">
-      <MapComponent :travel="travel"></MapComponent>
-      <train-component :travel='travel' ></train-component>
+      <MapComponent :travel="travel" :key="travel.id"></MapComponent>
+      <train-component :travel='travel' :key="travel.id"></train-component>
     </div>
   </div>
 </template>
