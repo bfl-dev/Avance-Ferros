@@ -4,6 +4,7 @@ import { ref } from 'vue'
 import SeatsWrapper from '@/components/TravelInfo/SeatsWrapper.vue'
 import router from '@/router/index.js'
 import { getTravel } from '@/api/TrainsApi.js'
+import NavBar from '@/components/Payment/NavBar.vue'
 const props = defineProps({travelId:String})
 const travel = ref()
 const cabinSelection = ref('0')
@@ -20,12 +21,7 @@ getTravel(props.travelId).then(response =>{
 
 <template>
 <div class="select-seats">
-    <div class="nav-bar">
-      <p class="nav-text">Servicios</p>
-      <p class="nav-text" style="background-color: #f7d40a; color: #000000">Asientos</p>
-      <p class="nav-text">Pasajeros</p>
-      <p class="nav-text">Pago</p>
-    </div>
+    <NavBar :highlight-index="1"></NavBar>
     <div class="cabin-selector">
       <img src="../../assets/left-cabin.png" class="cabin" @click="cabinSelection='0'" v-show="cabinSelection!=='0'" />
       <img src="../../assets/left-cabin-selected.png" class="cabin" @click="cabinSelection='0'" v-show="cabinSelection==='0'" />
