@@ -125,6 +125,7 @@ const updateItemProperty = async (index, newValue) => {
   gap: 33px;
   position: absolute;
   padding-right: 10px;
+  margin: 33px 10px;
 }
 
 .line {
