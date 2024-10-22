@@ -38,11 +38,13 @@ const props = defineProps({travel:Object})
                                     <p><b>Pasajeros</b></p>
                                     <p>{{props.travel.passengers.split('').filter(value => value=="1").length}}</p>
                                 </div>
-                                <div class="train-component-body-text-box"></div>
-                                <!--este div existe para alinear el componente (a mi tampoco me gusta la idea)-->
+                                <div class="train-component-body-text-box">
+                                    <p><b>Fecha</b></p>
+                                    <p>{{props.travel.date.split('-').reverse().join('-')}}</p>
                                 </div>
                             </div>
-                    </div>
+                        </div>
+</div>
 </template>
 
 <style scoped>

@@ -40,7 +40,7 @@ onMounted(() => {
       <option value="" selected disabled>¿A donde vas?</option>
       <option v-for="station of stations" :key="station.id" :disabled="origin === station">{{station.name}}</option>
     </select>
-    <input type="date" id="travel-date" name="date" class="tickets-select-box" v-model="date" :min="getCurrentDate" >
+    <input type="date" id="travel-date" name="date" pattern="\d{2}-\d{2}-\d{4}" class="tickets-select-box" v-model="date" :min="getCurrentDate" >
     <button class="tickets-confirm-button" @click="router.push({path:`/select-travel/${origin.id}${destination.id}${date}`})">Buscar</button>
   </div>
 </template>
