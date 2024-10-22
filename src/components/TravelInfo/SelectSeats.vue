@@ -34,7 +34,7 @@ getTravel(props.travelId).then(response =>{
       <img src="../../assets/right-cabin.png" class="cabin" @click="cabinSelection='2'" v-show="cabinSelection!=='2'" />
       <img src="../../assets/right-cabin-selected.png" class="cabin" @click="cabinSelection='2'" v-show="cabinSelection==='2'"/>
     </div>
-    <SeatsWrapper ref="seatsWrapper" v-if="loaded" :seats="travel.passengers" :cabin-show="cabinSelection" :key="travel.id" @submit="args => {
+    <SeatsWrapper class="seats-wrapper" ref="seatsWrapper" v-if="loaded" :seats="travel.passengers" :cabin-show="cabinSelection" :key="travel.id" @submit="args => {
       let string = `/payment/${props.travelId}`
       for (const seat of args.i){
         string+=`-${seat.id}`
@@ -54,11 +54,20 @@ getTravel(props.travelId).then(response =>{
 </template>
 
 <style scoped>
+.seats-wrapper {
+  width: 100%;
+  height: fit-content;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: scroll;
+}
 .select-seats {
   margin: 3rem auto auto;
   display: flex;
   height: 50%;
-  width: 63%;
+  width: 65%;
   padding: 2rem 2rem;
   flex-direction: column;
   justify-content: space-between;
