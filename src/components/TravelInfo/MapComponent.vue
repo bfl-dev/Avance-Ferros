@@ -3,7 +3,10 @@
 import { CustomMarker, GoogleMap } from 'vue3-google-map'
 import { Loader } from '@googlemaps/js-api-loader';
 import { ref } from 'vue'
-import axios from 'axios'
+import { getKey } from '@/api/MapsApi.js'
+import { getAllNodes, getAllStations } from '@/api/TrainsApi.js'
+
+
 const props = defineProps({travel:Object})
 const API_KEY = ref('MAPS_KEY')
 const apiPromise = ref()
@@ -11,13 +14,9 @@ const loaded = ref(false)
 const center = ref()
 const origin = ref()
 const destination = ref()
-const stations = ref([])
+const map = ref()
+const zoom = ref(11.8)
 
-axios.get('http://localhost:3000/nodes').then(response =>{
-  for (const station of response.data){
-    stations.value.push(station)
-  }
-})
 function loadPromise(){
   let loader =  new Loader({
   apiKey: API_KEY.value,
@@ -27,23 +26,39 @@ function loadPromise(){
   apiPromise.value= loader.load()
   loaded.value = true
 }
+function loadStations(){
+  getAllStations().then(stationsResponse =>{
+    for (const station of stationsResponse['data']){
+      if (station.id === props.travel.origin){
+        origin.value = map.value.find(value => value.id === station.location)
+      }
+      if (station.id === props.travel.destination){
+        destination.value = map.value.find(value => value.id === station.location)
+      }
+    }
+    center.value = map.value.find(value => value.id === Math.round((parseInt(origin.value.id)+parseInt(destination.value.id))/2).toString()).location
+    origin.value = origin.value.location
+    destination.value = destination.value.location
+  })
+
+}
+
+function loadMap(){
+  zoom.value = zoom.value-(2.4*(Math.abs(parseInt(props.travel.origin)-parseInt(props.travel.destination))/8))
+  console.log(zoom.value)
+  getAllNodes().then(nodesResponse =>{
+    map.value = nodesResponse['data']
+    loadStations()
+  })
+}
+
+
 
 function fetch(){
-  axios.get('http://localhost:3000/key').then(response=>{
-  API_KEY.value = response.data.split("").reverse().join("")
-
-  axios.get('http://localhost:3000/nodes/'+props.travel.destination.location).then(response =>{
-    destination.value = response.data.location
-    axios.get('http://localhost:3000/nodes/'+props.travel.origin.location).then(response =>{
-      origin.value = response.data.location
-      let centernode = Math.round((parseInt(props.travel.destination.location)+parseInt(props.travel.origin.location))/2).toString()
-      axios.get('http://localhost:3000/nodes/'+centernode).then(response =>{
-        console.log(props.travel.destination.location)
-        center.value = response.data.location
-        loadPromise()
-      })
-    })
-  })
+  getKey().then(response=>{
+    API_KEY.value = response.data.split("").reverse().join("")
+    loadMap()
+    loadPromise()
 })
 }
 
@@ -57,7 +72,7 @@ fetch()
         :api-promise="apiPromise"
         style="width: 100%; height: 500px"
         :center="center"
-        :zoom="11"
+        :zoom="zoom"
       >
 
         <CustomMarker :options="{ position: center, anchorPoint: 'BOTTOM_CENTER' }">

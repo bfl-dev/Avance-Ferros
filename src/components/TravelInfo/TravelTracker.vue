@@ -1,39 +1,13 @@
 <script setup>
 import { ref } from 'vue'
 
-
-import axios from 'axios'
 import TrainComponent from '@/components/TrainComponent.vue'
 import MapComponent from '@/components/TravelInfo/MapComponent.vue'
+import { getTravel } from '@/api/TrainsApi.js'
 
 const requested = ref(false)
-
-function fetch(){
-  let train = ''
-  axios.get('http://localhost:3000/travels/'+code.value).then(response =>{
-    train = {
-      id:response.data["id"],
-      status:response.data["status"],
-      origin:response.data["origin"],
-      destination:response.data["destination"],
-      arrival:response.data["arrival"],
-      departure:response.data["departure"],
-      passengers:response.data["passengers"],
-      date:response.data["date"]
-    }
-    axios.get('http://localhost:3000/stations/'+train.origin).then(response =>{
-      train.origin = response.data
-      axios.get('http://localhost:3000/stations/'+train.destination).then(response =>{
-        train.destination = response.data
-        travel.value=train
-        requested.value = true
-    })})
-  })
-}
 const travel = ref()
 const code = ref('')
-
-
 
 
 </script>
@@ -45,11 +19,16 @@ const code = ref('')
     </div>
     <div class="travel-search-body">
       <input class="standard-text-input" type="text" id="travel-code" name="travel-code" v-model="code">
-      <button class="travel-search-confirm" @click="fetch">Buscar</button>
+      <button class="travel-search-confirm" @click="()=>{
+        getTravel(code).then(response =>{
+          travel = response['data']
+          requested = true
+        })
+      }">Buscar</button>
     </div>
     <div class="travel-search-content" v-if="requested">
-      <MapComponent :travel="travel"></MapComponent>
-      <train-component :travel='travel' ></train-component>
+      <MapComponent :travel="travel" :key="travel.id"></MapComponent>
+      <train-component :travel='travel' :key="travel.id"></train-component>
     </div>
   </div>
 </template>
