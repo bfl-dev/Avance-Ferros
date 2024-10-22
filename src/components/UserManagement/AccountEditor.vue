@@ -133,7 +133,7 @@ console.log(username,email,password,bio,phone,names,lastNames,rut,birthDate,addr
 </script>
 
 <template>
-  <section class="page-body">
+  <section class="page-body content">
     <div class="left-column">
       <img class="profile-pic" src="../../assets/11.jpg" alt="">
       <button class="edit-profile">Editar Foto</button>
@@ -143,9 +143,7 @@ console.log(username,email,password,bio,phone,names,lastNames,rut,birthDate,addr
       <div class="header">
         <div class="header-title">Datos Personales</div>
       </div>
-
       <div class="form-content">
-
         <div class="section">
           <div class="section-header">Credenciales</div>
           <div class="section-body">
@@ -243,5 +241,7 @@ console.log(username,email,password,bio,phone,names,lastNames,rut,birthDate,addr
 </template>
 
 <style scoped>
-
+.content {
+  position: unset;
+}
 </style>
