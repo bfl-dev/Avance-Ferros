@@ -10,7 +10,7 @@ import TravelTracker from '@/components/TravelInfo/TravelTracker.vue'
 import SelectTravel from '@/components/SelectTravel.vue'
 import TrainPoints from "@/components/TrainPoints/TrainPoints.vue";
 import SelectSeats from '@/components/TravelInfo/SelectSeats.vue'
-
+import Payment from "@/components/Payment/Payment.vue";
 
 
 const homePaths = {
@@ -54,6 +54,10 @@ const homePaths = {
         path: 'select-seats/:travelId',
         components: {content: SelectSeats},
         props: true
+      },
+      {
+        path: 'payment/:travelID',
+        components: {content: Payment}
       }
     ]
 };
