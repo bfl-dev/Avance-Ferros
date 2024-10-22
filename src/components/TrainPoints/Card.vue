@@ -80,8 +80,6 @@ const handleButtonClick = async () => {
   color: #000;
   font-size: 24px;
   font-weight: 600;
-  text-align: center;
-  white-space: nowrap;
 }
 .status {
   color: #000;

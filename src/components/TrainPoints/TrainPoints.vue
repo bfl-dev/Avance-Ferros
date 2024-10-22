@@ -61,7 +61,6 @@ const updateItemProperty = async (index, newValue) => {
         <h1 class="title">Canjea Trenepuntos</h1>
       </header>
       <nav class="scroll-wrapper">
-        <div class="content">
           <section class="rewards-container">
             <div class="line"></div>
             <ProgressBar/>
@@ -77,7 +76,6 @@ const updateItemProperty = async (index, newValue) => {
             </div>
             <div v-else>Loading...</div>
           </section>
-        </div>
       </nav>
     </div>
   </div>
@@ -91,6 +89,7 @@ const updateItemProperty = async (index, newValue) => {
   height: 100vh;
   border-radius: 15px;
   overflow: hidden;
+  width: 98%;
 }
 
 .train-points-container {
@@ -115,19 +114,15 @@ const updateItemProperty = async (index, newValue) => {
   width: 1254px;
   height: 603px;
   overflow-x: scroll;
-}
-
-.content {
   position: relative;
-  top: 55px;
-  left: 10px;
+  padding: 10px;
 }
 
 .rewards-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 10px;
+  gap: 33px;
   position: absolute;
   padding-right: 10px;
 }
