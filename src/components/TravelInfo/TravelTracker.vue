@@ -3,13 +3,32 @@ import { ref } from 'vue'
 
 import TrainComponent from '@/components/TrainComponent.vue'
 import MapComponent from '@/components/TravelInfo/MapComponent.vue'
-import { getTravel } from '@/api/TrainsApi.js'
-
+import SeatsComponent from '@/components/TravelInfo/SeatsComponent.vue'
+import { getTravel, getTicket } from '@/api/TrainsApi.js'
 const requested = ref(false)
 const travel = ref()
 const code = ref('')
+const seats = ref('')
+const travelCodeSubmitted = ref(false)
 
-
+function setTracker(id){
+  getTravel(id).then(response =>{
+    travel.value = response['data']
+    requested.value = true
+  })
+}
+function confirmCode(){
+  if (code.value.charAt(0)==='T'){
+    getTicket(code.value).then(response =>{
+      seats.value = response['data']
+      console.log(seats.value.travelId)
+      setTracker(seats.value.travelId)
+      travelCodeSubmitted.value = true
+    })
+  } else {
+    setTracker(code.value)
+  }
+}
 </script>
 
 <template>
@@ -19,16 +38,14 @@ const code = ref('')
     </div>
     <div class="travel-search-body">
       <input class="standard-text-input" type="text" id="travel-code" name="travel-code" v-model="code">
-      <button class="travel-search-confirm" @click="()=>{
-        getTravel(code).then(response =>{
-          travel = response['data']
-          requested = true
-        })
-      }">Buscar</button>
+      <button class="travel-search-confirm" @click="confirmCode()">Buscar</button>
     </div>
     <div class="travel-search-content" v-if="requested">
       <MapComponent :travel="travel" :key="travel.id"></MapComponent>
-      <train-component :travel='travel' :key="travel.id"></train-component>
+      <div class="travel-search-travel-container">
+        <train-component :travel='travel' :key="travel.id"></train-component>
+        <seats-component v-if="travelCodeSubmitted" :seats="seats" :key="code"></seats-component>
+      </div>
     </div>
   </div>
 </template>
@@ -42,8 +59,9 @@ const code = ref('')
 }
 .travel-search{
   color: #2c3e50;
-    font-family: "Monocraft Nerd Font";
-
+    font-family: "Inter";
+  font-weight: 800;
+  font-size: larger;
     display: flex;
     width: 80%;
     padding-bottom: 1.25rem;
@@ -97,22 +115,9 @@ const code = ref('')
     align-self: stretch;
 }
 
-.travel-search-map-container{
-    display: flex;
-    width: 50%;
-    overflow: auto;
-    padding: 1.25rem;
-    background-color: #9a9a9a;
-    border-radius: 0.9375rem;
-}
-
 .travel-search-travel-container{
-    overflow: auto;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    gap: 1.9375rem;
-    flex: 1 0 0;
-    align-self: stretch;
+    gap: 1.75rem;
 }
 </style>
