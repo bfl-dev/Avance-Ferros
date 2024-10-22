@@ -1,7 +1,7 @@
 <script setup>
 
-
 const props = defineProps({travel:Object})
+
 
 </script>
 
@@ -36,7 +36,7 @@ const props = defineProps({travel:Object})
                             <div class="train-component-body-row">
                                 <div class="train-component-body-text-box">
                                     <p><b>Pasajeros</b></p>
-                                    <p>{{props.travel.passengers}}</p>
+                                    <p>{{props.travel.passengers.split('').filter(value => value=="1").length}}</p>
                                 </div>
                                 <div class="train-component-body-text-box"></div>
                                 <!--este div existe para alinear el componente (a mi tampoco me gusta la idea)-->

@@ -1,5 +1,5 @@
 ﻿<script setup>
-import '../styles/login-overlay.css';
+import '../../styles/login-overlay.css';
 import {ref} from 'vue';
 import UserApi from '@/api/UserApi.js'
 import router from '@/router/index.js'
@@ -18,7 +18,7 @@ const login = () => {
     console.log("Error");
   });
 }
-
+//TODO: Gestion de errores
 </script>
 
 <template>
@@ -56,6 +56,6 @@ const login = () => {
 </template>
 
 <style scoped>
-@import 'src/styles/login-overlay.css';
+@import '../../styles/login-overlay.css';
 
 </style>
