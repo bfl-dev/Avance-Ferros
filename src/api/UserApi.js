@@ -1,4 +1,5 @@
 ﻿import axios from 'axios';
+import {convertToMinutes, convertToTime} from "@/api/TimeUtils.js";
 
 export default class UserApi {
 
@@ -101,6 +102,28 @@ export default class UserApi {
   }
   static searchUserDetail(query) {
     return axios.get('http://localhost:3000/userDetail?' + query);
+  }
+
+  static getStations() {
+    return axios.get('http://localhost:3000/stations');
+  }
+
+  static postTravel(details) {
+    const api_url = 'http://localhost:3000/travels';
+    const data = {
+      status: details.status ?? "Pendiente",
+      origin: details.origin ?? 0,
+      destination: details.destination ?? 0,
+      departure: details.departure ?? "1999-01-01",
+      arrival: convertToTime(convertToMinutes(details.departure)-convertToMinutes("01:30")),
+      date: details.date ?? "1999-01-01",
+      passengers: "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    };
+    return axios.post(api_url, data);
+  }
+
+  static getTravel(travelId) {
+    return axios.get('http://localhost:3000/travels/' + travelId);
   }
 }
 
