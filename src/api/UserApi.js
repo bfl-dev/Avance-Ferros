@@ -8,33 +8,44 @@ export default class UserApi {
     return axios.get('http://localhost:3000/userHead/' + userId);
   }
 
-  static postUser(user, email, pass) {
-    const data = {
-      name: user,
-      email: email,
-      pass: pass,
-      points: 0,
-      kilometers: 0
-    };
-    return axios.post('http://localhost:3000/userHead', data);
+  static getUsers() {
+    return axios.get('http://localhost:3000/userHead');
   }
 
-  static postUserDetails(userId) {
+
+  static getDetails() {
+    return axios.get('http://localhost:3000/userDetail');
+  }
+
+  static postUser( user ) {
+    const api_url = 'http://localhost:3000/userHead';
+    const data = {
+      name: user.name ?? '',
+      email: user.email ?? '',
+      pass: user.pass,
+      points: user.points ?? 0,
+      kilometers: user.kilometers ?? 0
+    };
+
+    return axios.post(api_url, data);
+  }
+
+  static postUserDetails(userId, details) {
     const api_url = 'http://localhost:3000/userDetail';
     const data = {
       id: userId,
-      phone: "0",
-      names: "",
-      lastNames: "",
-      trait: "",
-      rut: "",
-      bio: "",
-      address: "",
-      city: "",
-      commune: "",
-      emergencyContact: "0",
-      emergencyContactName: "",
-      birthday: "",
+      phone: details.phone ?? "",
+      names: details.names ?? "",
+      lastNames: details.lastNames ?? "",
+      trait: details.trait ?? "",
+      rut: details.rut ?? "",
+      bio: details.bio ?? "",
+      address: details.address ?? "",
+      city: details.city ?? "",
+      commune: details.commune ?? "",
+      emergencyContact: details.emergencyContact ?? "",
+      emergencyContactName: details.emergencyContactName ?? "",
+      birthday: details.birthday ?? "",
       profilePic: "https://picsum.photos/540"
     };
     return axios.post(api_url, data);
@@ -51,10 +62,7 @@ export default class UserApi {
   }
 
   static logUser(email, pass) {
-    console.log(email,pass)
-    const api_req = 'http://localhost:3000/userHead?email=' + email + '&pass=' + pass;
-    console.log(api_req)
-    return axios.get(api_req);
+    return axios.get('http://localhost:3000/userHead?email=' + email + '&pass=' + pass);
   }
 
   static getUserDetails(userId) {
@@ -74,6 +82,25 @@ export default class UserApi {
   }
   static deleteUserDetails(userId) {
     return axios.delete('http://localhost:3000/userDetail/' + userId);
+  }
+
+  static getAdmin(adminID) {
+    return axios.get('http://localhost:3000/admin/' + adminID);
+  }
+
+  static logAdmin(user, pass) {
+    return axios.get('http://localhost:3000/admin?name=' + user + '&pass=' + pass);
+  }
+
+  static searchTrains(query) {
+    return axios.get('http://localhost:3000/travels?' + query);
+  }
+  static searchUserHead(query) {
+    console.log(query)
+    return axios.get('http://localhost:3000/userHead?' + query);
+  }
+  static searchUserDetail(query) {
+    return axios.get('http://localhost:3000/userDetail?' + query);
   }
 }
 

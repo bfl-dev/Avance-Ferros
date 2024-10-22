@@ -4,6 +4,9 @@ import {ref} from 'vue';
 import UserApi from '@/api/UserApi.js'
 import router from '@/router/index.js'
 
+import { GoogleLogin } from 'vue3-google-login'
+
+const client_id = "client_id";
 let email = ref('');
 let password = ref('');
 
@@ -18,6 +21,11 @@ const login = () => {
     console.log("Error");
   });
 }
+
+const callback = (response) => {
+  console.log("do something ", response);
+}
+
 //TODO: Gestion de errores
 </script>
 
@@ -32,6 +40,7 @@ const login = () => {
 
       <div class="section-header">Inicia Sesion</div>
 
+      <GoogleLogin :callback="callback" :client-id="client_id"></GoogleLogin>
       <div class="separator">
         <p>- ó -</p>
       </div>

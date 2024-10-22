@@ -36,7 +36,7 @@ const props = defineProps({travel:Object})
                             <div class="train-component-body-row">
                                 <div class="train-component-body-text-box">
                                     <p><b>Pasajeros</b></p>
-                                    <p>{{props.travel.passengers.split('').filter(value => value=="1").length}}</p>
+                                    <p>{{ props.travel.passengers.split('').filter(value => value === "1").length }}</p>
                                 </div>
                                 <div class="train-component-body-text-box">
                                     <p><b>Fecha</b></p>
