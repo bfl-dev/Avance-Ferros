@@ -18,7 +18,8 @@ function fetch(){
       destination:response.data["destination"],
       arrival:response.data["arrival"],
       departure:response.data["departure"],
-      passengers:response.data["passengers"]
+      passengers:response.data["passengers"],
+      date:response.data["date"]
     }
     axios.get('http://localhost:3000/stations/'+train.origin).then(response =>{
       train.origin = response.data
