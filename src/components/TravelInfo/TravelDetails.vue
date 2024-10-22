@@ -1,19 +1,14 @@
 <script setup>
-import axios from 'axios';
 import {onMounted, ref} from "vue";
 import router from '@/router/index.js'
 import { getCurrentDate } from '@/api/TimeUtils.js'
+import { getAllStations } from '@/api/TrainsApi.js'
 const stations = ref([])
 const origin = ref('')
 const destination = ref('')
 const date = ref()
 
 
-axios.get('http://localhost:3000/stations').then( request => {
-  for (const station of request.data){
-    stations.value.push({name: station['name'],id: station['id'] })
-  }
-})
 function updateOrigin(event) {
   origin.value = stations.value.find(station => station.name === event.target.value);
 }
@@ -22,7 +17,11 @@ function updateDestination(event) {
   destination.value = stations.value.find(station => station.name === event.target.value);
 }
 
-
+getAllStations().then(response =>{
+  for (const station of response['data']){
+    stations.value.push(station)
+  }
+})
 
 onMounted(() => {
   document.getElementById('travel-date').setAttribute('min', getCurrentDate());
