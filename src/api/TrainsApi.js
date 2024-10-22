@@ -21,3 +21,7 @@ export function getNode(id){
 export function getAllNodes(){
   return axios.get('http://localhost:3000/nodes')
 }
+
+export function getTicket(id){
+  return axios.get('http://localhost:3000/userTrip/'+id)
+}
