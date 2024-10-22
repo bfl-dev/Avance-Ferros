@@ -1,19 +1,23 @@
 ﻿<script setup>
 import TrainComponent from "@/components/TrainComponent.vue";
 import AdminTrainTable from "@/components/Admin/Popups/AdminTrainTable.vue";
+import {onMounted, ref} from "vue";
+import UserApi from "@/api/UserApi.js";
+import {getTravel} from "@/api/TrainsApi.js";
+import MapComponent from "@/components/TravelInfo/MapComponent.vue";
 
-const props = defineProps({ id: String})
+const props = defineProps(['id'])
 
-const placeholder =
-  {
-    "id": "100",
-    "status": "Pendiente",
-    "origin": "1",
-    "destination": "5",
-    "departure": "10:00",
-    "arrival": "13:00",
-    "passengers": 14
-  }
+
+const requested = ref(false)
+const travel = ref()
+
+getTravel(props.id).then(response =>{
+  travel.value = response['data']
+  requested.value = true
+})
+
+
 </script>
 
 <template>
@@ -24,7 +28,9 @@ const placeholder =
       </div>
       <div class="editor-container">
         <div class="train-editor">
-          <TrainComponent :travel="placeholder" />
+          <div class="travel" v-if="requested">
+            <train-component :travel='travel' :key="travel.id"></train-component>
+          </div>
           <div class="options-container">
             <a class="save-account">Editar</a>
             <a class="delete-account">Eliminar</a>
