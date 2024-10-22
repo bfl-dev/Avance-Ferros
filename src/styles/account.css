@@ -71,7 +71,7 @@
     border-right: 1px solid #000;
 }
 
-.avaliable-points{
+.available-points{
     display: flex;
     padding: 0.625rem;
     flex-direction: column;

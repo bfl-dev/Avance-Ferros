@@ -65,7 +65,7 @@ const filterByStatus = (status) => {
             <p>Kilometros recorridos:</p>
             <p class="ammount">{{ user.kilometers }}</p>
           </div>
-          <div class="avaliable-points">
+          <div class="available-points">
             <p>Kilometros recorridos:</p>
             <p class="ammount">{{user.points}}</p>
           </div>
