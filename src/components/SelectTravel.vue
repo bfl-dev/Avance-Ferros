@@ -1,13 +1,15 @@
 <script setup>
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import axios from 'axios'
-import TravelWrapper from '@/components/TravelWrapper.vue'
+import TravelWrapper from '@/components/TravelInfo/TravelWrapper.vue'
 import VueSlider from "vue-3-slider-component";
-import {convertToTime, convertToMinutes} from '../api/TimeUtils.js'
+import { convertToTime, convertToMinutes, getCurrentDate } from '../api/TimeUtils.js'
 const props = defineProps({
   origin:String,
-  destination:String
+  destination:String,
+  date:String
 })
+const localDate = ref(props.date)
 const slidervalue = ref([360,1410])
 const sliderText = ref('08:00 - 23:25')
 const originStation = ref('')
@@ -23,11 +25,10 @@ axios.get('http://localhost:3000/stations').then(response =>{
       destinationStation.value = station
     }
   }
+
   axios.get('http://localhost:3000/travels').then(response =>{
   for (const ride of response.data){
-    if (ride.status === "Pendiente" && ride.origin === originStation.value.id && ride.destination === destinationStation.value.id){
-      travels.value.push(ride)
-    }
+    travels.value.push(ride)
   }
 })
 })
@@ -36,7 +37,18 @@ function updateTime() {
   sliderText.value = `${convertToTime(slidervalue.value[0])} - ${convertToTime(slidervalue.value[1])}`
 }
 
+function visible(ride){
+  return ride.date === localDate.value &&
+    ride.status === "Pendiente" &&
+    ride.origin === originStation.value.id &&
+    ride.destination === destinationStation.value.id &&
+    slidervalue.value[0]<=convertToMinutes(ride.departure) &&
+    slidervalue.value[1]>=convertToMinutes(ride.departure)
+}
 
+onMounted(() => {
+  document.getElementById('travel-date').setAttribute('min', getCurrentDate());
+});
 </script>
 
 <template>
@@ -51,6 +63,8 @@ function updateTime() {
     </div>
     <div class="content">
       <div class="filters">
+        <p>Fecha de Salida:</p>
+        <input type="date" id="travel-date" name="date" class="tickets-select-box" v-model="localDate" :min="getCurrentDate" >
         <p>Hora de Salida:</p>
         <p>{{sliderText}}</p>
         <VueSlider
@@ -78,7 +92,7 @@ function updateTime() {
           v-for="travel of travels"
           :key="travel.id"
           :travel="travel"
-          v-show="slidervalue[0]<=convertToMinutes(travel.departure) && slidervalue[1]>=convertToMinutes(travel.departure)"></TravelWrapper>
+          v-show="visible(travel)"></TravelWrapper>
       </div>
     </div>
   </div>
@@ -86,11 +100,21 @@ function updateTime() {
 </template>
 
 <style scoped>
+.tickets-select-box{
 
+  font-weight: 500;
+  display: flex;
+  width: fit-content;
+  height: 100%;
+  flex-shrink: 0;
+  border-radius: 0.9375rem;
+  text-align: center;
+  font-size: large;
+}
 .select-ticket {
   display: flex;
   flex-direction: column;
-
+  font-family: "Inter";
   align-items: center;
 
   color: #000000;
@@ -120,7 +144,7 @@ function updateTime() {
     justify-content: center;
     background-color: #272727;
     border-radius: 25px;
-    box-shadow: 0px 4px 4px #00000040;
+    box-shadow: 0 4px 4px #00000040;
     font-weight: 600;
     color: #ffffff;
 }
@@ -177,7 +201,7 @@ function updateTime() {
     height: 36px;
     align-items: center;
     justify-content: space-between;
-  padding: 0rem 5rem;
+    padding: 0 5rem;
     border-radius: 20px;
     border: 1px solid;
 }

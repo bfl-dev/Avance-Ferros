@@ -34,7 +34,7 @@
   gap: 363px;
   position: absolute;
   border-radius: 100px;
-  margin: 0px 160px;
+  margin: 0 160px;
 }
 
 .number {

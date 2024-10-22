@@ -2,7 +2,7 @@
 import axios from 'axios';
 import {onMounted, ref} from "vue";
 import router from '@/router/index.js'
-
+import { getCurrentDate } from '@/api/TimeUtils.js'
 const stations = ref([])
 const origin = ref('')
 const destination = ref('')
@@ -22,13 +22,7 @@ function updateDestination(event) {
   destination.value = stations.value.find(station => station.name === event.target.value);
 }
 
-function getCurrentDate() {
-  const today = new Date();
-  const yyyy = today.getFullYear();
-  const mm = String(today.getMonth() + 1).padStart(2, '0'); // Months are 0-based
-  const dd = String(today.getDate()).padStart(2, '0');
-  return `${yyyy}-${mm}-${dd}`;
-}
+
 
 onMounted(() => {
   document.getElementById('travel-date').setAttribute('min', getCurrentDate());
@@ -47,7 +41,7 @@ onMounted(() => {
       <option v-for="station of stations" :key="station.id" :disabled="origin === station">{{station.name}}</option>
     </select>
     <input type="date" id="travel-date" name="date" class="tickets-select-box" v-model="date" :min="getCurrentDate" >
-    <button class="tickets-confirm-button" @click="router.push({path:`/select-travel/${origin.id}${destination.id}`})">Buscar</button>
+    <button class="tickets-confirm-button" @click="router.push({path:`/select-travel/${origin.id}${destination.id}${date}`})">Buscar</button>
   </div>
 </template>
 

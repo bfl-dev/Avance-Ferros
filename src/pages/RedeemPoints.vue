@@ -1,5 +1,5 @@
 <script setup>
-import TrainPoints from "@/components/TrainPoints.vue";
+import TrainPoints from "@/components/TrainPoints/TrainPoints.vue";
 </script>
 
 <template>

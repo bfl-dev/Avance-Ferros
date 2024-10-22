@@ -1,9 +1,9 @@
 ﻿<script setup>
 
-import '../styles/login-overlay.css'
+import '../../styles/login-overlay.css'
 
 import { computed, ref } from 'vue'
-import UserApi from '@/api/UserApi'
+import UserApi from '@/api/UserApi.js'
 import router from '@/router/index.js'
 
 let user = ref('')
@@ -18,6 +18,11 @@ const isFormValid = computed(() => {
 const register = () => {
   if (isFormValid.value) { //TODO: Hacer gestion de errores
     UserApi.postUser(user.value, email.value, pass.value).then(response => {
+      UserApi.postUserDetails(response.data.id, user.value).then(() => {
+        console.log('Usuario creado');
+      }).catch(() => {
+        console.log('Error');
+      });
       window.localStorage.setItem("userID", response.data.id);
       router.push('/').then(() => {
         router.go(0);
