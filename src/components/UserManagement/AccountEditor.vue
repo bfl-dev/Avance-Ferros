@@ -1,6 +1,6 @@
 ﻿<script setup>
 import '../../styles/account.css'
-import { ref } from 'vue'
+import {onMounted, ref} from 'vue'
 import UserApi from '@/api/UserApi.js'
 import router from '@/router/index.js'
 
@@ -27,13 +27,15 @@ let confirmMessage = ref('Eliminar cuenta')
 let confirmed = ref(false)
 
 const saveChanges = () => {
+
   let user = {
     name: username.value,
     email: email.value,
     password: password.value,
-    points: user.points,
-    kilometers: user.kilometers
+    points: userHead.points,
+    kilometers: userHead.kilometers
   }
+
   let userDetails = {
     bio: bio.value,
     phone: phone.value,
@@ -49,6 +51,7 @@ const saveChanges = () => {
     commune: commune.value,
     profilePic: "https://picsum.photos/540"
   }
+
   UserApi.putUser(window.localStorage.getItem("userID"), user).then(() => {
     UserApi.putUserDetails(window.localStorage.getItem("userID"), userDetails).then(() => {
       router.push('/account-showcase').then(() => {
@@ -60,7 +63,6 @@ const saveChanges = () => {
   }).catch(() => {
     console.log('Error User Tipo1')
   });
-  console.log(user,userDetails);
 }
 
 const deleteAccount = () => {
@@ -91,34 +93,36 @@ const resetConfirm = () => {
   confirmed.value = false
 }
 
-UserApi.getUser(window.localStorage.getItem("userID")).then(response => {
-  userHead.value = response.data;
-}).catch(() => {
-});
+onMounted( () => {
+  UserApi.getUser(window.localStorage.getItem("userID")).then(response => {
+    userHead.value = response.data;
+  }).catch(() => {
+  });
 
-UserApi.getUserDetails(window.localStorage.getItem('userID')).then( req => {
-  let userDetails = ref(req.data);
-  bio.value = userDetails.value.bio
-  phone.value = userDetails.value.phone
-  names.value = userDetails.value.names
-  lastNames.value = userDetails.value.lastNames
-  rut.value = userDetails.value.rut
-  birthDate.value = userDetails.value.birthday
-  address.value = userDetails.value.address
-  trait.value = userDetails.value.trait
-  emergencyContact.value = userDetails.value.emergencyContactName
-  emergencyNumber.value = userDetails.value.emergencyContact
-  city.value = userDetails.value.city
-  commune.value = userDetails.value.commune
-});
+  UserApi.getUserDetails(window.localStorage.getItem('userID')).then( req => {
+    let userDetails = ref(req.data);
+    bio.value = userDetails.value.bio
+    phone.value = userDetails.value.phone
+    names.value = userDetails.value.names
+    lastNames.value = userDetails.value.lastNames
+    rut.value = userDetails.value.rut
+    birthDate.value = userDetails.value.birthday
+    address.value = userDetails.value.address
+    trait.value = userDetails.value.trait
+    emergencyContact.value = userDetails.value.emergencyContactName
+    emergencyNumber.value = userDetails.value.emergencyContact
+    city.value = userDetails.value.city
+    commune.value = userDetails.value.commune
+  });
 
-UserApi.getUser(window.localStorage.getItem("userID")).then(response => {
-  userHead.value = response.data;
-  username.value = userHead.value.name;
-  email.value = userHead.value.email;
-  password.value = userHead.value.password;
-}).catch(() => {
-});
+  UserApi.getUser(window.localStorage.getItem("userID")).then(response => {
+    userHead.value = response.data;
+    username.value = userHead.value.name;
+    email.value = userHead.value.email;
+    password.value = userHead.value.password;
+  }).catch(() => {
+  });
+} )
 
 
 console.log(username,email,password,bio,phone,names,lastNames,rut,birthDate,address,trait,emergencyContact,emergencyNumber,city,commune);

@@ -11,7 +11,15 @@ import SelectTravel from '@/components/SelectTravel.vue'
 import TrainPoints from "@/components/TrainPoints/TrainPoints.vue";
 import SelectSeats from '@/components/TravelInfo/SelectSeats.vue'
 import Payment from "@/components/Payment/Payment.vue";
-
+import AdminLoginView from "@/pages/AdminLoginView.vue";
+import AdminVIew from "@/pages/AdminView.vue";
+import AdminHomeBody from "@/components/Admin/AdminHomeBody.vue";
+import AdminUsersBody from "@/components/Admin/AdminUsersBody.vue";
+import AdminTrainsBody from "@/components/Admin/AdminTrainsBody.vue";
+import addTrainPopup from "@/components/Admin/Popups/AddTrainPopup.vue";
+import addUserPopup from "@/components/Admin/Popups/AddUserPopup.vue";
+import editUserPopup from "@/components/Admin/Popups/EditUserPopup.vue";
+import editTrainPopup from "@/components/Admin/Popups/EditTrainPopup.vue";
 
 const homePaths = {
   path: '/',
@@ -77,10 +85,61 @@ const flowPaths = {
   ]
 }; //todo: ver como hace q aparezca el overlay y no interfiera con el contenido
 
+const adminLogin = {
+  path: '/admin/login',
+  component: AdminLoginView
+}
+
+const adminBook = {
+  path: 'baq',
+  children: [
+    {
+      path: 'users/add',
+      components: {content: AdminUsersBody, overlay: addUserPopup}
+    },
+    {
+      path: 'users/edit/:id',
+      components: {content: AdminUsersBody, overlay: editUserPopup},
+      props: true
+    },
+    {
+      path: 'trains/add',
+      components: {content: AdminTrainsBody, overlay: addTrainPopup}
+    },
+    {
+      path: 'trains/edit/:id',
+      components: {content: AdminTrainsBody, overlay: editTrainPopup},
+      props: true
+    }
+  ]
+}
+
+const adminPaths = {
+  path: '/admin',
+  component: AdminVIew,
+  children: [
+    {
+      path: '',
+      components: {content: AdminHomeBody}
+    },
+    {
+      path: 'users',
+      components: {content: AdminUsersBody}
+    },
+    {
+      path: 'trains',
+      components: {content: AdminTrainsBody}
+    },
+    adminBook
+  ]
+}
+
 const routes =
   [
     homePaths,
-    flowPaths
+    flowPaths,
+    adminLogin,
+    adminPaths
   ]
 
 const router = createRouter({
