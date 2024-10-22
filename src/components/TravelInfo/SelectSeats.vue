@@ -42,7 +42,7 @@ function submitSeats(args){
       <img src="../../assets/right-cabin-selected.png" class="cabin" @click="cabinSelection='2'" v-show="cabinSelection==='2'"/>
     </div>
     <SeatsWrapper ref="seatsWrapper" v-if="loaded" :seats="travel.passengers" :cabin-show="cabinSelection" :key="travel.id" @submit="args => {
-      submitSeats(args)
+      submitSeats(args.i)
     }"></SeatsWrapper>
     <div class="nav-bar">
         <img src="../../assets/Ocupado.png">
@@ -51,7 +51,7 @@ function submitSeats(args){
         <p class="nav-text" style="background-color: #f7d40a; color: #000000">Libre</p>
         <img src="../../assets/Seleccionado.png">
         <p class="nav-text" style="background-color: #f7d40a; color: #000000">Seleccionado</p>
-        <button class="seats-confirm" @click="confirmSubmition()">Confirmar</button>
+        <button class="payment-button" @click="confirmSubmition()">Confirmar</button>
     </div>
   </div>
 </template>
@@ -100,7 +100,7 @@ function submitSeats(args){
 }
 
 
-.seats-confirm{
+.payment-button{
   width: 100%;
   max-width: 200px;
   display: flex;
