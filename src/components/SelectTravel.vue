@@ -1,9 +1,9 @@
 <script setup>
 import { onMounted, ref } from 'vue'
-import axios from 'axios'
 import TravelWrapper from '@/components/TravelInfo/TravelWrapper.vue'
 import VueSlider from "vue-3-slider-component";
 import { convertToTime, convertToMinutes, getCurrentDate } from '../api/TimeUtils.js'
+import { getAllTravels, getStation } from '@/api/TrainsApi.js'
 const props = defineProps({
   origin:String,
   destination:String,
@@ -16,26 +16,19 @@ const originStation = ref('')
 const destinationStation = ref('')
 const travels = ref([])
 
-axios.get('http://localhost:3000/stations').then(response =>{
-  for (const station of response.data){
-    if (station.id === props.origin){
-      originStation.value = station
-    }
-    if (station.id === props.destination){
-      destinationStation.value = station
-    }
-  }
-
-  axios.get('http://localhost:3000/travels').then(response =>{
-  for (const ride of response.data){
-    travels.value.push(ride)
-  }
+getStation(props.origin).then(response => {
+  originStation.value = response['data']
 })
+getStation(props.destination).then(response => {
+  destinationStation.value = response['data']
 })
 
-function updateTime() {
-  sliderText.value = `${convertToTime(slidervalue.value[0])} - ${convertToTime(slidervalue.value[1])}`
-}
+getAllTravels().then(response =>{
+  for (const travel of response['data']){
+    travels.value.push(travel)
+  }
+})
+
 
 function visible(ride){
   return ride.date === localDate.value &&
@@ -77,8 +70,8 @@ onMounted(() => {
           :min=360
           :height="8"
           :width="180"
-          @change="updateTime"/>
-        <div class="from-to">Desde:<br />Estacion {{originStation["name"]}}<br /><br />Hacia:<br />Estacion {{destinationStation["name"]}}</div>
+          @change="sliderText.value = `${convertToTime(slidervalue.value[0])} - ${convertToTime(slidervalue.value[1])}`"/>
+        <div class="from-to">Desde:<br />Estacion {{originStation.name}}<br /><br />Hacia:<br />Estacion {{destinationStation.name}}</div>
       </div>
       <div class="trains-container">
         <div class="information-bar">
