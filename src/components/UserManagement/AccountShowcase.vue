@@ -1,6 +1,6 @@
 ﻿<script setup>
 import '@/styles/account.css';
-import { ref } from 'vue';
+import {onMounted, ref} from 'vue';
 import UserApi from '@/api/UserApi.js'
 import TrainComponent from '@/components/TrainComponent.vue'
 import router from '@/router/index.js'
@@ -9,33 +9,42 @@ import router from '@/router/index.js'
 let user = ref(Object);
 let userDetails = ref(Object);
 let travels = ref([]);
-let filteredTravels = ref(Array);
+let userTravels = ref(Array);
 
 
 const travelEditor = () => {
   router.push('/account-editor')
 }
 
-UserApi.getUser(window.localStorage.getItem("userID")).then(response => {
-  user.value = response.data;
-}).catch(() => {
+const getUserTravels = () => {
+  UserApi.getTravels().then( req => {
+    userTravels.value = req.data
+      .filter( travel => travels.value.find( t => t.travelId === travel.id));
+  });
+}
+
+onMounted(() => {
+  UserApi.getUser(window.localStorage.getItem("userID")).then(response => {
+    user.value = response.data;
+  }).catch(() => {
+    window.localStorage.removeItem("userID");
+    router.push('/').then(() => {
+      router.go(0);
+    })
+  });
+  UserApi.getUserDetails(window.localStorage.getItem('userID')).then( req => {
+    userDetails.value = req.data;
+  });
+  UserApi.getTravelsByUser(0).then( req => {
+    travels.value = req.data;
+  });
+  getUserTravels();
 });
 
-UserApi.getUserDetails(window.localStorage.getItem('userID')).then( req => {
-  userDetails.value = req.data;
-});
+const filterByStatus = (status) => {
+  userTravels.value = userTravels.value.filter( travel => travel.status === status);
+}
 
-UserApi.getTravelsByUser(0).then( req => {
-  travels.value = req.data;
-});
-
-UserApi.getTravels().then( req => {
-  filteredTravels.value = req.data
-    .filter( travel => travels.value.find( t => t.travelId === travel.id));
-});
-
-console.log(user,userDetails,travels,filteredTravels);
-//TODO: HACER QUE FUNCIONEN LOS FILTROS Y VER EL DETALLE DEL VIAJE
 </script>
 
 <template>
@@ -59,7 +68,7 @@ console.log(user,userDetails,travels,filteredTravels);
             <p>Kilometros recorridos:</p>
             <p class="ammount">{{ user.kilometers }}</p>
           </div>
-          <div class="avaliable-points">
+          <div class="available-points">
             <p>Kilometros recorridos:</p>
             <p class="ammount">{{user.points}}</p>
           </div>
@@ -71,24 +80,24 @@ console.log(user,userDetails,travels,filteredTravels);
         </div>
         <div class="your-trips-filters">
           <div class="filters-title">
-            <p>Filtros: </p>
+            <p>Filtros:</p>
           </div>
           <div class="your-trips-filters-container">
-            <p>Origen</p>
+            <a @click='filterByStatus("En ruta")'>En Ruta</a>
           </div>
           <div class="your-trips-filters-container">
-            <p>Destino</p>
+            <a @click='filterByStatus("Pendiente")'>Agendados</a>
           </div>
           <div class="your-trips-filters-container">
-            <p>Fecha</p>
+            <a @click="filterByStatus('Finalizado')">Finalizados</a>
           </div>
           <div class="your-trips-filters-container">
-            <p>Estado</p>
+            <a @click="getUserTravels()">Limpiar</a>
           </div>
         </div>
         <div class="your-trips-body">
           <div class="your-trips-container">
-            <train-component v-for="item in filteredTravels" :travel="item"></train-component>
+            <train-component v-for="item in userTravels" :travel="item"></train-component>
           </div>
         </div>
       </div>

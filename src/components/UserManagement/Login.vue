@@ -10,6 +10,8 @@ const client_id = "client_id";
 let email = ref('');
 let password = ref('');
 
+let credentialError = ref(false);
+
 
 const login = () => {
   UserApi.logUser(email.value, password.value).then(response => {
@@ -18,7 +20,7 @@ const login = () => {
       router.go(0);
     })
   }).catch(() => {
-    console.log("Error");
+    credentialError.value = true;
   });
 }
 
@@ -47,6 +49,9 @@ const callback = (response) => {
 
       <form class="form-container" @submit.prevent="login">
         <div class="section-body">
+          <div class="crendetial-error" v-show="credentialError">
+            Credenciales incorrectas
+          </div>
           <div class="input-group">
             <label for="email">Email</label>
             <input type="email" id="email" name="email" v-model="email">

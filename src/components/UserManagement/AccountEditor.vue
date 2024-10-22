@@ -80,7 +80,7 @@ const deleteAccount = () => {
     }).catch(() => {
       console.log('Error')
     });
-  }else if (confirmUser.value === userHead.value.name){
+  } else if (confirmUser.value === userHead.value.name){
     confirmMessage.value = '¿Estás seguro?'
     confirmed.value = !confirmed.value
   } else {
@@ -97,6 +97,10 @@ onMounted( () => {
   UserApi.getUser(window.localStorage.getItem("userID")).then(response => {
     userHead.value = response.data;
   }).catch(() => {
+    window.localStorage.removeItem("userID");
+    router.push('/').then(() => {
+      router.go(0);
+    })
   });
 
   UserApi.getUserDetails(window.localStorage.getItem('userID')).then( req => {
@@ -124,16 +128,10 @@ onMounted( () => {
   });
 } )
 
-
-console.log(username,email,password,bio,phone,names,lastNames,rut,birthDate,address,trait,emergencyContact,emergencyNumber,city,commune);
-
-//TODO: Ver que hacer con la foto
-//TODO: Comprobar que falta
-//TODO: Gestion de Errores
 </script>
 
 <template>
-  <section class="page-body">
+  <section class="page-body content">
     <div class="left-column">
       <img class="profile-pic" src="../../assets/11.jpg" alt="">
       <button class="edit-profile">Editar Foto</button>
@@ -143,9 +141,7 @@ console.log(username,email,password,bio,phone,names,lastNames,rut,birthDate,addr
       <div class="header">
         <div class="header-title">Datos Personales</div>
       </div>
-
       <div class="form-content">
-
         <div class="section">
           <div class="section-header">Credenciales</div>
           <div class="section-body">
@@ -243,5 +239,7 @@ console.log(username,email,password,bio,phone,names,lastNames,rut,birthDate,addr
 </template>
 
 <style scoped>
-
+.content {
+  position: unset;
+}
 </style>

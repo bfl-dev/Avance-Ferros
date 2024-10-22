@@ -1,29 +1,36 @@
 ﻿<script setup>
 import '@/styles/login-overlay.css';
-import {ref} from 'vue';
+import {onMounted, ref} from 'vue';
 import UserApi from '@/api/UserApi.js';
 import router from '@/router/index.js';
 
-const travelDate = ref('');
-const travelTime = ref('');
-const origin = ref('');
-const destination = ref('');
-const train = ref('');
+let stations = ref([])
+
+onMounted(() => {
+  UserApi.getStations().then( req => {
+    stations.value = req.data;
+  }
+)});
+
+
+let travelDate = ref('');
+let travelTime = ref('');
+let origin = ref('');
+let departure = ref('');
+
+
 
 const scheduleTravel = () => {
-  // Implement the logic to schedule the travel
-  console.log({
-    travelDate: travelDate.value,
-    travelTime: travelTime.value,
+  UserApi.postTravel({
+    date: travelDate.value,
+    departure: travelTime.value,
     origin: origin.value,
-    destination: destination.value,
-    train: train.value,
+    destination: departure.value
   });
-  // Example: Redirect to another page after scheduling
-    router.push('/admin/trains').then(() => {
+  router.push('/admin/trains').then(() => {
       router.go(0);
   });
-};
+};  
 </script>
 
 <template>
@@ -47,37 +54,15 @@ const scheduleTravel = () => {
         <div class="input-group">
           <label for="origin">Origen</label>
           <select id="origin" v-model="origin">
-            <option value="Victoria">Victoria</option>
-            <option value="PUA">PUA</option>
-            <option value="Perquenco">Perquenco</option>
-            <option value="Quillem">Quillem</option>
-            <option value="Lautaro">Lautaro</option>
-            <option value="Lautaro Centro">Lautaro Centro</option>
-            <option value="Pillanlelbun">Pillanlelbun</option>
-            <option value="Cajon">Cajon</option>
-            <option value="Temuco">Temuco</option>
+            <option value="" selected disabled>¿De donde partes?</option>
+            <option v-for="station of stations" :value="station.id" :key="station.id" :disabled="destination===station">{{station.name}}</option>
           </select>
         </div>
         <div class="input-group">
           <label for="destination">Destino</label>
-          <select id="destination" v-model="destination">
-            <option value="Victoria">Victoria</option>
-            <option value="PUA">PUA</option>
-            <option value="Perquenco">Perquenco</option>
-            <option value="Quillem">Quillem</option>
-            <option value="Lautaro">Lautaro</option>
-            <option value="Lautaro Centro">Lautaro Centro</option>
-            <option value="Pillanlelbun">Pillanlelbun</option>
-            <option value="Cajon">Cajon</option>
-            <option value="Temuco">Temuco</option>
-          </select>
-        </div>
-        <div class="input-group">
-          <label for="train">Tren</label>
-          <select id="train" v-model="train">
-            <option value="F35">F-35 Lightning II</option>
-            <option value="F22">F-22 Raptor</option>
-            <option value="suhakuto">Super Hakuto</option>
+          <select id="destination" v-model="departure">
+            <option value="" selected disabled>¿A donde vas?</option>
+            <option v-for="station of stations" :value="station.id" :key="station.id" :disabled="origin === station">{{station.name}}</option>
           </select>
         </div>
       </div>
