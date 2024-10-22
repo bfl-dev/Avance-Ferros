@@ -46,7 +46,7 @@ const homePaths = {
         components: {content: TravelTracker}
       },
       {
-        path: 'select-travel/:origin:destination',
+        path: 'select-travel/:origin:destination:date',
         components: {content: SelectTravel},
         props: true
       },
