@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref, watch , watchEffect} from 'vue';
+import { defineProps, ref, watch, watchEffect, defineEmits } from 'vue';
 import axios from 'axios';
 
 const props = defineProps({
@@ -16,6 +16,8 @@ const props = defineProps({
     required: true
   }
 });
+
+const emit = defineEmits(['update-total']);
 
 const travel = ref(null);
 const originStation = ref('');
@@ -52,6 +54,7 @@ watch(() => props.travelId, (newTravelId) => {
 watchEffect(() => {
   subtotal.value = 800 * props.totalPassengers;
   total.value = subtotal.value - props.discount;
+  emit('update-total', total.value);
 });
 </script>
 
