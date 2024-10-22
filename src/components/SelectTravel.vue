@@ -4,6 +4,7 @@ import TravelWrapper from '@/components/TravelInfo/TravelWrapper.vue'
 import VueSlider from "vue-3-slider-component";
 import { convertToTime, convertToMinutes, getCurrentDate } from '../api/TimeUtils.js'
 import { getAllTravels, getStation } from '@/api/TrainsApi.js'
+import NavBar from '@/components/Payment/NavBar.vue'
 const props = defineProps({
   origin:String,
   destination:String,
@@ -48,12 +49,7 @@ onMounted(() => {
 
 
   <div class="select-ticket">
-    <div class="nav-bar">
-      <p class="nav-text" style="background-color: #f7d40a; color: #000000">Servicios</p>
-      <p class="nav-text">Asientos</p>
-      <p class="nav-text">Pasajeros</p>
-      <p class="nav-text">Pago</p>
-    </div>
+    <NavBar :highlight-index="0"></NavBar>
     <div class="content">
       <div class="filters">
         <p>Fecha de Salida:</p>
