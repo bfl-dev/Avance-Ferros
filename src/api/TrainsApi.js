@@ -13,3 +13,11 @@ export function getAllStations(){
 export function getStation(id){
   return axios.get('http://localhost:3000/stations/'+id)
 }
+
+export function getNode(id){
+  return axios.get('http://localhost:3000/nodes/'+id)
+}
+
+export function getAllNodes(){
+  return axios.get('http://localhost:3000/nodes')
+}
