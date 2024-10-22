@@ -22,11 +22,10 @@ import FerrosHeader from "@/components/Header.vue";
 .landing{
   display: flex;
   flex-direction: column;
-  overflow: auto;
-  position:absolute;
+  position: absolute;
   height:100%;
   width:100%;
-  gap: 3rem;
+  overflow: hidden;
   font-family: "Inter",serif;
   background-image: url("@/assets/background.jpg");
   background-repeat: no-repeat;
