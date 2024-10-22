@@ -220,7 +220,7 @@
 
 .your-trips-container{
     display: flex;
-    padding: 1.25rem 2.5rem 0 2.5rem;
+    padding: 0 2.5rem 1.25rem;
     align-items: flex-start;
     gap: 0.625rem;
     flex: 1 0 0;
