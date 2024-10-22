@@ -15,6 +15,7 @@ const center = ref()
 const origin = ref()
 const destination = ref()
 const map = ref()
+const zoom = ref(11.8)
 
 function loadPromise(){
   let loader =  new Loader({
@@ -43,6 +44,8 @@ function loadStations(){
 }
 
 function loadMap(){
+  zoom.value = zoom.value-(2.4*(Math.abs(parseInt(props.travel.origin)-parseInt(props.travel.destination))/8))
+  console.log(zoom.value)
   getAllNodes().then(nodesResponse =>{
     map.value = nodesResponse['data']
     loadStations()
@@ -69,7 +72,7 @@ fetch()
         :api-promise="apiPromise"
         style="width: 100%; height: 500px"
         :center="center"
-        :zoom="11"
+        :zoom="zoom"
       >
 
         <CustomMarker :options="{ position: center, anchorPoint: 'BOTTOM_CENTER' }">
