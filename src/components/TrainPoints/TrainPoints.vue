@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import Card from './Card.vue';
 import ProgressBar from './ProgressBar.vue';
+import UserApi from "@/api/UserApi.js";
 
 const items = ref([
   { id: 1, property1: 'claim-1', levelText: 'Nivel 1', pointsText: '30 Puntos' },
@@ -21,13 +22,19 @@ const items = ref([
 const userRewards = ref([]);
 const loading = ref(true);
 
+const updateProperty = (item, rewards) => {
+  if (rewards.includes(item.id)) {
+    return item.property1.replace('claim', 'acquired');
+  }
+  return item.property1;
+};
+
 onMounted(async () => {
   try {
-    const response = await axios.get('http://localhost:3000/userRewards/0');
-    userRewards.value = response.data.rewards || [];
+    userRewards.value = await UserApi.getUserRewards(window.localStorage.getItem("userID"));
     items.value = items.value.map(item => ({
       ...item,
-      property1: userRewards.value.includes(item.id) ? item.property1.replace('claim', 'acquired') : item.property1
+      property1: updateProperty(item, userRewards.value)
     }));
   } catch (error) {
     console.error('Error loading user rewards:', error);
@@ -40,7 +47,7 @@ const updateItemProperty = async (index, newValue) => {
   items.value[index].property1 = newValue;
   try {
     userRewards.value.push(items.value[index].id);
-    await axios.patch('http://localhost:3000/userRewards/0', { rewards: userRewards.value });
+    await axios.patch(`http://localhost:3000/userRewards/${window.localStorage.getItem("userID")}`, { rewards: userRewards.value });
   } catch (error) {
     console.error('Error updating user rewards:', error);
   }
@@ -54,7 +61,6 @@ const updateItemProperty = async (index, newValue) => {
         <h1 class="title">Canjea Trenepuntos</h1>
       </header>
       <nav class="scroll-wrapper">
-        <div class="content">
           <section class="rewards-container">
             <div class="line"></div>
             <ProgressBar/>
@@ -70,7 +76,6 @@ const updateItemProperty = async (index, newValue) => {
             </div>
             <div v-else>Loading...</div>
           </section>
-        </div>
       </nav>
     </div>
   </div>
@@ -84,6 +89,7 @@ const updateItemProperty = async (index, newValue) => {
   height: 100vh;
   border-radius: 15px;
   overflow: hidden;
+  width: 98%;
 }
 
 .train-points-container {
@@ -108,19 +114,15 @@ const updateItemProperty = async (index, newValue) => {
   width: 1254px;
   height: 603px;
   overflow-x: scroll;
-}
-
-.content {
   position: relative;
-  top: 55px;
-  left: 10px;
+  padding: 10px;
 }
 
 .rewards-container {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 10px;
+  gap: 33px;
   position: absolute;
   padding-right: 10px;
 }
