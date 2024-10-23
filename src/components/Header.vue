@@ -32,7 +32,7 @@ const travelShow = () => {
   <header class="page-header">
     <RouterLink to='/'><logo></logo></RouterLink>
     <RouterLink to="/tracker">Sigue tu viaje</RouterLink>
-    <a href="#">Conocenos</a>
+    <RouterLink to="/kkk">Conocenos</RouterLink>
     <router-link to="/redeem-points" v-show="logged">Canjea Trenepuntos</router-link>
     <div class="logged" id="logged" v-show="logged">
       <div class="user" @click="travelShow()">
