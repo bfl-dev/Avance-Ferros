@@ -46,7 +46,7 @@ function compactExport(){
 <template>
   <div class="train">
     <div class="cabin" v-show="cabinShow===localSeats.indexOf(cabin).toString()" v-for="cabin of localSeats" :key="localSeats.indexOf(cabin)">
-      <SeatComponent v-for="seat of cabin" :seat="seat" :key="seat.id" @flip="function(){
+      <SeatComponent class="seat" v-for="seat of cabin" :seat="seat" :key="seat.id" @flip="function(){
         if (seat.status==='0'){
           seat.status='1'
         } else {
@@ -60,9 +60,15 @@ function compactExport(){
 
 
 <style scoped>
+.train{
+  width: 100%;
+}
 .cabin{
-  display: grid;
-  grid-template-columns: repeat(20, auto);
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-height: 240px;
+  width: 100%;
 }
 </style>
 

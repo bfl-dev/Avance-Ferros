@@ -7,12 +7,14 @@ import TicketDetail from '@/components/Payment/TicketDetail.vue';
 import CountdownTimer from '@/components/Payment/CountdownTimer.vue';
 import PaymentOptions from '@/components/Payment/PaymentOptions.vue';
 import UserContactsFields from "@/components/Payment/UserContactsFields.vue";
+import router from "@/router/index.js";
+import axios from "axios";
 
 const route = useRoute();
 const travelId = ref('');
 const seats = ref([]);
 const discount = ref(0);
-const highlightIndex = 2;
+const total = ref(0);
 
 onMounted(() => {
   const travelData = route.params.travelID.split('-');
@@ -22,23 +24,39 @@ onMounted(() => {
     let wagon = 1;
     if (seatNumber > 80 && seatNumber <= 160) {
       wagon = 2;
-      seatNumber -= 80;
     } else if (seatNumber > 160 && seatNumber <= 240) {
       wagon = 3;
-      seatNumber -= 160;
     }
-    return { wagon, seat: seatNumber };
+    return { wagon, seat: seat };
   });
 });
 
 const updateTrainPoints = (points) => {
   discount.value = points;
 };
+
+const updateTotal = (newTotal) => {
+  total.value = newTotal;
+};
+
+const createUserTrip = async () => {
+    const userTrip = {
+      id: 'T_' + Math.random().toString(36).substring(2,7),
+      userId: window.localStorage.getItem('userID'),
+      travelId: travelId.value,
+      seats: seats.value.map(seat => `${seat.seat}`).join('-'),
+      price: total.value
+    };
+
+    await axios.post('http://localhost:3000/userTrip', userTrip);
+    let string = `/confirmation/${userTrip.id}`;
+    await router.push({ path: string });
+};
 </script>
 
 <template>
   <div class="payment-page-container">
-    <NavBar :highlightIndex="highlightIndex" />
+    <NavBar :highlightIndex="2" />
     <div class="payment-content-wrapper">
       <section class="passenger-info-section">
         <header class="payment-header">
@@ -68,13 +86,12 @@ const updateTrainPoints = (points) => {
         <PaymentOptions @update-train-points="updateTrainPoints" />
       </section>
       <section class="ticket-detail-wrapper">
-        <TicketDetail :discount="discount" :travelId="travelId" :totalPassengers="seats.length"/>
-        <button class="payment-button">Pagar</button>
+        <TicketDetail :discount="discount" :travelId="travelId" :totalPassengers="seats.length" @update-total="updateTotal"/>
+        <button class="payment-button" @click="createUserTrip">Pagar</button>
       </section>
     </div>
   </div>
 </template>
-
 <style scoped>
 .payment-page-container {
   display: flex;
@@ -169,7 +186,7 @@ const updateTrainPoints = (points) => {
   height: 2.8125rem;
   background: #CD071E;
   border-radius: 1.5625rem;
-  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   color: #FFF;
   font-size: x-large;
 }

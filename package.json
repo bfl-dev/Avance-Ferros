@@ -13,12 +13,16 @@
   "dependencies": {
     "@googlemaps/js-api-loader": "^1.16.8",
     "axios": "^1.7.7",
+    "html2canvas": "^1.4.1",
+    "html2pdf.js": "^0.10.2",
     "json-server": "^1.0.0-beta.3",
+    "jspdf": "^2.5.2",
     "primevue": "^4.1.1",
     "vue": "^3.5.12",
     "vue-3-slider-component": "^1.0.1",
     "vue-router": "^4.4.5",
     "vue2-google-maps": "^0.10.7",
+    "vue3-google-login": "^2.0.33",
     "vue3-google-map": "^0.21.0"
   },
   "devDependencies": {

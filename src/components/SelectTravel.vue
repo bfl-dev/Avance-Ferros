@@ -1,59 +1,59 @@
 <script setup>
-import { ref } from 'vue'
-import axios from 'axios'
+import { onMounted, ref } from 'vue'
 import TravelWrapper from '@/components/TravelInfo/TravelWrapper.vue'
 import VueSlider from "vue-3-slider-component";
-import {convertToTime, convertToMinutes} from '../api/TimeUtils.js'
+import { convertToTime, convertToMinutes, getCurrentDate } from '../api/TimeUtils.js'
+import { getAllTravels, getStation } from '@/api/TrainsApi.js'
+import NavBar from '@/components/Payment/NavBar.vue'
 const props = defineProps({
   origin:String,
-  destination:String
+  destination:String,
+  date:String
 })
+const localDate = ref(props.date)
 const slidervalue = ref([360,1410])
 const sliderText = ref('08:00 - 23:25')
 const originStation = ref('')
 const destinationStation = ref('')
 const travels = ref([])
 
-axios.get('http://localhost:3000/stations').then(response =>{
-  for (const station of response.data){
-    if (station.id === props.origin){
-      originStation.value = station
-    }
-    if (station.id === props.destination){
-      destinationStation.value = station
-    }
-  }
-
-  axios.get('http://localhost:3000/travels').then(response =>{
-  for (const ride of response.data){
-    console.log(ride)
-    if (ride.status === "Pendiente" && ride.origin === originStation.value.id && ride.destination === destinationStation.value.id){
-      travels.value.push(ride)
-
-    }
-  }
+getStation(props.origin).then(response => {
+  originStation.value = response['data']
 })
+getStation(props.destination).then(response => {
+  destinationStation.value = response['data']
 })
 
-function updateTime() {
-  sliderText.value = `${convertToTime(slidervalue.value[0])} - ${convertToTime(slidervalue.value[1])}`
+getAllTravels().then(response =>{
+  for (const travel of response['data']){
+    travels.value.push(travel)
+  }
+})
+
+
+function visible(ride){
+  return ride.date === localDate.value &&
+    ride.status === "Pendiente" &&
+    ride.origin === originStation.value.id &&
+    ride.destination === destinationStation.value.id &&
+    slidervalue.value[0]<=convertToMinutes(ride.departure) &&
+    slidervalue.value[1]>=convertToMinutes(ride.departure)
 }
 
-
+onMounted(() => {
+  document.getElementById('travel-date').setAttribute('min', getCurrentDate());
+});
 </script>
 
 <template>
 
 
   <div class="select-ticket">
-    <div class="nav-bar">
-      <p class="nav-text" style="background-color: #f7d40a; color: #000000">Servicios</p>
-      <p class="nav-text">Asientos</p>
-      <p class="nav-text">Pasajeros</p>
-      <p class="nav-text">Pago</p>
-    </div>
+    <NavBar :highlight-index="0"></NavBar>
     <div class="content">
       <div class="filters">
+        <p>Fecha de Salida:</p>
+        <input type="date" id="travel-date" name="date" class="tickets-select-box" v-model="localDate" :min="getCurrentDate" >
         <p>Hora de Salida:</p>
         <p>{{sliderText}}</p>
         <VueSlider
@@ -66,8 +66,8 @@ function updateTime() {
           :min=360
           :height="8"
           :width="180"
-          @change="updateTime"/>
-        <div class="from-to">Desde:<br />Estacion {{originStation["name"]}}<br /><br />Hacia:<br />Estacion {{destinationStation["name"]}}</div>
+          @change="sliderText.value = `${convertToTime(slidervalue.value[0])} - ${convertToTime(slidervalue.value[1])}`"/>
+        <div class="from-to">Desde:<br />Estacion {{originStation.name}}<br /><br />Hacia:<br />Estacion {{destinationStation.name}}</div>
       </div>
       <div class="trains-container">
         <div class="information-bar">
@@ -81,7 +81,7 @@ function updateTime() {
           v-for="travel of travels"
           :key="travel.id"
           :travel="travel"
-          v-show="slidervalue[0]<=convertToMinutes(travel.departure) && slidervalue[1]>=convertToMinutes(travel.departure)"></TravelWrapper>
+          v-show="visible(travel)"></TravelWrapper>
       </div>
     </div>
   </div>
@@ -89,11 +89,21 @@ function updateTime() {
 </template>
 
 <style scoped>
+.tickets-select-box{
 
+  font-weight: 500;
+  display: flex;
+  width: fit-content;
+  height: 100%;
+  flex-shrink: 0;
+  border-radius: 0.9375rem;
+  text-align: center;
+  font-size: large;
+}
 .select-ticket {
   display: flex;
   flex-direction: column;
-
+  font-family: "Inter";
   align-items: center;
 
   color: #000000;

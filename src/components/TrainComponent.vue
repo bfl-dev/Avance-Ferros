@@ -1,8 +1,18 @@
 <script setup>
 
+import { ref } from 'vue'
+import { getStation } from '@/api/TrainsApi.js'
+
 const props = defineProps({travel:Object})
+const origin = ref('')
+const destination = ref('')
 
-
+getStation(props.travel.origin).then(response =>{
+  origin.value = response['data']
+})
+getStation(props.travel.destination).then(response =>{
+  destination.value = response['data']
+})
 </script>
 
 <template>
@@ -16,11 +26,11 @@ const props = defineProps({travel:Object})
                             <div class="train-component-body-row">
                                 <div class="train-component-body-text-box">
                                     <p><b>Origen</b></p>
-                                    <p>{{props.travel.origin.name}}</p>
+                                    <p>{{origin.name}}</p>
                                 </div>
                                 <div class="train-component-body-text-box">
                                     <p><b>Destino</b></p>
-                                    <p>{{props.travel.destination.name}}</p>
+                                    <p>{{destination.name}}</p>
                                 </div>
                             </div>
                             <div class="train-component-body-row">
@@ -36,13 +46,15 @@ const props = defineProps({travel:Object})
                             <div class="train-component-body-row">
                                 <div class="train-component-body-text-box">
                                     <p><b>Pasajeros</b></p>
-                                    <p>{{props.travel.passengers.split('').filter(value => value=="1").length}}</p>
+                                    <p>{{ props.travel.passengers.split('').filter(value => value === "1").length }}</p>
                                 </div>
-                                <div class="train-component-body-text-box"></div>
-                                <!--este div existe para alinear el componente (a mi tampoco me gusta la idea)-->
+                                <div class="train-component-body-text-box">
+                                    <p><b>Fecha</b></p>
+                                    <p>{{props.travel.date.split('-').reverse().join('-')}}</p>
                                 </div>
                             </div>
-                    </div>
+                        </div>
+</div>
 </template>
 
 <style scoped>

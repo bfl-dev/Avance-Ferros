@@ -1,9 +1,12 @@
 <script setup>
 
-import { CustomMarker, GoogleMap } from 'vue3-google-map'
+import { CustomMarker, GoogleMap, Polyline } from 'vue3-google-map'
 import { Loader } from '@googlemaps/js-api-loader';
 import { ref } from 'vue'
-import axios from 'axios'
+import { getKey } from '@/api/MapsApi.js'
+import { getAllNodes, getAllStations } from '@/api/TrainsApi.js'
+
+
 const props = defineProps({travel:Object})
 const API_KEY = ref('MAPS_KEY')
 const apiPromise = ref()
@@ -11,13 +14,26 @@ const loaded = ref(false)
 const center = ref()
 const origin = ref()
 const destination = ref()
-const stations = ref([])
+const map = ref()
+const zoom = ref(11.8)
+const pastRoute = ref([])
+const futureRoute = ref([])
 
-axios.get('http://localhost:3000/nodes').then(response =>{
-  for (const station of response.data){
-    stations.value.push(station)
-  }
-})
+const routeDrawn = ref(false)
+const routeDone = {
+  path: pastRoute.value,
+  geodesic: true,
+  strokeColor: '#0000FF',
+  strokeOpacity: 1.0,
+  strokeWeight: 4,
+}
+const routeUpcoming = {
+  path: futureRoute.value,
+  geodesic: true,
+  strokeColor: '#FFFF00',
+  strokeOpacity: 1.0,
+  strokeWeight: 4,
+}
 function loadPromise(){
   let loader =  new Loader({
   apiKey: API_KEY.value,
@@ -27,23 +43,69 @@ function loadPromise(){
   apiPromise.value= loader.load()
   loaded.value = true
 }
+function loadStations(){
+  getAllStations().then(stationsResponse =>{
+    for (const station of stationsResponse['data']){
+      if (station.id === props.travel.origin){
+        origin.value = map.value.find(value => value.id === station.location)
+      }
+      if (station.id === props.travel.destination){
+        destination.value = map.value.find(value => value.id === station.location)
+      }
+    }
+    console.log(props.travel)
+    if (props.travel.status === "En ruta"){
+      center.value = map.value.find(value => value.id === Math.round((parseInt(origin.value.id)+parseInt(destination.value.id))/2).toString())
+    } else if (props.travel.status === "Pendiente"){
+      center.value = origin.value
+      zoom.value = zoom.value-1
+    } else {
+      center.value = destination.value
+      zoom.value = zoom.value-1
+    }
+    createRoute()
+    origin.value = origin.value.location
+    center.value = center.value.location
+    destination.value = destination.value.location
+  })
+
+}
+
+function loadMap(){
+  zoom.value = zoom.value-(2.4*(Math.abs(parseInt(props.travel.origin)-parseInt(props.travel.destination))/8))
+  console.log(zoom.value)
+  getAllNodes().then(nodesResponse =>{
+    map.value = nodesResponse['data']
+    loadStations()
+  })
+}
+
+function createRoute(){
+  let lowNode = Math.min(parseInt(origin.value.id), parseInt(destination.value.id))
+  let highNode = Math.max(parseInt(origin.value.id), parseInt(destination.value.id))
+  for (const node of map.value){
+    if (parseInt(node.id) >= lowNode && parseInt(node.id) <= highNode){
+      if (parseInt(center.value.id) > parseInt(node.id)){
+        pastRoute.value.push(node.location)
+      } else if (parseInt(center.value.id) === parseInt(node.id)) {
+        futureRoute.value.push(node.location)
+        pastRoute.value.push(node.location)
+      } else {
+        futureRoute.value.push(node.location)
+      }
+
+    }
+  }
+  routeDrawn.value = true
+}
+
+
 
 function fetch(){
-  axios.get('http://localhost:3000/key').then(response=>{
-  API_KEY.value = response.data.split("").reverse().join("")
-
-  axios.get('http://localhost:3000/nodes/'+props.travel.destination.location).then(response =>{
-    destination.value = response.data.location
-    axios.get('http://localhost:3000/nodes/'+props.travel.origin.location).then(response =>{
-      origin.value = response.data.location
-      let centernode = Math.round((parseInt(props.travel.destination.location)+parseInt(props.travel.origin.location))/2).toString()
-      axios.get('http://localhost:3000/nodes/'+centernode).then(response =>{
-        console.log(props.travel.destination.location)
-        center.value = response.data.location
-        loadPromise()
-      })
-    })
-  })
+  getKey().then(response=>{
+    API_KEY.value = response.data.split("").reverse().join("")
+    loadMap()
+    loadPromise()
 })
 }
 
@@ -57,7 +119,7 @@ fetch()
         :api-promise="apiPromise"
         style="width: 100%; height: 500px"
         :center="center"
-        :zoom="11"
+        :zoom="zoom"
       >
 
         <CustomMarker :options="{ position: center, anchorPoint: 'BOTTOM_CENTER' }">
@@ -69,6 +131,8 @@ fetch()
         <CustomMarker :options="{ position: destination, anchorPoint: 'BOTTOM_CENTER' }">
           <img src="../../assets/station.png" width="50" height="50" />
         </CustomMarker>
+        <Polyline v-if="routeDrawn" :options="routeDone" />
+        <Polyline v-if="routeDrawn" :options="routeUpcoming" />
       </GoogleMap>
 </template>
 

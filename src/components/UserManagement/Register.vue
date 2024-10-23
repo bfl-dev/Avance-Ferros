@@ -9,6 +9,7 @@ import router from '@/router/index.js'
 let user = ref('')
 let email = ref('')
 let pass = ref('')
+
 let passCheck = ref('')
 
 const isFormValid = computed(() => {
@@ -16,9 +17,17 @@ const isFormValid = computed(() => {
 });
 
 const register = () => {
-  if (isFormValid.value) { //TODO: Hacer gestion de errores
-    UserApi.postUser(user.value, email.value, pass.value).then(response => {
-      UserApi.postUserDetails(response.data.id, user.value).then(() => {
+
+  if (isFormValid.value) {
+
+    const userData = {
+      name: user.value,
+      email: email.value,
+      password: pass.value
+    };
+
+    UserApi.postUser(userData).then(response => {
+      UserApi.postUserDetails(response.data.id ,{}).then(() => {
         console.log('Usuario creado');
       }).catch(() => {
         console.log('Error');
@@ -28,8 +37,8 @@ const register = () => {
         router.go(0);
       });
 
-    }).catch(() => {
-      console.log(error);
+    }).catch((reason) => {
+      console.log(reason);
     });
   }
 }
@@ -45,9 +54,6 @@ const register = () => {
 
       <div class="section-header">Registrate</div>
 
-      <div class="separator">
-        <p>- ó -</p>
-      </div>
 
       <form class="form-container" @submit.prevent="register">
 
@@ -69,16 +75,25 @@ const register = () => {
             <input type="password" id="pass-check" v-model="passCheck">
           </div>
         </div>
-        <p v-if="!isFormValid">Rellene todos los campos</p>
-        <p v-if="pass.value !== passCheck.value & !isFormValid">Las contraseñas no coinciden</p>
 
-         <button type="submit" :disabled="!isFormValid" @click="register()">Registrarse</button>
         <!-- No entiendo pero bueno, ya fue-->
       </form>
+      <div class="blk-container">
+        <p v-if="!isFormValid">Rellene todos los campos</p>
+        <p v-if="pass.value !== passCheck.value & !isFormValid">Las contraseñas no coinciden</p>
+        <button type="submit" :disabled="!isFormValid" @click="register()">Registrarse</button>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
 
+.blk-container {
+  display: contents;
+  justify-content: center;
+  align-items: center;
+  height: 2rem;
+  color: red;
+}
 </style>

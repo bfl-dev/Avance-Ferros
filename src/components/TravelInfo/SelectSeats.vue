@@ -1,38 +1,27 @@
 <script setup>
-import axios from 'axios'
+
 import { ref } from 'vue'
 import SeatsWrapper from '@/components/TravelInfo/SeatsWrapper.vue'
 import router from '@/router/index.js'
+import { getTravel } from '@/api/TrainsApi.js'
+import NavBar from '@/components/Payment/NavBar.vue'
 const props = defineProps({travelId:String})
 const travel = ref()
 const cabinSelection = ref('0')
 const loaded = ref(false)
 const seatsWrapper = ref(null)
-axios.get('http://localhost:3000/travels/'+props.travelId).then(response =>{
+
+getTravel(props.travelId).then(response =>{
   travel.value = response.data
   loaded.value = true
 })
 
-function confirmSubmition(){
-  seatsWrapper.value.submit()
-}
-function submitSeats(args){
-  let string = `/payment/${props.travelId}`
-  for (const seat of args){
-    string+=`-${seat.id}`
-  }
-  router.push({path:string})
-}
+
 </script>
 
 <template>
 <div class="select-seats">
-    <div class="nav-bar">
-      <p class="nav-text">Servicios</p>
-      <p class="nav-text" style="background-color: #f7d40a; color: #000000">Asientos</p>
-      <p class="nav-text">Pasajeros</p>
-      <p class="nav-text">Pago</p>
-    </div>
+    <NavBar :highlight-index="1"></NavBar>
     <div class="cabin-selector">
       <img src="../../assets/left-cabin.png" class="cabin" @click="cabinSelection='0'" v-show="cabinSelection!=='0'" />
       <img src="../../assets/left-cabin-selected.png" class="cabin" @click="cabinSelection='0'" v-show="cabinSelection==='0'" />
@@ -41,8 +30,12 @@ function submitSeats(args){
       <img src="../../assets/right-cabin.png" class="cabin" @click="cabinSelection='2'" v-show="cabinSelection!=='2'" />
       <img src="../../assets/right-cabin-selected.png" class="cabin" @click="cabinSelection='2'" v-show="cabinSelection==='2'"/>
     </div>
-    <SeatsWrapper ref="seatsWrapper" v-if="loaded" :seats="travel.passengers" :cabin-show="cabinSelection" :key="travel.id" @submit="args => {
-      submitSeats(args.i)
+    <SeatsWrapper class="seats-wrapper" ref="seatsWrapper" v-if="loaded" :seats="travel.passengers" :cabin-show="cabinSelection" :key="travel.id" @submit="args => {
+      let string = `/payment/${props.travelId}`
+      for (const seat of args.i){
+        string+=`-${seat.id}`
+      }
+      router.push({path:string})
     }"></SeatsWrapper>
     <div class="nav-bar">
         <img src="../../assets/Ocupado.png">
@@ -51,17 +44,26 @@ function submitSeats(args){
         <p class="nav-text" style="background-color: #f7d40a; color: #000000">Libre</p>
         <img src="../../assets/Seleccionado.png">
         <p class="nav-text" style="background-color: #f7d40a; color: #000000">Seleccionado</p>
-        <button class="payment-button" @click="confirmSubmition()">Confirmar</button>
+        <button class="payment-button" @click="seatsWrapper.submit()">Confirmar</button>
     </div>
   </div>
 </template>
 
 <style scoped>
+.seats-wrapper {
+  width: 100%;
+  height: fit-content;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: scroll;
+}
 .select-seats {
   margin: 3rem auto auto;
   display: flex;
   height: 50%;
-  width: 63%;
+  width: 65%;
   padding: 2rem 2rem;
   flex-direction: column;
   justify-content: space-between;

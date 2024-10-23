@@ -1,6 +1,6 @@
 ﻿<script setup>
 import '../../styles/account.css'
-import { ref } from 'vue'
+import {onMounted, ref} from 'vue'
 import UserApi from '@/api/UserApi.js'
 import router from '@/router/index.js'
 
@@ -21,19 +21,22 @@ let emergencyContact = ref('')
 let emergencyNumber = ref(0)
 let city = ref('')
 let commune = ref('')
+let imageUrl = ref('')
 
 let confirmUser = ref('')
 let confirmMessage = ref('Eliminar cuenta')
 let confirmed = ref(false)
 
 const saveChanges = () => {
+
   let user = {
     name: username.value,
     email: email.value,
     password: password.value,
-    points: user.points,
-    kilometers: user.kilometers
+    points: userHead.points ?? 0,
+    kilometers: userHead.kilometers ?? 0
   }
+
   let userDetails = {
     bio: bio.value,
     phone: phone.value,
@@ -47,8 +50,9 @@ const saveChanges = () => {
     emergencyContact: emergencyNumber.value,
     city: city.value,
     commune: commune.value,
-    profilePic: "https://picsum.photos/540"
+    profilePic: imageUrl.value
   }
+
   UserApi.putUser(window.localStorage.getItem("userID"), user).then(() => {
     UserApi.putUserDetails(window.localStorage.getItem("userID"), userDetails).then(() => {
       router.push('/account-showcase').then(() => {
@@ -60,7 +64,6 @@ const saveChanges = () => {
   }).catch(() => {
     console.log('Error User Tipo1')
   });
-  console.log(user,userDetails);
 }
 
 const deleteAccount = () => {
@@ -78,7 +81,7 @@ const deleteAccount = () => {
     }).catch(() => {
       console.log('Error')
     });
-  }else if (confirmUser.value === userHead.value.name){
+  } else if (confirmUser.value === userHead.value.name){
     confirmMessage.value = '¿Estás seguro?'
     confirmed.value = !confirmed.value
   } else {
@@ -91,57 +94,55 @@ const resetConfirm = () => {
   confirmed.value = false
 }
 
-UserApi.getUser(window.localStorage.getItem("userID")).then(response => {
-  userHead.value = response.data;
-}).catch(() => {
-});
+onMounted( () => {
+  UserApi.getUser(window.localStorage.getItem("userID")).then(response => {
+    userHead.value = response.data;
+  }).catch(() => {
+    window.localStorage.removeItem("userID");
+    router.push('/').then(() => {
+      router.go(0);
+    })
+  });
 
-UserApi.getUserDetails(window.localStorage.getItem('userID')).then( req => {
-  let userDetails = ref(req.data);
-  bio.value = userDetails.value.bio
-  phone.value = userDetails.value.phone
-  names.value = userDetails.value.names
-  lastNames.value = userDetails.value.lastNames
-  rut.value = userDetails.value.rut
-  birthDate.value = userDetails.value.birthday
-  address.value = userDetails.value.address
-  trait.value = userDetails.value.trait
-  emergencyContact.value = userDetails.value.emergencyContactName
-  emergencyNumber.value = userDetails.value.emergencyContact
-  city.value = userDetails.value.city
-  commune.value = userDetails.value.commune
-});
+  UserApi.getUserDetails(window.localStorage.getItem('userID')).then( req => {
+    let userDetails = ref(req.data);
+    bio.value = userDetails.value.bio
+    phone.value = userDetails.value.phone
+    names.value = userDetails.value.names
+    lastNames.value = userDetails.value.lastNames
+    rut.value = userDetails.value.rut
+    birthDate.value = userDetails.value.birthday
+    address.value = userDetails.value.address
+    trait.value = userDetails.value.trait
+    emergencyContact.value = userDetails.value.emergencyContactName
+    emergencyNumber.value = userDetails.value.emergencyContact
+    city.value = userDetails.value.city
+    commune.value = userDetails.value.commune
+    imageUrl.value = userDetails.value.profilePic
+  });
 
-UserApi.getUser(window.localStorage.getItem("userID")).then(response => {
-  userHead.value = response.data;
-  username.value = userHead.value.name;
-  email.value = userHead.value.email;
-  password.value = userHead.value.password;
-}).catch(() => {
-});
+  UserApi.getUser(window.localStorage.getItem("userID")).then(response => {
+    userHead.value = response.data;
+    username.value = userHead.value.name;
+    email.value = userHead.value.email;
+    password.value = userHead.value.password;
+  }).catch(() => {
+  });
+} )
 
-
-console.log(username,email,password,bio,phone,names,lastNames,rut,birthDate,address,trait,emergencyContact,emergencyNumber,city,commune);
-
-//TODO: Ver que hacer con la foto
-//TODO: Comprobar que falta
-//TODO: Gestion de Errores
 </script>
 
 <template>
-  <section class="page-body">
+  <section class="page-body content">
     <div class="left-column">
-      <img class="profile-pic" src="../../assets/11.jpg" alt="">
-      <button class="edit-profile">Editar Foto</button>
+      <img class="profile-pic" :src="imageUrl" alt="">
       <button class="save-profile" @click="saveChanges()">Guardar Cambios</button>
     </div>
     <div class="form-container">
       <div class="header">
         <div class="header-title">Datos Personales</div>
       </div>
-
       <div class="form-content">
-
         <div class="section">
           <div class="section-header">Credenciales</div>
           <div class="section-body">
@@ -181,6 +182,10 @@ console.log(username,email,password,bio,phone,names,lastNames,rut,birthDate,addr
               <div class="input-group">
                 <label for="lastnames">Apellidos</label>
                 <input type="text" id="lastnames" name="lastnames" v-model="lastNames">
+              </div>
+              <div class="input-group">
+                <label for="imageUrl">Link Foto Perfil</label>
+                <input type="text" id="imageUrl" name="imageUrl" v-model="imageUrl">
               </div>
             </div>
             <div class="input-group-group">
@@ -239,5 +244,7 @@ console.log(username,email,password,bio,phone,names,lastNames,rut,birthDate,addr
 </template>
 
 <style scoped>
-
+.content {
+  position: unset;
+}
 </style>

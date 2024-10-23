@@ -4,8 +4,13 @@ import {ref} from 'vue';
 import UserApi from '@/api/UserApi.js'
 import router from '@/router/index.js'
 
+import { GoogleLogin } from 'vue3-google-login'
+
+const client_id = "client_id";
 let email = ref('');
 let password = ref('');
+
+let credentialError = ref(false);
 
 
 const login = () => {
@@ -15,10 +20,14 @@ const login = () => {
       router.go(0);
     })
   }).catch(() => {
-    console.log("Error");
+    credentialError.value = true;
   });
 }
-//TODO: Gestion de errores
+
+const callback = (response) => {
+  console.log("do something ", response);
+}
+
 </script>
 
 <template>
@@ -32,12 +41,16 @@ const login = () => {
 
       <div class="section-header">Inicia Sesion</div>
 
+      <GoogleLogin :callback="callback" :client-id="client_id"></GoogleLogin>
       <div class="separator">
         <p>- ó -</p>
       </div>
 
       <form class="form-container" @submit.prevent="login">
         <div class="section-body">
+          <div class="crendetial-error" v-show="credentialError">
+            Credenciales incorrectas
+          </div>
           <div class="input-group">
             <label for="email">Email</label>
             <input type="email" id="email" name="email" v-model="email">

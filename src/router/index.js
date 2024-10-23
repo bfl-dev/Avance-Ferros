@@ -11,7 +11,18 @@ import SelectTravel from '@/components/SelectTravel.vue'
 import TrainPoints from "@/components/TrainPoints/TrainPoints.vue";
 import SelectSeats from '@/components/TravelInfo/SelectSeats.vue'
 import Payment from "@/components/Payment/Payment.vue";
-
+import AdminLoginView from "@/pages/AdminLoginView.vue";
+import AdminVIew from "@/pages/AdminView.vue";
+import AdminHomeBody from "@/components/Admin/AdminHomeBody.vue";
+import AdminUsersBody from "@/components/Admin/AdminUsersBody.vue";
+import AdminTrainsBody from "@/components/Admin/AdminTrainsBody.vue";
+import addTrainPopup from "@/components/Admin/Popups/AddTrainPopup.vue";
+import addUserPopup from "@/components/Admin/Popups/AddUserPopup.vue";
+import editUserPopup from "@/components/Admin/Popups/EditUserPopup.vue";
+import manageTrainPopup from "@/components/Admin/Popups/ManageTrainPopup.vue";
+import Confirmation from "@/components/Confirmation/Confirmation.vue";
+import EditTrainPopup from "@/components/Admin/Popups/EditTrainPopup.vue";
+import DevInformation from '@/components/DevInformation.vue'
 
 const homePaths = {
   path: '/',
@@ -35,7 +46,7 @@ const homePaths = {
       },
       {
         path: 'kkk',
-        components: {content: Logo}
+        components: {overlay:DevInformation, content: HomeBody}
       },
       {
         path: 'redeem-points',
@@ -46,7 +57,7 @@ const homePaths = {
         components: {content: TravelTracker}
       },
       {
-        path: 'select-travel/:origin:destination',
+        path: 'select-travel/:origin:destination:date',
         components: {content: SelectTravel},
         props: true
       },
@@ -57,7 +68,13 @@ const homePaths = {
       },
       {
         path: 'payment/:travelID',
-        components: {content: Payment}
+        components: {content: Payment},
+        props: true
+      },
+      {
+        path: 'confirmation/:userTrip',
+        components: {content: Confirmation},
+        props: true
       }
     ]
 };
@@ -75,12 +92,68 @@ const flowPaths = {
       components: {overlay: Login, content: HomeBody }
     }
   ]
-}; //todo: ver como hace q aparezca el overlay y no interfiera con el contenido
+};
+
+const adminLogin = {
+  path: '/admin/login',
+  component: AdminLoginView
+}
+
+const adminBook = {
+  path: 'baq',
+  children: [
+    {
+      path: 'users/add',
+      components: {content: AdminUsersBody, overlay: addUserPopup}
+    },
+    {
+      path: 'users/edit/:id',
+      components: {content: AdminUsersBody, overlay: editUserPopup},
+      props: true
+    },
+    {
+      path: 'trains/add',
+      components: {content: AdminTrainsBody, overlay: addTrainPopup}
+    },
+    {
+      path: 'trains/manage/:id',
+      components: {content: AdminTrainsBody, overlay: manageTrainPopup},
+      props: true
+    },
+    {
+      path: 'trains/edit/:id',
+      components: {content: AdminTrainsBody, overlay: EditTrainPopup},
+      props: true
+    }
+  ]
+}
+
+const adminPaths = {
+  path: '/admin',
+  component: AdminVIew,
+  children: [
+    {
+      path: '',
+      components: {content: AdminHomeBody}
+    },
+    {
+      path: 'users',
+      components: {content: AdminUsersBody}
+    },
+    {
+      path: 'trains',
+      components: {content: AdminTrainsBody}
+    },
+    adminBook
+  ]
+}
 
 const routes =
   [
     homePaths,
-    flowPaths
+    flowPaths,
+    adminLogin,
+    adminPaths
   ]
 
 const router = createRouter({
