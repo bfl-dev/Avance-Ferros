@@ -52,7 +52,8 @@ body, html {
 
   /* Full height */
   height: 100%;
-
+  width: 100%;
+  position: absolute;
   /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
