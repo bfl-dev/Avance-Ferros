@@ -75,5 +75,6 @@ onMounted(() => {
 {
   height: 40px;
   width: auto;
+  border-radius: 50%;
 }
 </style>
