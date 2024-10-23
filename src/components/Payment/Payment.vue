@@ -15,7 +15,6 @@ const travelId = ref('');
 const seats = ref([]);
 const discount = ref(0);
 const total = ref(0);
-const highlightIndex = 2;
 
 onMounted(() => {
   const travelData = route.params.travelID.split('-');
@@ -25,12 +24,10 @@ onMounted(() => {
     let wagon = 1;
     if (seatNumber > 80 && seatNumber <= 160) {
       wagon = 2;
-      seatNumber -= 80;
     } else if (seatNumber > 160 && seatNumber <= 240) {
       wagon = 3;
-      seatNumber -= 160;
     }
-    return { wagon, seat: seatNumber };
+    return { wagon, seat: seat };
   });
 });
 
@@ -59,7 +56,7 @@ const createUserTrip = async () => {
 
 <template>
   <div class="payment-page-container">
-    <NavBar :highlightIndex="highlightIndex" />
+    <NavBar :highlightIndex="2" />
     <div class="payment-content-wrapper">
       <section class="passenger-info-section">
         <header class="payment-header">
