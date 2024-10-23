@@ -20,6 +20,8 @@ getStation(props.travel.destination).then(response => {
 </script>
 
 <template>
+  <div class="purchase-detail-container">
+    <h2 class="purchase-title">Detalle de la Compra</h2>
   <div class="purchase-detail">
     <div class="purchase-detail-body">
       <div class="detail-row">
@@ -57,9 +59,20 @@ getStation(props.travel.destination).then(response => {
       </div>
     </div>
   </div>
+  </div>
 </template>
 
 <style scoped>
+.purchase-detail-container {
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+.purchase-title {
+  font-size: 1.5rem;
+  color: #000000;
+  font-weight: bold;
+}
 .purchase-detail {
   display: flex;
   flex-direction: column;

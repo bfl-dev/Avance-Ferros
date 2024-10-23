@@ -5,6 +5,7 @@ import axios from 'axios';
 import PurchaseDetail from '@/components/Confirmation/PurchaseDetail.vue';
 import { getTravel } from '@/api/TrainsApi.js';
 import NavBar from "@/components/Payment/NavBar.vue";
+import html2pdf from 'html2pdf.js';
 
 const route = useRoute();
 const userTripId = ref(route.params.userTrip);
@@ -21,6 +22,18 @@ onMounted(async () => {
         console.error('Error fetching data:', error);
     }
 });
+
+const downloadPDF = () => {
+    const element = document.querySelector('.purchase-detail-container');
+    const opt = {
+        margin: 0.5,
+        filename: 'Pasaje Ferros.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+    html2pdf().from(element).set(opt).save();
+};
 </script>
 
 <template>
@@ -38,11 +51,10 @@ onMounted(async () => {
           <p>Te enviamos un e-mail con los detalles de tu viaje y tu pasaje adjunto (formato .pdf)</p>
         </div>
         <div class="download-section">
-          <button class="download-button">Descarga tu(s) pasaje(s) aquí</button>
+          <button class="download-button" @click="downloadPDF">Descarga tu(s) pasaje(s) aquí</button>
         </div>
       </div>
-      <h2 class="purchase-title">Detalle de la Compra</h2>
-      <PurchaseDetail :travel="travel" :userTrip="userTrip"/>
+        <PurchaseDetail :travel="travel" :userTrip="userTrip"/>
     </div>
     <div v-else>
       <p>Error</p>
@@ -103,11 +115,5 @@ onMounted(async () => {
   padding: 10px 20px;
   border-radius: 5px;
   cursor: pointer;
-}
-
-.purchase-title {
-  font-size: 1.5rem;
-  color: #000000;
-  font-weight: bold;
 }
 </style>
