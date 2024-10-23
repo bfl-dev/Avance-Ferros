@@ -22,12 +22,12 @@ let emergencyContact = ref('')
 let emergencyNumber = ref('')
 let city = ref('')
 let commune = ref('')
+let imageUrl = ref('')
 
 let confirmUser = ref('')
 let confirmMessage = ref('Eliminar cuenta')
 let confirmed = ref(false)
 
-console.log(props.id)
 
 const saveChanges = () => {
   let user = {
@@ -51,12 +51,12 @@ const saveChanges = () => {
     emergencyContact: emergencyNumber.value,
     city: city.value,
     commune: commune.value,
-    profilePic: "https://picsum.photos/540"
+    profilePic: imageUrl.value
   }
 
   UserApi.putUser(props.id, user).then(() => {
     UserApi.putUserDetails(props.id, userDetails).then(() => {
-      router.push('/account-showcase').then(() => {
+      router.push('/admin/users').then(() => {
         router.go(0);
       })
     }).catch(() => {
@@ -116,6 +116,7 @@ onMounted( () => {
     emergencyNumber.value = userDetails.emergencyContact
     city.value = userDetails.city
     commune.value = userDetails.commune
+    imageUrl.value = userDetails.profilePic
   }).catch(() => {});
 })
 </script>
@@ -168,6 +169,10 @@ onMounted( () => {
                 <div class="input-group">
                   <label for="lastnames">Apellidos</label>
                   <input type="text" id="lastnames" name="lastnames" v-model="lastNames">
+                </div>
+                <div class="input-group">
+                  <label for="imageUrl">Link Foto Perfil</label>
+                  <input type="text" id="imageUrl" name="imageUrl" v-model="imageUrl">
                 </div>
               </div>
               <div class="input-group-group">
