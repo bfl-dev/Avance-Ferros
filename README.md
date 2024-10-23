@@ -42,7 +42,12 @@ La plataforma contará con cuentas para los usuarios, que sera utilizada para ac
 - El sitio requerirá que él usuario complete la información necesaria para su cuenta.
 - El sitio permite mostrar al usuario la información de su cuenta.
 - El sitio permite al usuario modificar la información de su cuenta.
-  La plataforma contara con un sistema de reserva de asientos, en esta se podrá rellenar la información requerida y se podrá acceder al sistema de pagos.
+
+#### Funcionalidad menor: Historial de viajes
+- El sitio permitirá al usuario ver su historial de viajes.
+- El sitio permitirá al usuario ver viajes pasados mostrando todos los detalles necesarios de este.
+- El sitio permitirá al usuario filtrar sus viajes, por destino, origen y fecha.
+ 
 
 ### Funcionalidad Mayor 2: Manejo Administrativo (Alvaro)
 #### Descripción:
@@ -80,6 +85,7 @@ La plataforma dispondrá de un sitio para el lado administrativo, este contara u
 
 ### Funcionalidad Mayor 4: Reserva de Asientos (Felipe)
 #### Descripción:
+La plataforma contara con un sistema de reserva de asientos, en esta se podrá rellenar la información requerida y se podrá acceder al sistema de pagos.
 
 #### Funcionalidad menor: Compra de boletos (Felipe)
 - El sitio presenta las asientos seleccionadas.
@@ -93,10 +99,6 @@ La plataforma dispondrá de un sitio para el lado administrativo, este contara u
 - El sitio como resultado mostrara los boletos correspondientes.
 
 
-#### Funcionalidad menor: Historial de viajes
-- El sitio permitirá al usuario ver su historial de viajes.
-- El sitio permitirá al usuario ver viajes pasados mostrando todos los detalles necesarios de este.
-- El sitio permitirá al usuario filtrar sus viajes, por destino, origen y fecha.
 
 ### Funcionalidad Mayor 5: Recompensas para Usuarios (Felipe)
 
