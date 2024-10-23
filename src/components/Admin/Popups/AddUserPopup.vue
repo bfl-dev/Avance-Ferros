@@ -15,6 +15,8 @@ const createUser = () => {
       username: username.value,
       email: email.value,
       password: rut.value,
+      points: 0,
+      kilometers: 0
     };
 
     router.push('/admin/users');
