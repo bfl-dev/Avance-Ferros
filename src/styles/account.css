@@ -1,0 +1,360 @@
+﻿.page-body{
+    display: flex;
+    padding: 3.125rem;
+    align-items: flex-start;
+    gap: 1.875rem;
+    flex: 1 0 0;
+    align-self: stretch;
+}
+
+.left-column{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    align-self: stretch;
+}
+
+.right-column{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 3.125rem;
+    flex: 1 0 0;
+    align-self: stretch;
+}
+
+.metrics{
+    display: flex;
+    width: 100%;
+    height: 22.5rem;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 0.9375rem;
+    background: rgba(225, 225, 225, 0.80);
+    backdrop-filter: blur(5px);
+}
+
+.metrics-header{
+    border-top-left-radius: 0.9375rem;
+    border-top-right-radius: 0.9375rem;
+    display: flex;
+    padding: 0.625rem;
+    align-items: center;
+    gap: 0.625rem;
+    align-self: stretch;
+    background: #F7D40A;
+    color: #000;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+.metrics-body{
+    display: flex;
+    padding: 0.625rem;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex: 1 0 0;
+    align-self: stretch;
+}
+
+.kilometers{
+    display: flex;
+    padding: 0.625rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.875rem;
+    flex: 1 0 0;
+    align-self: stretch;
+    border-right: 1px solid #000;
+}
+
+.available-points{
+    display: flex;
+    padding: 0.625rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.875rem;
+    flex: 1 0 0;
+    align-self: stretch;
+}
+
+.profile-pic{
+    width: 22.5rem;
+    height: 22.5rem;
+    flex-shrink: 0;
+    border-radius: 62.5rem;
+}
+
+.name-and-bio{
+    display: flex;
+    width: 22.5rem;
+    padding: 0rem 1.125rem;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.625rem;
+    line-height: normal;
+    font-style: normal;
+    color: #FFF;
+    align-items: stretch;
+}
+
+.name{
+    font-size: 2.25rem;
+    font-weight: 700;
+}
+
+.bio{
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+
+.username{
+    font-size: 1.25rem;
+    font-weight: 300;
+}
+
+.edit-profile{
+    display: flex;
+    width: 22.5rem;
+    height: 2.75rem;
+    padding: 0.3125rem 0rem;
+    justify-content: center;
+    align-items: center;
+    background: #333433;
+    border-radius: 0.625rem;
+    color: #FFF;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border-style: none;
+}
+
+.save-profile{
+    display: flex;
+    width: 22.5rem;
+    height: 2.75rem;
+    padding: 0.3125rem 0rem;
+    justify-content: center;
+    align-items: center;
+    background: #149814;
+    border-radius: 0.625rem;
+    color: #FFF;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border-style: none;
+}
+
+.ammount{
+    color: #000;
+    font-size: 6rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+}
+
+
+/*separador*/
+
+.your-trips{
+    display: inline-flex;
+    width: 100%;
+    height: 24.0625rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.625rem;
+    background: rgba(255, 254, 251, 0.40);
+    backdrop-filter: blur(5px);
+    border-radius: 0.625rem;
+    color: black;
+}
+
+.your-trips-body{
+    overflow: auto;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    flex: 1 0 0;
+    border-radius: 0.625rem;
+
+}
+
+.your-trips-header{
+    display: flex;
+    padding: 0.625rem 0.9375rem;
+    align-items: center;
+    gap: 0.625rem;
+    align-self: stretch;
+    background: #F7D40A;
+    color: #000;
+    font-size: 1.25rem;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    border-top-left-radius: 0.625rem;
+    border-top-right-radius: 0.625rem;
+}
+
+.your-trips-filters{
+    display: flex;
+    padding: 1.25rem 2.5rem 0 2.5rem;
+    align-items: center;
+    gap: 0.625rem;
+}
+
+.your-trips-filters-container{
+    display: flex;
+    padding: 0.3125rem 0.625rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.625rem;
+    background: #FFF;
+    border-radius: 0.9375rem;
+}
+
+.your-trips-container{
+    display: flex;
+    padding: 0 2.5rem 1.25rem;
+    align-items: flex-start;
+    gap: 0.625rem;
+    flex: 1 0 0;
+    align-self: stretch;
+}
+
+
+.filters-title{
+    display: flex;
+    padding: 0.3125rem 0.625rem;
+    justify-content: center;
+    align-items: center;
+    gap: 0.625rem;
+    border-radius: 0.9375rem 0.3125rem 0.3125rem 0.9375rem;
+    background: #F7D40A;
+}
+
+/*Separador*/
+
+.form-container {
+    width: 100%;
+    height: 75%;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 12px;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    backdrop-filter: blur(10px);
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    background-color: #F7D40A;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.header-title {
+    color: black;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.form-content {
+    padding: 20px 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+}
+
+.section-header {
+    color: black;
+    text-align: left;
+    font-size: 20px;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+    margin-bottom: 10px;
+}
+
+.section-body {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.input-group label {
+    font-size: 16px;
+    font-weight: 500;
+    color: black;
+}
+
+.input-group input, .input-group textarea {
+    padding: 10px;
+    border-radius: 16px;
+    border: 1px solid #ccc;
+    width: 99%;
+}
+
+.input-group textarea {
+    resize: none;
+}
+
+.input-group-group {
+    display: flex;
+    gap: 2rem;
+}
+
+.footer {
+    padding: 10px;
+    gap: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: end;
+}
+.footer input {
+    padding: 10px 20px;
+    border-radius: 16px;
+    border: none;
+    background-color: #ffffff;
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: vertical-text;
+}
+
+.delete-account {
+    color: rgba(92, 92, 92, 0.5);
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.delete-account:hover {
+    color: red;
+}
+
+.save-account {
+    color: rgba(92, 92, 92, 0.5);
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.save-account:hover {
+    color: green;
+}
