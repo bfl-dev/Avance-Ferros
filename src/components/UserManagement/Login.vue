@@ -28,7 +28,6 @@ const callback = (response) => {
   console.log("do something ", response);
 }
 
-//TODO: Gestion de errores
 </script>
 
 <template>
