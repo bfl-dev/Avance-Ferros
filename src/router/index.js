@@ -19,8 +19,9 @@ import AdminTrainsBody from "@/components/Admin/AdminTrainsBody.vue";
 import addTrainPopup from "@/components/Admin/Popups/AddTrainPopup.vue";
 import addUserPopup from "@/components/Admin/Popups/AddUserPopup.vue";
 import editUserPopup from "@/components/Admin/Popups/EditUserPopup.vue";
-import editTrainPopup from "@/components/Admin/Popups/EditTrainPopup.vue";
+import manageTrainPopup from "@/components/Admin/Popups/ManageTrainPopup.vue";
 import Confirmation from "@/components/Confirmation/Confirmation.vue";
+import EditTrainPopup from "@/components/Admin/Popups/EditTrainPopup.vue";
 
 const homePaths = {
   path: '/',
@@ -90,7 +91,7 @@ const flowPaths = {
       components: {overlay: Login, content: HomeBody }
     }
   ]
-}; //todo: ver como hace q aparezca el overlay y no interfiera con el contenido
+};
 
 const adminLogin = {
   path: '/admin/login',
@@ -114,8 +115,13 @@ const adminBook = {
       components: {content: AdminTrainsBody, overlay: addTrainPopup}
     },
     {
+      path: 'trains/manage/:id',
+      components: {content: AdminTrainsBody, overlay: manageTrainPopup},
+      props: true
+    },
+    {
       path: 'trains/edit/:id',
-      components: {content: AdminTrainsBody, overlay: editTrainPopup},
+      components: {content: AdminTrainsBody, overlay: EditTrainPopup},
       props: true
     }
   ]
