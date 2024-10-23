@@ -5,7 +5,7 @@ defineProps({ seats: Object })
 <template>
   <div class="seats-component">
     <div class="seats-component-icon">
-      <img src="../../assets/seat%20default.png" v-for="seat of seats.seats.split('-')" :key="seat"/>
+      <img src="../../assets/seat%20default.png" v-for="seat of seats.seats.split('-').slice(0,5)" :key="seat"/>
     </div>
     <div class="seats-component-body">
       <div class="seats-component-body-row">
