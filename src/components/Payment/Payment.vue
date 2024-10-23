@@ -14,6 +14,8 @@ const route = useRoute();
 const travelId = ref('');
 const seats = ref([]);
 const discount = ref(0);
+const trainPointsDiscount = ref(0);
+const codeDiscount = ref(0);
 const total = ref(0);
 
 onMounted(() => {
@@ -32,11 +34,17 @@ onMounted(() => {
 });
 
 const updateTrainPoints = (points) => {
-  discount.value = points;
+  trainPointsDiscount.value = points;
+  updateTotalDiscount();
 };
 
-const updateTotal = (newTotal) => {
-  total.value = newTotal;
+const updateDiscount = (newDiscount) => {
+  codeDiscount.value = newDiscount;
+  updateTotalDiscount();
+};
+
+const updateTotalDiscount = () => {
+  discount.value = trainPointsDiscount.value + codeDiscount.value;
 };
 
 const createUserTrip = async () => {
@@ -83,7 +91,7 @@ const createUserTrip = async () => {
           <UserDataFields :loadUserData="true"/>
           <UserContactsFields/>
         </article>
-        <PaymentOptions @update-train-points="updateTrainPoints" />
+        <PaymentOptions @update-train-points="updateTrainPoints" @update-discount="updateDiscount" />
       </section>
       <section class="ticket-detail-wrapper">
         <TicketDetail :discount="discount" :travelId="travelId" :totalPassengers="seats.length" @update-total="updateTotal"/>
@@ -92,6 +100,7 @@ const createUserTrip = async () => {
     </div>
   </div>
 </template>
+
 <style scoped>
 .payment-page-container {
   display: flex;

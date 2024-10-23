@@ -518,11 +518,14 @@
   "userRewards": [
     {
       "id": "0",
-      "rewards": [
-        1,
-        2,
-        3
-      ]
+      "rewards": []
+    }
+  ],
+  "discountCodes": [
+    {
+      "id": "0",
+      "code": "KMANO",
+      "discount": "100"
     }
   ],
   "userDetail": [
