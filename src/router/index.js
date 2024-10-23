@@ -45,7 +45,7 @@ const homePaths = {
         components: {content: AccountEditor},
       },
       {
-        path: 'kkk',
+        path: 'contacts',
         components: {overlay:DevInformation, content: HomeBody}
       },
       {
