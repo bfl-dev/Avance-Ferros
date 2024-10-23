@@ -54,8 +54,8 @@ function loadStations(){
       }
     }
     console.log(props.travel)
-    if (props.travel.status === "En Ruta"){
-          center.value = map.value.find(value => value.id === Math.round((parseInt(origin.value.id)+parseInt(destination.value.id))/2).toString())
+    if (props.travel.status === "En ruta"){
+      center.value = map.value.find(value => value.id === Math.round((parseInt(origin.value.id)+parseInt(destination.value.id))/2).toString())
     } else if (props.travel.status === "Pendiente"){
       center.value = origin.value
       zoom.value = zoom.value-1
