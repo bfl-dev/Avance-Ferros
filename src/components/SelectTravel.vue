@@ -66,7 +66,7 @@ onMounted(() => {
           :min=360
           :height="8"
           :width="180"
-          @change="sliderText.value = `${convertToTime(slidervalue.value[0])} - ${convertToTime(slidervalue.value[1])}`"/>
+          @change="sliderText.value = `${convertToTime(slidervalue[0])} - ${convertToTime(slidervalue[1])}`"/>
         <div class="from-to">Desde:<br />Estacion {{originStation.name}}<br /><br />Hacia:<br />Estacion {{destinationStation.name}}</div>
       </div>
       <div class="trains-container">
