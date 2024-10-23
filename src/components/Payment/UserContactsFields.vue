@@ -1,6 +1,6 @@
 <script setup>
-import { ref, onMounted, defineProps } from 'vue';
-import axios from 'axios';
+import { ref, onMounted} from 'vue';
+import UserApi from "@/api/UserApi.js";
 
 const user = ref({
   email: '',
@@ -14,8 +14,8 @@ onMounted(async () => {
     const userId = window.localStorage.getItem("userID");
     if (userId) {
       try {
-        const userHeadResponse = await axios.get('http://localhost:3000/userHead/' + userId);
-        const userDetailResponse = await axios.get('http://localhost:3000/userDetail/' + userId);
+        const userHeadResponse = await UserApi.getUser(userId);
+        const userDetailResponse = await UserApi.getUserDetails(userId);
         user.value.email = userHeadResponse.data.email;
         user.value.confirmEmail = userHeadResponse.data.email;
         user.value.phone = userDetailResponse.data.emergencyContact;

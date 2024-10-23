@@ -1,6 +1,6 @@
 <script setup>
-import { defineProps, ref, watch, watchEffect, defineEmits } from 'vue';
-import axios from 'axios';
+import { defineProps, ref, watch, defineEmits, watchEffect } from 'vue';
+import { getTravel, getStation } from '@/api/TrainsApi.js';
 
 const props = defineProps({
   discount: {
@@ -28,18 +28,18 @@ const total = ref(0);
 
 const loadTravelData = async (travelId) => {
   try {
-    const response = await axios.get(`http://localhost:3000/travels/${travelId}`);
-    travel.value = response.data;
-    const originResponse = await axios.get(`http://localhost:3000/stations/${travel.value.origin}`);
-    originStation.value = originResponse.data.name;
-    const destinationResponse = await axios.get(`http://localhost:3000/stations/${travel.value.destination}`);
-    destinationStation.value = destinationResponse.data.name;
+    const { data: travelData } = await getTravel(travelId);
+    travel.value = travelData;
 
-    const [departure, arrival] = [travel.value.departure, travel.value.arrival].map(time => new Date(`1970-01-01T${time}:00`));
+    const { data: originData } = await getStation(travelData.origin);
+    originStation.value = originData.name;
+
+    const { data: destinationData } = await getStation(travelData.destination);
+    destinationStation.value = destinationData.name;
+
+    const [departure, arrival] = [travelData.departure, travelData.arrival].map(time => new Date(`1970-01-01T${time}Z`));
     const diffMs = arrival - departure;
-    const diffHrs = Math.floor(diffMs / 3600000);
-    const diffMins = Math.floor((diffMs % 3600000) / 60000);
-    travelHours.value = `${String(diffHrs).padStart(2, '0')}:${String(diffMins).padStart(2, '0')}`;
+    travelHours.value = `${String(Math.floor(diffMs / 3600000)).padStart(2, '0')}:${String(Math.floor((diffMs % 3600000) / 60000)).padStart(2, '0')}`;
   } catch (error) {
     console.error('Error fetching travel data:', error);
   }

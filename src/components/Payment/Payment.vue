@@ -8,7 +8,7 @@ import CountdownTimer from '@/components/Payment/CountdownTimer.vue';
 import PaymentOptions from '@/components/Payment/PaymentOptions.vue';
 import UserContactsFields from "@/components/Payment/UserContactsFields.vue";
 import router from "@/router/index.js";
-import axios from "axios";
+import UserApi from "@/api/UserApi.js";
 
 const route = useRoute();
 const travelId = ref('');
@@ -48,7 +48,7 @@ const createUserTrip = async () => {
       price: total.value
     };
 
-    await axios.post('http://localhost:3000/userTrip', userTrip);
+    await UserApi.postUserTrip(userTrip);
     let string = `/confirmation/${userTrip.id}`;
     await router.push({ path: string });
 };
@@ -105,6 +105,7 @@ const createUserTrip = async () => {
   border-radius: 20px;
   overflow-y: auto;
   scrollbar-width: none;
+  margin: auto;
 }
 .title{
   font-size: 1.5rem;
