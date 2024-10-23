@@ -47,6 +47,10 @@ const updateTotalDiscount = () => {
   discount.value = trainPointsDiscount.value + codeDiscount.value;
 };
 
+const updateTotal = (newTotal) => {
+  total.value = newTotal;
+};
+
 const createUserTrip = async () => {
     const userTrip = {
       id: 'T_' + Math.random().toString(36).substring(2,7),
