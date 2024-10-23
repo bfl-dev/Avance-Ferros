@@ -3,8 +3,6 @@ import {convertToMinutes, convertToTime} from "@/api/TimeUtils.js";
 
 export default class UserApi {
 
-// TODO: Hacer chequeos para la unicidad de datos.
-// TODO: Reordenar y ver que falta.
   static getUser(userId) {
     return axios.get('http://localhost:3000/userHead/' + userId);
   }
@@ -105,7 +103,6 @@ export default class UserApi {
     return axios.get('http://localhost:3000/travels?' + query);
   }
   static searchUserHead(query) {
-    console.log(query)
     return axios.get('http://localhost:3000/userHead?' + query);
   }
   static searchUserDetail(query) {
