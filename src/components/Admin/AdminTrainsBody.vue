@@ -42,7 +42,7 @@ let searchTrains = () => {
 }
 
 const editTrain= (id) => {
-  router.push(`/admin/baq/trains/edit/${id}`);
+  router.push(`/admin/baq/trains/manage/${id}`);
 }
 const addTrain = () => {
   router.push(`/admin/baq/trains/add`);
