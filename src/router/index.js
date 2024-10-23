@@ -22,6 +22,7 @@ import editUserPopup from "@/components/Admin/Popups/EditUserPopup.vue";
 import manageTrainPopup from "@/components/Admin/Popups/ManageTrainPopup.vue";
 import Confirmation from "@/components/Confirmation/Confirmation.vue";
 import EditTrainPopup from "@/components/Admin/Popups/EditTrainPopup.vue";
+import DevInformation from '@/components/DevInformation.vue'
 
 const homePaths = {
   path: '/',
@@ -45,7 +46,7 @@ const homePaths = {
       },
       {
         path: 'kkk',
-        components: {content: Logo}
+        components: {overlay:DevInformation, content: HomeBody}
       },
       {
         path: 'redeem-points',
