@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, defineProps } from 'vue';
-import axios from 'axios';
+import UserApi from "@/api/UserApi.js";
 
 const props = defineProps({
   loadUserData: {
@@ -22,7 +22,7 @@ onMounted(async () => {
     const userId = window.localStorage.getItem("userID");
     if (userId) {
       try {
-        const response = await axios.get('http://localhost:3000/userDetail/' + userId);
+        const response = await UserApi.getUserDetails(userId);
         user.value = response.data;
         logged.value = true;
       } catch (error) {

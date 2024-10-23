@@ -145,7 +145,10 @@ export default class UserApi {
     return axios.put(api_url, data);
   }
 
-
+  static postUserTrip(userTrip) {
+    const api_url = 'http://localhost:3000/userTrip';
+    return axios.post(api_url, userTrip);
+  }
   static getTravel(travelId) {
     return axios.get('http://localhost:3000/travels/' + travelId);
   }

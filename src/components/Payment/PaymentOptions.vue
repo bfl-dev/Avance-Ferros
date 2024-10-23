@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted } from 'vue';
-import axios from 'axios';
+import UserApi from "@/api/UserApi.js";
 
 const selectedMethod = ref('');
 const isLoggedIn = ref(false);
@@ -23,7 +23,7 @@ const checkLoginStatus = () => {
 
 const getUserPoints = async (userId) => {
   try {
-    const response = await axios.get('http://localhost:3000/userHead/' + userId);
+    const response = await UserApi.getUser(userId);
     userPoints.value = response.data.points;
   } catch (error) {
     console.error('Error fetching user points:', error);
