@@ -26,6 +26,10 @@ onMounted(() => {
   });
 })
 
+const editTrain= (id) => {
+  router.push(`/admin/baq/trains/manage/${id}`);
+}
+
 </script>
 
 <template>
@@ -37,7 +41,7 @@ onMounted(() => {
     <div class="trains">
       <p>Trenes en ruta</p>
       <div class="train-box">
-        <train-component v-for="item in routeOnTrains" :travel="item"></train-component>
+        <train-component v-for="item in routeOnTrains" :travel="item" @click="editTrain(item.id)"></train-component>
       </div>
     </div>
     <div class="user-admin-container">

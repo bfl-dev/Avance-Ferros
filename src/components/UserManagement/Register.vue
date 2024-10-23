@@ -18,16 +18,16 @@ const isFormValid = computed(() => {
 
 const register = () => {
 
-  if (isFormValid.value) { //TODO: Hacer gestion de errores
+  if (isFormValid.value) {
 
-    const user = {
-      username: user.value,
+    const userData = {
+      name: user.value,
       email: email.value,
       password: pass.value
     };
 
-    UserApi.postUser(user).then(response => {
-      UserApi.postUserDetails(response.data.id).then(() => {
+    UserApi.postUser(userData).then(response => {
+      UserApi.postUserDetails(response.data.id ,{}).then(() => {
         console.log('Usuario creado');
       }).catch(() => {
         console.log('Error');
@@ -37,8 +37,8 @@ const register = () => {
         router.go(0);
       });
 
-    }).catch(() => {
-      console.log(error);
+    }).catch((reason) => {
+      console.log(reason);
     });
   }
 }

@@ -21,6 +21,7 @@ let emergencyContact = ref('')
 let emergencyNumber = ref(0)
 let city = ref('')
 let commune = ref('')
+let imageUrl = ref('')
 
 let confirmUser = ref('')
 let confirmMessage = ref('Eliminar cuenta')
@@ -32,8 +33,8 @@ const saveChanges = () => {
     name: username.value,
     email: email.value,
     password: password.value,
-    points: userHead.points,
-    kilometers: userHead.kilometers
+    points: userHead.points ?? 0,
+    kilometers: userHead.kilometers ?? 0
   }
 
   let userDetails = {
@@ -49,7 +50,7 @@ const saveChanges = () => {
     emergencyContact: emergencyNumber.value,
     city: city.value,
     commune: commune.value,
-    profilePic: "https://picsum.photos/540"
+    profilePic: imageUrl.value
   }
 
   UserApi.putUser(window.localStorage.getItem("userID"), user).then(() => {
@@ -117,6 +118,7 @@ onMounted( () => {
     emergencyNumber.value = userDetails.value.emergencyContact
     city.value = userDetails.value.city
     commune.value = userDetails.value.commune
+    imageUrl.value = userDetails.value.profilePic
   });
 
   UserApi.getUser(window.localStorage.getItem("userID")).then(response => {
@@ -133,8 +135,7 @@ onMounted( () => {
 <template>
   <section class="page-body content">
     <div class="left-column">
-      <img class="profile-pic" src="../../assets/11.jpg" alt="">
-      <button class="edit-profile">Editar Foto</button>
+      <img class="profile-pic" :src="imageUrl" alt="">
       <button class="save-profile" @click="saveChanges()">Guardar Cambios</button>
     </div>
     <div class="form-container">
@@ -181,6 +182,10 @@ onMounted( () => {
               <div class="input-group">
                 <label for="lastnames">Apellidos</label>
                 <input type="text" id="lastnames" name="lastnames" v-model="lastNames">
+              </div>
+              <div class="input-group">
+                <label for="imageUrl">Link Foto Perfil</label>
+                <input type="text" id="imageUrl" name="imageUrl" v-model="imageUrl">
               </div>
             </div>
             <div class="input-group-group">

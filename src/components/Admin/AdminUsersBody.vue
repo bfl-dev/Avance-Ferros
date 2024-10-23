@@ -19,6 +19,7 @@ let search = () => {
   let searchType = searchCosa[1] === "t" ?? false;
   if (searchType) {
     searchByDetail(searchCosa[0]);
+
   } else {
     searchByHead(searchCosa[0]);
   }
@@ -37,6 +38,9 @@ let searchByHead = (query) => {
           });
         searchUsersHead.value = response.data;
       });
+      if (response.data.length === 0) {
+        searchUsersHead.value = [];
+      }
     })
     .catch(() => {
       console.log('Error');
@@ -103,7 +107,7 @@ const addUser = () => {
     <div class="add-trip">
       <button type="submit" @click="addUser">Agrege Usuario</button>
     </div>
-    <AdminMiniTable :users="searchUsersHead" v-show="searchQuery !== ''"/>
+    <AdminMiniTable :users="searchUsersHead" v-show="searchQuery !== ''" :key="searchQuery"/>
     <AdminTable  :users-detail="usersDetail" :users-head="usersHead" :key="usersDetail" />
     <!-- NO cambiar la key, por alguna razon no funciona con la usersHEad -->
   </div>

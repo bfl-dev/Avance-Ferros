@@ -494,12 +494,18 @@
   },
   "userHead": [
     {
-      "id": "0",
       "name": "StrawberryFrappe",
       "email": "kmano@kmano.inc",
       "password": "kmano",
-      "points": "110",
-      "kilometers": "0"
+      "points": 0,
+      "kilometers": 0,
+      "id": "0"
+    },
+    {
+      "name": "Chanshiwawi",
+      "email": "vixo@vixo.hola",
+      "password": "vixo",
+      "id": "cd68"
     }
   ],
   "userRewards": [
@@ -522,15 +528,32 @@
       "emergencyContact": "123456789",
       "city": "Temuco",
       "commune": "Padre Las Casas",
-      "profilePic": "https://picsum.photos/540",
+      "profilePic": "https://media.tenor.com/aaEMtGfZFbkAAAAi/rat-spinning.gif",
       "id": "0"
+    },
+    {
+      "bio": "Soy vixo y me identifico como un perro feo",
+      "phone": "999999999",
+      "names": "Vicente",
+      "lastNames": "Salazar",
+      "rut": "21909909-1",
+      "birthday": "2004-11-30",
+      "address": "Avenida Siempreviva",
+      "trait": "Gn/ss",
+      "emergencyContactName": "Pipi",
+      "emergencyContact": "988888888",
+      "city": "",
+      "commune": "Temuco",
+      "profilePic": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNHtD6Tjn14Y52KMRaa-L2UMJ_pyqbH5iL-NSXJEGNvYBPcHx2hBVkAQRsyKmchLzUJpg&usqp=CAU",
+      "id": "cd68"
     }
   ],
-  "admin" : [
+  "admin": [
     {
       "id": "0",
       "name": "admin",
-      "pass": "admin"
+      "pass": "admin",
+      "image": "http://dci.ufro.cl/sites/default/files/team/Felipe%20V%C3%A1squez%202.png"
     }
-    ]
+  ]
 }

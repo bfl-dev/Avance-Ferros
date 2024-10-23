@@ -25,7 +25,6 @@ const travelShow = () => {
   router.push('/account-showcase')
   }
 
-  //TODO:Comprobar que falta
 </script>
 
 <template>

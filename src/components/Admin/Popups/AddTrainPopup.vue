@@ -16,7 +16,8 @@ onMounted(() => {
 let travelDate = ref('');
 let travelTime = ref('');
 let origin = ref('');
-let departure = ref('');
+let destination = ref('');
+
 
 
 
@@ -25,12 +26,12 @@ const scheduleTravel = () => {
     date: travelDate.value,
     departure: travelTime.value,
     origin: origin.value,
-    destination: departure.value
+    destination: destination.value
   });
   router.push('/admin/trains').then(() => {
       router.go(0);
   });
-};  
+};
 </script>
 
 <template>
@@ -60,7 +61,7 @@ const scheduleTravel = () => {
         </div>
         <div class="input-group">
           <label for="destination">Destino</label>
-          <select id="destination" v-model="departure">
+          <select id="destination" v-model="destination">
             <option value="" selected disabled>¿A donde vas?</option>
             <option v-for="station of stations" :value="station.id" :key="station.id" :disabled="origin === station">{{station.name}}</option>
           </select>

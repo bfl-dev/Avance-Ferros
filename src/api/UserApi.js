@@ -3,8 +3,6 @@ import {convertToMinutes, convertToTime} from "@/api/TimeUtils.js";
 
 export default class UserApi {
 
-// TODO: Hacer chequeos para la unicidad de datos.
-// TODO: Reordenar y ver que falta.
   static getUser(userId) {
     return axios.get('http://localhost:3000/userHead/' + userId);
   }
@@ -93,6 +91,10 @@ export default class UserApi {
     return axios.delete('http://localhost:3000/userDetail/' + userId);
   }
 
+  static deleteTravel(travelId) {
+    return axios.delete('http://localhost:3000/travels/' + travelId);
+  }
+
   static getAdmin(adminID) {
     return axios.get('http://localhost:3000/admin/' + adminID);
   }
@@ -105,7 +107,6 @@ export default class UserApi {
     return axios.get('http://localhost:3000/travels?' + query);
   }
   static searchUserHead(query) {
-    console.log(query)
     return axios.get('http://localhost:3000/userHead?' + query);
   }
   static searchUserDetail(query) {
@@ -123,12 +124,27 @@ export default class UserApi {
       origin: details.origin ?? 0,
       destination: details.destination ?? 0,
       departure: details.departure ?? "1999-01-01",
-      arrival: convertToTime(convertToMinutes(details.departure)-convertToMinutes("01:30")),
+      arrival: convertToTime(convertToMinutes(details.departure)+convertToMinutes("01:30")),
       date: details.date ?? "1999-01-01",
       passengers: "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
     };
     return axios.post(api_url, data);
   }
+
+  static putTravel(travelId,details) {
+    const api_url = 'http://localhost:3000/travels/'+travelId;
+    const data = {
+      status: details.status ?? "Pendiente",
+      origin: details.origin ?? 0,
+      destination: details.destination ?? 0,
+      departure: details.departure ?? "1999-01-01",
+      arrival: convertToTime(convertToMinutes(details.departure)-convertToMinutes("01:30")),
+      date: details.date ?? "1999-01-01",
+      passengers: "000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000"
+    };
+    return axios.put(api_url, data);
+  }
+
 
   static getTravel(travelId) {
     return axios.get('http://localhost:3000/travels/' + travelId);

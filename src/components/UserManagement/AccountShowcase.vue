@@ -35,7 +35,7 @@ onMounted(() => {
   UserApi.getUserDetails(window.localStorage.getItem('userID')).then( req => {
     userDetails.value = req.data;
   });
-  UserApi.getTravelsByUser(0).then( req => {
+  UserApi.getTravelsByUser(window.localStorage.getItem('userID')).then( req => {
     travels.value = req.data;
   });
   getUserTravels();
@@ -69,7 +69,7 @@ const filterByStatus = (status) => {
             <p class="ammount">{{ user.kilometers }}</p>
           </div>
           <div class="available-points">
-            <p>Kilometros recorridos:</p>
+            <p>Puntos del Usuario:</p>
             <p class="ammount">{{user.points}}</p>
           </div>
         </div>

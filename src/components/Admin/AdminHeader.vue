@@ -1,12 +1,32 @@
 ﻿<script setup>
 
+import {onMounted, ref} from "vue";
+import UserApi from "@/api/UserApi.js";
+
 const emits = defineEmits(['navbarStatus']);
+
+const admin = ref({});
 
 const openNavbar = () => {
   emits('navbarStatus');
 }
 
-//TODO: GET REAL ADMIN
+const getAdmin = () => {
+  UserApi.getAdmin(window.localStorage.getItem('adminID'))
+    .then(response => {
+      console.log(response.data);
+      admin.value = response.data;
+      console.log(admin.value);
+    })
+    .catch((reason) => {
+      console.log('reason', reason);
+    });
+}
+
+onMounted(() => {
+  getAdmin();
+});
+
 </script>
 
 <template>
@@ -17,8 +37,8 @@ const openNavbar = () => {
         <path fill-rule="evenodd" clip-rule="evenodd" d="M0 23.7143C0 22.5308 0.9594 21.5714 2.14286 21.5714H27.8571C29.0406 21.5714 30 22.5308 30 23.7143C30 24.8978 29.0406 25.8571 27.8571 25.8571H2.14286C0.9594 25.8571 0 24.8978 0 23.7143Z" fill="#80858D"/>
       </svg>
       <div class="user">
-        <img src="@/assets/User.png" alt="">
-        <p>Administrador</p>
+        <img :src="admin.image" alt="">
+        <p>{{ admin.name }}</p>
       </div>
     </nav>
 </template>
@@ -55,5 +75,6 @@ const openNavbar = () => {
 {
   height: 40px;
   width: auto;
+  border-radius: 50%;
 }
 </style>
