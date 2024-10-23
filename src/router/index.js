@@ -20,6 +20,7 @@ import addTrainPopup from "@/components/Admin/Popups/AddTrainPopup.vue";
 import addUserPopup from "@/components/Admin/Popups/AddUserPopup.vue";
 import editUserPopup from "@/components/Admin/Popups/EditUserPopup.vue";
 import editTrainPopup from "@/components/Admin/Popups/EditTrainPopup.vue";
+import Confirmation from "@/components/Confirmation/Confirmation.vue";
 
 const homePaths = {
   path: '/',
@@ -65,7 +66,13 @@ const homePaths = {
       },
       {
         path: 'payment/:travelID',
-        components: {content: Payment}
+        components: {content: Payment},
+        props: true
+      },
+      {
+        path: 'confirmation/:userTrip',
+        components: {content: Confirmation},
+        props: true
       }
     ]
 };
